@@ -76,6 +76,11 @@ export async function registerShopsFromConfig(file = path.join(config.root, "dat
       is_demo: e.is_demo ? 1 : 0,
     });
   }
+  // Shops removed from the config disappear from the catalogue, including ones already imported.
+  const slugs = entries.map((e) => e.slug);
+  db().prepare(`UPDATE shops SET is_enabled = 1 WHERE slug IN (${slugs.map(() => "?").join(",")})`).run(...slugs);
+  db().prepare(`UPDATE shops SET is_enabled = 0 WHERE slug NOT IN (${slugs.map(() => "?").join(",")})`).run(...slugs);
+  db().prepare("UPDATE products SET is_active = 0 WHERE shop_id IN (SELECT id FROM shops WHERE is_enabled = 0)").run();
 }
 
 export async function syncShop(shop: ShopRecord, opts: { dryRun?: boolean } = {}): Promise<SyncReport> {

@@ -68,8 +68,8 @@ export function CatalogueBrowser() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Shop catalogue</h1>
         <p className="text-sm text-muted-foreground">
-          Products from integrated shops{shops.length ? `: ${shops.map((s) => s.name).join(", ")}` : ""}.
-          {shops.some((s) => s.is_demo) && " These shops are sample data for the MVP; connect real shop feeds to show live products."}
+          Products from {shops.length ? shops.map((s) => s.name).join(" and ") : "the connected shops"} only.
+          Photos, prices and product pages come from those websites. They sell handwoven cushions and baskets, so a design uses those pieces.
         </p>
       </div>
 

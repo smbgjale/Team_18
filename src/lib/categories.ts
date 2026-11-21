@@ -36,8 +36,8 @@ export const ROOM_TYPE_LABELS: Record<RoomType, string> = {
 };
 
 export const ROOM_ITEMS: Record<RoomType, Category[]> = {
-  living_room: ["sofa", "coffee_table", "rug", "curtains", "floor_lamp", "tv_unit", "wall_art", "cushion"],
-  bedroom: ["bed", "side_table", "curtains", "rug", "table_lamp", "wardrobe", "mirror", "cushion"],
+  living_room: ["sofa", "coffee_table", "rug", "curtains", "floor_lamp", "tv_unit", "wall_art", "cushion", "plant_pot"],
+  bedroom: ["bed", "side_table", "curtains", "rug", "table_lamp", "wardrobe", "mirror", "cushion", "plant_pot"],
   dining_room: ["dining_table", "chair", "ceiling_light", "rug", "curtains", "wall_art", "plant_pot"],
   office: ["desk", "chair", "shelf", "floor_lamp", "rug", "wall_art", "plant_pot"],
   kitchen: ["dining_table", "chair", "ceiling_light", "shelf", "plant_pot", "wall_art"],

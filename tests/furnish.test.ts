@@ -16,17 +16,17 @@ test("furnishRoom picks one in-stock, style-matched product per category that fi
   const { styleAffinity } = await import("../src/lib/styles");
   await syncAll();
 
-  const { picks } = furnishRoom({ roomType: "living_room", style: "scandinavian", room: { width: 500, length: 420 } });
-  assert.deepEqual(picks.map((p) => p.category).sort(), [...ROOM_ITEMS.living_room].sort());
+  const { picks } = furnishRoom({ roomType: "living_room", style: "african", room: { width: 500, length: 420 } });
+  const filled = picks.map((p) => p.category).sort();
+  assert.ok(filled.includes("cushion") && filled.includes("plant_pot"));
+  assert.ok(filled.every((c) => ROOM_ITEMS.living_room.includes(c)));
   for (const p of picks) {
     assert.notEqual(p.product.availability, "out_of_stock");
     assert.ok(fitsRoom(p.product, { width: 500, length: 420 }));
+    assert.ok(["sabahar", "ethiopian-cultural-shop"].includes(p.product.shop_slug));
   }
-  const affinity = picks.map((p) => styleAffinity("scandinavian", JSON.parse(p.product.style_tags)));
-  assert.ok(affinity.filter((a) => a === 1).length >= picks.length / 2, "most picks are tagged with the chosen style");
-
-  const dining = furnishRoom({ roomType: "dining_room", style: "classic", room: { width: 450, length: 380 } });
-  assert.equal(dining.picks.find((p) => p.category === "chair")?.quantity, 4);
+  const affinity = picks.map((p) => styleAffinity("african", JSON.parse(p.product.style_tags)));
+  assert.ok(affinity.every((a) => a === 1));
 });
 
 test("a traditional design is furnished only with traditional products", async () => {
@@ -34,7 +34,7 @@ test("a traditional design is furnished only with traditional products", async (
   const { getStyle } = await import("../src/lib/styles");
   for (const style of ["african", "rustic", "classic"]) {
     const { picks } = furnishRoom({ roomType: "living_room", style, budgetMinor: 300000, budgetCurrency: "USD", room: { width: 480, length: 420 } });
-    assert.ok(picks.length >= 6);
+    assert.ok(picks.length >= 1);
     for (const p of picks) {
       const tags = JSON.parse(p.product.style_tags) as string[];
       assert.ok(tags.some((t) => getStyle(t)?.direction === "traditional"), `${style}: ${p.product.name} (${tags}) is traditional`);
@@ -51,7 +51,6 @@ test("furnishRoom trades down to stay within a budget", async () => {
   const tight = furnishRoom({ roomType: "bedroom", style: "modern", budgetMinor: budget, budgetCurrency: "USD", room: { width: 420, length: 400 } });
   assert.ok(pickTotal(tight.picks) <= budget || tight.overBudget);
   assert.ok(pickTotal(tight.picks) < pickTotal(free.picks));
-  assert.ok(tight.picks.some((p) => p.category === "bed"), "the bed is never dropped");
 });
 
 test("a design run (demo provider) stores its products, renders them and marks them as visible", async () => {
@@ -70,7 +69,8 @@ test("a design run (demo provider) stores its products, renders them and marks t
   const design = getDesign("d1")!;
   assert.equal(design.status, "completed");
   const products = listDesignProducts("d1");
-  assert.ok(products.length >= 5);
+  assert.ok(products.length >= 1);
+  assert.ok(products.every((p) => ["sabahar", "ethiopian-cultural-shop"].includes(p.product.shop_slug)));
   assert.ok(products.every((p) => p.in_render === 1));
   for (const p of products) assert.ok(design.prompt_used!.includes(p.product.name), `prompt names ${p.product.name}`);
   const render = await sharp(await getFile(design.render_image_key!)).metadata();

@@ -249,5 +249,5 @@ for (const key of usedSvgs) {
   const [cat, color, variant] = key.split("|");
   writeFileSync(`public/demo-products/${cat}-${color}${variant ? `-${variant}` : ""}.svg`, svgFor(cat, color, variant || undefined));
 }
-writeFileSync("data/shops.json", JSON.stringify(shopsJson, null, 2) + "\n");
-console.log(`Generated ${shopsJson.length} shops and ${usedSvgs.size} product images.`);
+// data/shops.json lists the live shops. This script only refreshes the unused sample CSV files.
+console.log(`Generated ${shopsJson.length} sample CSV files and ${usedSvgs.size} product images. data/shops.json was not changed.`);
