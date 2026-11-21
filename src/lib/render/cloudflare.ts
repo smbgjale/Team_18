@@ -14,12 +14,15 @@ export function outputSize(width: number, height: number) {
 }
 
 // FLUX models do not support negative prompts; listing unwanted things can make them appear.
-export function fluxPrompt(prompt: string) {
-  return `Image 0 is a photo of a real room. ${prompt.replace(/\s*Avoid:[\s\S]*$/, "")}`;
+export function fluxPrompt(prompt: string, referenceCount = 0) {
+  const refs = referenceCount ? ` Images 1 to ${referenceCount} are product photos of furniture to place in the room.` : "";
+  const body = prompt.replace(/\s*Avoid:[\s\S]*$/, "").replace(/reference product image (\d)/g, "image $1");
+  return `Image 0 is a photo of a real room.${refs} ${body}`;
 }
 
 export class CloudflareRenderProvider implements RenderProvider {
   readonly name = "cloudflare";
+  readonly maxReferenceImages = 3;
 
   async render(req: RenderRequest): Promise<RenderResult> {
     const input = await sharp(req.sourceImage)
@@ -28,9 +31,14 @@ export class CloudflareRenderProvider implements RenderProvider {
       .toBuffer();
     const size = outputSize(req.width, req.height);
 
+    const refs = req.products.filter((p) => p.reference).slice(0, this.maxReferenceImages);
     const form = new FormData();
-    form.set("prompt", fluxPrompt(req.prompt));
+    form.set("prompt", fluxPrompt(req.prompt, refs.length));
     form.set("input_image_0", new Blob([new Uint8Array(input)], { type: "image/png" }), "room.png");
+    for (const [i, p] of refs.entries()) {
+      const ref = await sharp(p.reference!).resize(MAX_INPUT_EDGE, MAX_INPUT_EDGE, { fit: "inside" }).png().toBuffer();
+      form.set(`input_image_${i + 1}`, new Blob([new Uint8Array(ref)], { type: "image/png" }), `product-${i + 1}.png`);
+    }
     form.set("width", String(size.width));
     form.set("height", String(size.height));
 

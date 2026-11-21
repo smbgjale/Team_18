@@ -1,5 +1,6 @@
 import sharp, { type OverlayOptions } from "sharp";
-import { loadSprite, mockLayout, WALL_MOUNTED } from "../mock-layout";
+import { WALL_MOUNTED } from "../categories";
+import { placeProducts } from "../mock-layout";
 import type { RenderProvider, RenderRequest, RenderResult } from "./types";
 
 const TINT: Record<string, string> = {
@@ -8,10 +9,11 @@ const TINT: Record<string, string> = {
 };
 
 // Local stand-in used when no AI image provider is configured. It does NOT redesign the
-// room: it restyles the photo's colours and overlays sample furniture so the whole flow
-// (compare, download, shop this look) can be tried without an API key.
+// room: it restyles the photo's colours and overlays the chosen products' images so the whole
+// flow (compare, download, shop this look, 3D view) can be tried without an API key.
 export class MockRenderProvider implements RenderProvider {
   readonly name = "mock";
+  readonly maxReferenceImages = 0;
 
   async render(req: RenderRequest): Promise<RenderResult> {
     const W = req.width;
@@ -29,7 +31,7 @@ export class MockRenderProvider implements RenderProvider {
       .toBuffer();
 
     const layers: OverlayOptions[] = [];
-    const items = (await mockLayout(req.roomType, req.style.id, W, H)).sort((a, b) => {
+    const items = (await placeProducts(req.products, W, H)).sort((a, b) => {
       if ((a.category === "rug") !== (b.category === "rug")) return a.category === "rug" ? -1 : 1;
       return a.bbox.y + a.bbox.h - (b.bbox.y + b.bbox.h);
     });
@@ -46,8 +48,7 @@ export class MockRenderProvider implements RenderProvider {
         );
         layers.push({ input: await sharp(shadow).blur(5).png().toBuffer(), left: Math.max(0, left - Math.round((sw - w) / 2)), top: Math.min(H - sh * 2, top + h - sh) });
       }
-      const { png } = await loadSprite(it.sprite);
-      layers.push({ input: await sharp(png).resize(w, h, { fit: "fill" }).png().toBuffer(), left, top });
+      layers.push({ input: await sharp(it.png).resize(w, h, { fit: "fill" }).png().toBuffer(), left, top });
     }
 
     const vignette = Buffer.from(

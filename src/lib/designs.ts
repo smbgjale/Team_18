@@ -1,7 +1,8 @@
 import { db } from "./db";
 import { config } from "./config";
 import { fileUrl } from "./storage";
-import type { Category } from "./categories";
+import { ROOM_DEFAULT_DIMS_CM, type Category, type RoomType } from "./categories";
+import { getProduct, type ProductRow } from "./products";
 
 export interface DesignRow {
   id: string;
@@ -29,7 +30,35 @@ export interface RoomRow {
   original_image_key: string;
   width_px: number;
   height_px: number;
+  width_cm: number | null;
+  length_cm: number | null;
+  height_cm: number | null;
   created_at: string;
+}
+
+export interface DesignProductRow {
+  id: string;
+  design_id: string;
+  product_id: string;
+  category: Category;
+  quantity: number;
+  sort: number;
+  in_render: number | null;
+  replaced_after_render: number;
+  layout_json: string | null;
+}
+
+export function roomDims(room: RoomRow) {
+  const d = ROOM_DEFAULT_DIMS_CM[room.room_type as RoomType] ?? ROOM_DEFAULT_DIMS_CM.other;
+  return { width: room.width_cm ?? d.width, length: room.length_cm ?? d.length, height: room.height_cm ?? d.height };
+}
+
+export function listDesignProducts(designId: string): (DesignProductRow & { product: ProductRow })[] {
+  const rows = db().prepare("SELECT * FROM design_products WHERE design_id = ? ORDER BY sort, rowid").all(designId) as DesignProductRow[];
+  return rows.flatMap((r) => {
+    const product = getProduct(r.product_id, { includeInactive: true });
+    return product ? [{ ...r, product }] : [];
+  });
 }
 
 export interface ItemRow {
@@ -79,7 +108,7 @@ export function setStatus(id: string, status: string, extra: Record<string, unkn
 }
 
 export const DISCLAIMER =
-  "AI-generated 3D-style visualisation (an image, not an editable 3D model). Furniture and dimensions are approximate.";
+  "AI-generated 3D-style image of your room furnished with the products listed below. The AI may change small details of a product; the product pages show exactly what you buy. Use the 3D view to arrange the products at their real sizes.";
 
 export function designDto(d: DesignRow, room: RoomRow) {
   return {
@@ -90,6 +119,7 @@ export function designDto(d: DesignRow, room: RoomRow) {
     render_type: "3d_style_image" as const,
     provider: d.provider,
     is_demo_preview: d.provider === "mock",
+    has_products: (db().prepare("SELECT COUNT(*) AS n FROM design_products WHERE design_id = ?").get(d.id) as { n: number }).n > 0,
     original_image_url: fileUrl(room.original_image_key),
     render_image_url: fileUrl(d.render_image_key),
     width_px: room.width_px,

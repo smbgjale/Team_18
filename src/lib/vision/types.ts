@@ -12,5 +12,6 @@ export interface DetectedItem {
 
 export interface VisionProvider {
   readonly name: string;
-  detectItems(input: { image: Buffer; roomType: RoomType; style: string }): Promise<DetectedItem[]>;
+  // `expected` lists the categories of the products that were asked for in the render.
+  detectItems(input: { image: Buffer; roomType: RoomType; style: string; expected?: Category[] }): Promise<DetectedItem[]>;
 }

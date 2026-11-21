@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import sharp from "sharp";
+import sharp, { type Metadata } from "sharp";
 
 process.env.CLOUDFLARE_ACCOUNT_ID = "acc123";
 process.env.CLOUDFLARE_API_TOKEN = "test-token";
@@ -35,38 +35,43 @@ test("FLUX prompt drops the negative list and references the input image", async
   assert.doesNotMatch(p, /watermark|Avoid/);
 });
 
-test("render sends a multipart request with a reference image no larger than 512 px", async () => {
+test("render sends the room photo and up to three product photos, each within 512 px", async () => {
   const { CloudflareRenderProvider } = await import("../src/lib/render/cloudflare");
   const { getStyle } = await import("../src/lib/styles");
   const b64 = await tinyPng();
-  let seen: { url: string; auth: string | null; fields: Record<string, string>; imageMeta?: sharp.Metadata } | null = null;
+  const seen: { url?: string; auth?: string | null; fields?: Record<string, string>; images?: Metadata[] } = {};
   const restore = stubFetch(async (req) => {
     const form = await req.formData();
-    const img = form.get("input_image_0") as File;
-    seen = {
-      url: req.url,
-      auth: req.headers.get("authorization"),
-      fields: { prompt: String(form.get("prompt")), width: String(form.get("width")), height: String(form.get("height")) },
-      imageMeta: await sharp(Buffer.from(await img.arrayBuffer())).metadata(),
-    };
+    seen.url = req.url;
+    seen.auth = req.headers.get("authorization");
+    seen.fields = { prompt: String(form.get("prompt")), width: String(form.get("width")), height: String(form.get("height")) };
+    seen.images = [];
+    for (let i = 0; form.get(`input_image_${i}`); i++) {
+      const file = form.get(`input_image_${i}`) as File;
+      seen.images.push(await sharp(Buffer.from(await file.arrayBuffer())).metadata());
+    }
     return Response.json({ success: true, result: { image: b64 } });
   });
   try {
     const source = await sharp({ create: { width: 1536, height: 1024, channels: 3, background: "#ccc" } }).jpeg().toBuffer();
+    const productPhoto = await sharp({ create: { width: 900, height: 700, channels: 3, background: "#456" } }).png().toBuffer();
+    const products = (["sofa", "rug", "coffee_table", "floor_lamp"] as const).map((category) => ({ category, name: `Test ${category}`, imageUrl: "/x.png", reference: productPhoto }));
     const out = await new CloudflareRenderProvider().render({
-      sourceImage: source, prompt: "Redesign this room. Avoid: text", style: getStyle("modern")!, roomType: "living_room", fidelity: "high", width: 1536, height: 1024,
+      sourceImage: source, prompt: "Redesign this room with the sofa in reference product image 1. Avoid: text", style: getStyle("modern")!,
+      roomType: "living_room", fidelity: "high", width: 1536, height: 1024, products,
     });
     assert.equal(out.image.toString("base64"), b64);
   } finally {
     restore();
   }
-  assert.ok(seen);
-  const s = seen as NonNullable<typeof seen>;
-  assert.equal(s.url, "https://api.cloudflare.com/client/v4/accounts/acc123/ai/run/@cf/black-forest-labs/flux-2-klein-4b");
-  assert.equal(s.auth, "Bearer test-token");
-  assert.equal(s.fields.width, "1024");
-  assert.equal(s.fields.height, "688");
-  assert.ok(Math.max(s.imageMeta!.width!, s.imageMeta!.height!) <= 512);
+  assert.equal(seen.url, "https://api.cloudflare.com/client/v4/accounts/acc123/ai/run/@cf/black-forest-labs/flux-2-klein-4b");
+  assert.equal(seen.auth, "Bearer test-token");
+  assert.equal(seen.fields!.width, "1024");
+  assert.equal(seen.fields!.height, "688");
+  assert.equal(seen.images!.length, 4, "room photo plus the three biggest products");
+  for (const m of seen.images!) assert.ok(Math.max(m.width!, m.height!) <= 512);
+  assert.match(seen.fields!.prompt, /Images 1 to 3 are product photos/);
+  assert.match(seen.fields!.prompt, /sofa in image 1/);
 });
 
 test("a used-up daily allowance maps to provider_quota_exceeded", async () => {
@@ -78,7 +83,7 @@ test("a used-up daily allowance maps to provider_quota_exceeded", async () => {
   try {
     const source = await sharp({ create: { width: 600, height: 600, channels: 3, background: "#ccc" } }).jpeg().toBuffer();
     await assert.rejects(
-      new CloudflareRenderProvider().render({ sourceImage: source, prompt: "x", style: getStyle("modern")!, roomType: "bedroom", fidelity: "high", width: 600, height: 600 }),
+      new CloudflareRenderProvider().render({ sourceImage: source, prompt: "x", style: getStyle("modern")!, roomType: "bedroom", fidelity: "high", width: 600, height: 600, products: [] }),
       (e: { code?: string }) => e.code === "provider_quota_exceeded",
     );
   } finally {

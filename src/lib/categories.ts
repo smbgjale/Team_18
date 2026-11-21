@@ -51,3 +51,28 @@ export const BUDGET_WEIGHT: Record<Category, number> = {
   ceiling_light: 0.08, floor_lamp: 0.06, table_lamp: 0.04, wall_art: 0.04, mirror: 0.05,
   plant_pot: 0.02, cushion: 0.02,
 };
+
+// Fallback sizes (width x depth x height, cm) when a shop does not provide dimensions.
+export const DEFAULT_DIMS_CM: Record<Category, [number, number, number]> = {
+  sofa: [210, 92, 82], armchair: [80, 82, 86], bed: [165, 215, 100], coffee_table: [100, 55, 40],
+  dining_table: [160, 90, 75], side_table: [45, 40, 55], desk: [140, 70, 75], chair: [46, 52, 85],
+  wardrobe: [180, 60, 200], tv_unit: [160, 40, 50], shelf: [80, 30, 180], rug: [200, 290, 1],
+  curtains: [140, 4, 240], ceiling_light: [45, 45, 40], floor_lamp: [40, 40, 160], table_lamp: [25, 25, 45],
+  wall_art: [60, 3, 80], mirror: [60, 3, 120], plant_pot: [30, 30, 35], cushion: [45, 12, 45],
+};
+
+export const ROOM_DEFAULT_DIMS_CM: Record<RoomType, { width: number; length: number; height: number }> = {
+  living_room: { width: 500, length: 420, height: 260 },
+  bedroom: { width: 420, length: 400, height: 260 },
+  dining_room: { width: 450, length: 380, height: 260 },
+  office: { width: 380, length: 340, height: 260 },
+  kitchen: { width: 400, length: 350, height: 260 },
+  other: { width: 420, length: 380, height: 260 },
+};
+
+export function itemQuantity(category: Category, roomType: RoomType): number {
+  if (category !== "chair") return 1;
+  return roomType === "dining_room" ? 4 : roomType === "kitchen" ? 2 : 1;
+}
+
+export const WALL_MOUNTED: Category[] = ["curtains", "wall_art", "mirror", "ceiling_light"];

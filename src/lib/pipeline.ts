@@ -1,25 +1,17 @@
 import { nanoid } from "nanoid";
 import sharp from "sharp";
-import type { Category, RoomType } from "./categories";
-import { colorNameToHex, nearestColorName, rgbToHex } from "./color";
+import { BUDGET_WEIGHT, COMPATIBLE, type Category, type RoomType } from "./categories";
 import { db } from "./db";
-import { getDesign, getRoom, listItems, setStatus } from "./designs";
+import { getDesign, getRoom, listDesignProducts, listItems, roomDims, setStatus } from "./designs";
+import { furnishRoom } from "./furnish";
 import { matchItem, type MatchContext } from "./matching";
-import { getRenderProvider, RenderError } from "./render";
+import { loadProductImage } from "./product-images";
+import { getRenderProvider, RenderError, type RenderProduct } from "./render";
 import { ensureCatalogue } from "./shops/sync";
 import { getFile, putFile } from "./storage";
 import { structureScore } from "./structure";
 import { buildPrompt, getStyle } from "./styles";
-import { getVisionProvider, type DetectedItem } from "./vision";
-
-async function measureColor(image: Buffer, bbox: DetectedItem["bbox"], meta: { width: number; height: number }) {
-  const left = Math.floor(bbox.x * meta.width);
-  const top = Math.floor(bbox.y * meta.height);
-  const width = Math.max(4, Math.min(meta.width - left, Math.floor(bbox.w * meta.width)));
-  const height = Math.max(4, Math.min(meta.height - top, Math.floor(bbox.h * meta.height)));
-  const { dominant } = await sharp(image).extract({ left, top, width, height }).stats();
-  return rgbToHex([dominant.r, dominant.g, dominant.b]);
-}
+import { getVisionProvider } from "./vision";
 
 export function startDesignJob(designId: string) {
   setImmediate(() => {
@@ -30,22 +22,70 @@ export function startDesignJob(designId: string) {
   });
 }
 
+function selectProducts(designId: string) {
+  const design = getDesign(designId)!;
+  const room = getRoom(design.room_id)!;
+  const { picks } = furnishRoom({
+    roomType: room.room_type as RoomType,
+    style: design.style,
+    budgetMinor: design.budget_total_minor,
+    budgetCurrency: design.budget_currency,
+    room: roomDims(room),
+  });
+  const insert = db().prepare("INSERT INTO design_products (id, design_id, product_id, category, quantity, sort) VALUES (?,?,?,?,?,?)");
+  db().transaction(() => {
+    db().prepare("DELETE FROM design_products WHERE design_id = ?").run(designId);
+    picks.forEach((p, i) => insert.run(nanoid(12), designId, p.product.id, p.category, p.quantity, i));
+  })();
+}
+
+const firstWord = (json: string) => (JSON.parse(json) as string[])[0] ?? null;
+
 export async function runDesign(designId: string) {
   const design = getDesign(designId);
   if (!design) return;
   const room = getRoom(design.room_id);
   const style = getStyle(design.style);
   if (!room || !style) return setStatus(designId, "failed", { error_code: "not_found", error_message: "Room or style not found" });
+  const roomType = room.room_type as RoomType;
+  const provider = getRenderProvider();
+  setStatus(designId, "rendering", { provider: provider.name });
+
+  await ensureCatalogue();
+  selectProducts(designId);
+  const chosen = listDesignProducts(designId);
+
+  // The biggest pieces are sent as reference photos; the rest are described in the prompt.
+  const byImportance = [...chosen].sort((a, b) => BUDGET_WEIGHT[b.category] - BUDGET_WEIGHT[a.category]);
+  const refIds = new Set(byImportance.slice(0, provider.maxReferenceImages).map((c) => c.id));
+  const products: (RenderProduct & { refIndex?: number; id: string })[] = [];
+  let refIndex = 0;
+  for (const c of byImportance) {
+    const reference = refIds.has(c.id) ? await loadProductImage(c.product.image_url) : null;
+    products.push({ id: c.id, category: c.category, name: c.product.name, imageUrl: c.product.image_url, reference: reference ?? undefined, refIndex: reference ? ++refIndex : undefined });
+  }
 
   const fidelity = design.layout_fidelity as "high" | "medium" | "low";
-  const prompt = buildPrompt({ style, roomType: room.room_type as RoomType, userPrompt: design.user_prompt ?? undefined, fidelity });
-  const provider = getRenderProvider();
-  setStatus(designId, "rendering", { provider: provider.name, prompt_used: prompt });
+  const prompt = buildPrompt({
+    style,
+    roomType,
+    userPrompt: design.user_prompt ?? undefined,
+    fidelity,
+    products: byImportance.map((c, i) => ({
+      category: c.category,
+      name: c.product.name,
+      colorName: firstWord(c.product.colors),
+      material: firstWord(c.product.materials),
+      quantity: c.quantity,
+      refIndex: products[i].refIndex,
+    })),
+  });
+  setStatus(designId, "rendering", { prompt_used: prompt });
 
   const original = await getFile(room.original_image_key);
   let renderPng: Buffer;
   try {
-    const result = await provider.render({ sourceImage: original, prompt, style, roomType: room.room_type as RoomType, fidelity, width: room.width_px, height: room.height_px });
+    const result = await provider.render({ sourceImage: original, prompt, style, roomType, fidelity, width: room.width_px, height: room.height_px, products });
     renderPng = await sharp(result.image).png().toBuffer();
   } catch (e) {
     const err = e instanceof RenderError ? e : null;
@@ -66,38 +106,31 @@ export async function runDesign(designId: string) {
   try { score = await structureScore(original, renderPng); } catch { /* monitoring signal only */ }
   setStatus(designId, "render_ready", { render_image_key: renderKey, structure_score: score });
 
+  // Check which of the chosen products the image actually shows; generative models sometimes drop one.
+  setStatus(designId, "matching");
   try {
-    setStatus(designId, "matching");
-    await ensureCatalogue();
-    const detected = await getVisionProvider().detectItems({ image: renderPng, roomType: room.room_type as RoomType, style: style.id });
-    const meta = await sharp(renderPng).metadata();
-    const d = db();
-    const insertItem = d.prepare("INSERT INTO design_items (id, design_id, category, label, confidence, bbox, dominant_colors, style_tags) VALUES (?,?,?,?,?,?,?,?)");
-    const seen = new Map<string, number>();
-    for (const it of detected) {
-      const n = (seen.get(it.category) ?? 0) + 1;
-      if (n > 2) continue; // at most two detections per category keeps "Shop this look" focused
-      seen.set(it.category, n);
-      const hex = it.colorHex ?? colorNameToHex(it.colorName) ?? (await measureColor(renderPng, it.bbox, { width: meta.width!, height: meta.height! }));
-      const name = it.colorName ?? nearestColorName(hex);
-      insertItem.run(nanoid(12), designId, it.category, it.label, it.confidence, JSON.stringify(it.bbox), JSON.stringify([{ hex, name }]), JSON.stringify(it.styleTags ?? [style.id]));
+    const detected = await getVisionProvider().detectItems({ image: renderPng, roomType, style: style.id, expected: chosen.map((c) => c.category) });
+    const seen = new Set(detected.map((d) => d.category));
+    const update = db().prepare("UPDATE design_products SET in_render = ? WHERE id = ?");
+    for (const c of chosen) {
+      const visible = seen.has(c.category) || (COMPATIBLE[c.category] ?? []).some((alt) => seen.has(alt));
+      update.run(visible ? 1 : 0, c.id);
     }
-    storeMatches(designId);
-    setStatus(designId, "completed");
   } catch (e) {
-    console.error(`[design ${designId}] matching failed`, e);
-    setStatus(designId, "completed", { error_message: "The design is ready, but product suggestions could not be generated." });
+    console.error(`[design ${designId}] visibility check failed`, e);
   }
+  setStatus(designId, "completed");
 }
 
 export function matchContextFor(designId: string, overrides: Partial<MatchContext> = {}): MatchContext {
   const design = getDesign(designId)!;
-  const items = listItems(designId);
+  const products = listDesignProducts(designId);
+  const categories = products.length ? products.map((p) => p.category) : listItems(designId).map((i) => i.category);
   return {
     style: design.style,
     budgetMinor: design.budget_total_minor,
     budgetCurrency: design.budget_currency,
-    allCategories: [...new Set(items.map((i) => i.category))] as Category[],
+    allCategories: [...new Set(categories)] as Category[],
     ...overrides,
   };
 }
@@ -107,13 +140,17 @@ export function matchesForItem(item: ReturnType<typeof listItems>[number], ctx: 
   return matchItem({ category: item.category, label: item.label, colorHexes: colors.map((c) => c.hex), colorNames: colors.map((c) => c.name) }, ctx);
 }
 
-function storeMatches(designId: string) {
-  const d = db();
-  const ctx = matchContextFor(designId, { perItem: 10 });
-  const insert = d.prepare("INSERT OR REPLACE INTO product_matches (id, design_item_id, product_id, rank, score, score_breakdown) VALUES (?,?,?,?,?,?)");
-  d.transaction(() => {
-    for (const item of listItems(designId)) {
-      for (const m of matchesForItem(item, ctx)) insert.run(nanoid(12), item.id, m.product.id, m.rank, m.score, JSON.stringify(m.score_breakdown));
-    }
-  })();
+export function alternativesFor(chosen: ReturnType<typeof listDesignProducts>[number], ctx: MatchContext) {
+  const p = chosen.product;
+  const colors = JSON.parse(p.colors) as string[];
+  const matches = matchItem(
+    {
+      category: chosen.category,
+      label: `${p.name} ${(JSON.parse(p.materials) as string[]).join(" ")}`,
+      colorHexes: p.dominant_color_hex ? [p.dominant_color_hex] : [],
+      colorNames: colors,
+    },
+    { ...ctx, perItem: (ctx.perItem ?? 3) + 1 },
+  );
+  return matches.filter((m) => m.product.id !== p.id).slice(0, ctx.perItem ?? 3).map((m, i) => ({ ...m, rank: i + 1 }));
 }

@@ -10,15 +10,23 @@ function pickSize(w: number, h: number) {
 
 export class OpenAIRenderProvider implements RenderProvider {
   readonly name = "openai";
+  readonly maxReferenceImages = 4;
 
   async render(req: RenderRequest): Promise<RenderResult> {
     if (!config.openai.apiKey) throw new RenderError("provider_unavailable", "OPENAI_API_KEY is not set");
     const form = new FormData();
     form.set("model", config.openai.imageModel);
-    form.set("prompt", req.prompt);
+    const refs = req.products.filter((p) => p.reference).slice(0, this.maxReferenceImages);
+    const intro = refs.length
+      ? `The first image is the room photo to redesign. The next ${refs.length} images are product photos; reference product image N is image N+1. `
+      : "";
+    form.set("prompt", intro + req.prompt);
     form.set("size", pickSize(req.width, req.height));
     form.set("n", "1");
-    form.set("image", new Blob([new Uint8Array(req.sourceImage)], { type: "image/jpeg" }), "room.jpg");
+    form.append("image[]", new Blob([new Uint8Array(req.sourceImage)], { type: "image/jpeg" }), "room.jpg");
+    for (const [i, p] of refs.entries()) {
+      form.append("image[]", new Blob([new Uint8Array(p.reference!)], { type: "image/png" }), `product-${i + 1}.png`);
+    }
 
     let res: Response;
     try {

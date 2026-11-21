@@ -1,18 +1,14 @@
-import sharp from "sharp";
-import { mockLayout } from "../mock-layout";
 import type { DetectedItem, VisionProvider } from "./types";
 
+// The demo renderer composites exactly the requested products, so all of them are present.
 export class MockVisionProvider implements VisionProvider {
   readonly name = "mock";
-  async detectItems({ image, roomType, style }: Parameters<VisionProvider["detectItems"]>[0]): Promise<DetectedItem[]> {
-    const { width, height } = await sharp(image).metadata();
-    return (await mockLayout(roomType, style, width!, height!)).map((it) => ({
-      category: it.category,
-      label: `${it.colorName} ${it.category.replace(/_/g, " ")}`,
-      confidence: 0.9,
-      bbox: it.bbox,
-      colorName: it.colorName,
-      colorHex: it.colorHex,
+  async detectItems({ style, expected }: Parameters<VisionProvider["detectItems"]>[0]): Promise<DetectedItem[]> {
+    return (expected ?? []).map((category) => ({
+      category,
+      label: category.replace(/_/g, " "),
+      confidence: 1,
+      bbox: { x: 0, y: 0, w: 1, h: 1 },
       styleTags: [style],
     }));
   }

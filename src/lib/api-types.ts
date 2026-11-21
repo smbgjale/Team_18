@@ -15,6 +15,7 @@ export interface ProductDto {
   dimensions_cm: { width: number | null; depth: number | null; height: number | null } | null;
   availability: "in_stock" | "low_stock" | "out_of_stock" | "preorder" | "unknown";
   shop: { slug: string; name: string; is_demo: boolean };
+  dominant_color_hex: string | null;
   product_url: string;
 }
 
@@ -25,14 +26,47 @@ export interface MatchDto {
   product: ProductDto;
 }
 
-export interface DesignItemDto {
+// One furniture slot of a design: the real product it uses (`chosen`) and similar alternatives.
+// Designs made before products were chosen up front only have detected items, so `chosen` is null.
+export interface DesignProductDto {
   id: string;
   category: string;
   label: string;
-  confidence: number;
-  bbox: { x: number; y: number; w: number; h: number };
-  dominant_colors: { hex: string; name: string }[];
-  matches: MatchDto[];
+  quantity: number;
+  in_render: boolean | null;
+  replaced_after_render: boolean;
+  chosen: ProductDto | null;
+  alternatives: MatchDto[];
+}
+
+export interface DesignProductsResponse {
+  design_id: string;
+  status: DesignDto["status"];
+  mode: "products" | "detected";
+  items: DesignProductDto[];
+  budget_summary: { budget: Money | null; total: Money | null; within_budget: boolean | null };
+  notice: string;
+}
+
+export interface ScenePlacement { x: number; z: number; rot: number }
+
+export interface SceneItemDto {
+  id: string;
+  category: string;
+  quantity: number;
+  dims_m: { w: number; d: number; h: number };
+  dims_from_shop: boolean;
+  color_hex: string;
+  layout: ScenePlacement[] | null;
+  product: ProductDto;
+}
+
+export interface SceneDto {
+  design_id: string;
+  style: string;
+  room: { width_m: number; length_m: number; height_m: number; wall_hex: string; floor_hex: string };
+  items: SceneItemDto[];
+  total: Money | null;
 }
 
 export interface DesignDto {
@@ -46,6 +80,7 @@ export interface DesignDto {
   width_px: number;
   height_px: number;
   layout_score: number | null;
+  has_products: boolean;
   disclaimer: string;
   error: { code: string; message: string } | null;
   created_at: string;

@@ -1,5 +1,13 @@
-import type { RoomType } from "../categories";
+import type { Category, RoomType } from "../categories";
 import type { StylePreset } from "../styles";
+
+export interface RenderProduct {
+  category: Category;
+  name: string;
+  imageUrl: string;
+  // PNG reference image, present for the products the provider receives as reference images.
+  reference?: Buffer;
+}
 
 export interface RenderRequest {
   sourceImage: Buffer;
@@ -9,6 +17,7 @@ export interface RenderRequest {
   fidelity: "high" | "medium" | "low";
   width: number;
   height: number;
+  products: RenderProduct[];
 }
 
 export interface RenderResult {
@@ -20,6 +29,8 @@ export interface RenderResult {
 
 export interface RenderProvider {
   readonly name: string;
+  // How many product photos can be sent alongside the room photo.
+  readonly maxReferenceImages: number;
   render(req: RenderRequest): Promise<RenderResult>;
 }
 

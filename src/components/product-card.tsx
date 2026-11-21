@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ExternalLink } from "lucide-react";
+import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { formatMoney } from "@/lib/format";
@@ -13,11 +14,18 @@ const AVAIL: Record<string, { label: string; variant: "secondary" | "outline" | 
   unknown: null,
 };
 
-export function ProductCard({ product, href, matchLabel }: { product: ProductDto; href?: string; matchLabel?: string }) {
+export function ProductCard({ product, href, matchLabel, quantity, footer, highlight }: {
+  product: ProductDto;
+  href?: string;
+  matchLabel?: string;
+  quantity?: number;
+  footer?: ReactNode;
+  highlight?: boolean;
+}) {
   const avail = AVAIL[product.availability];
   const link = href ?? product.product_url;
   return (
-    <article className="flex flex-col overflow-hidden rounded-xl border bg-card">
+    <article className={`flex flex-col overflow-hidden rounded-xl border bg-card ${highlight ? "border-primary/40 ring-1 ring-primary/30" : ""}`}>
       <div className="relative aspect-[4/3] bg-muted">
         <img src={product.image_url} alt={product.name} className="size-full object-cover" loading="lazy" />
         {matchLabel && <Badge className="absolute left-2 top-2">{matchLabel}</Badge>}
@@ -44,11 +52,13 @@ export function ProductCard({ product, href, matchLabel }: { product: ProductDto
             ) : (
               <span className="text-base font-bold">{formatMoney(product.price)}</span>
             )}
+            {quantity && quantity > 1 && <span className="text-xs text-muted-foreground"> x {quantity}</span>}
           </div>
           <a href={link} target="_blank" rel="noopener noreferrer sponsored" className={buttonVariants({ size: "sm" })}>
             View on shop <ExternalLink className="size-3.5" />
           </a>
         </div>
+        {footer}
       </div>
     </article>
   );

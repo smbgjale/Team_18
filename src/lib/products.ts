@@ -1,4 +1,5 @@
 import { db } from "./db";
+import type { ProductDto } from "./api-types";
 import { isCategory } from "./categories";
 
 export interface ProductRow {
@@ -73,11 +74,14 @@ export function queryProducts(f: ProductFilters): ProductRow[] {
   return db().prepare(sql).all(...params) as ProductRow[];
 }
 
-export function getProduct(id: string): ProductRow | undefined {
-  return db().prepare(`${SELECT} AND p.id = ?`).get(id) as ProductRow | undefined;
+export function getProduct(id: string, opts: { includeInactive?: boolean } = {}): ProductRow | undefined {
+  const sql = opts.includeInactive
+    ? "SELECT p.*, s.slug AS shop_slug, s.name AS shop_name, s.is_demo AS shop_is_demo FROM products p JOIN shops s ON s.id = p.shop_id WHERE p.id = ?"
+    : `${SELECT} AND p.id = ?`;
+  return db().prepare(sql).get(id) as ProductRow | undefined;
 }
 
-export function toProductDto(p: ProductRow) {
+export function toProductDto(p: ProductRow): ProductDto {
   const dims = p.width_cm || p.depth_cm || p.height_cm ? { width: p.width_cm, depth: p.depth_cm, height: p.height_cm } : null;
   return {
     id: p.id,
@@ -92,8 +96,9 @@ export function toProductDto(p: ProductRow) {
     materials: JSON.parse(p.materials) as string[],
     style_tags: JSON.parse(p.style_tags) as string[],
     dimensions_cm: dims,
-    availability: p.availability,
+    availability: p.availability as ProductDto["availability"],
     shop: { slug: p.shop_slug, name: p.shop_name, is_demo: !!p.shop_is_demo },
+    dominant_color_hex: p.dominant_color_hex,
     product_url: `/r/${p.id}`,
   };
 }

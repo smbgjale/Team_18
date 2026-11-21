@@ -1,7 +1,10 @@
-import { getDesign, listItems } from "@/lib/designs";
+import type { DesignDto, DesignProductDto, DesignProductsResponse } from "@/lib/api-types";
+import { CATEGORY_LABELS } from "@/lib/categories";
+import { getDesign, listDesignProducts, listItems } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 import { parseCategories } from "@/lib/matching";
-import { matchContextFor, matchesForItem } from "@/lib/pipeline";
+import { alternativesFor, matchContextFor, matchesForItem } from "@/lib/pipeline";
+import { effectivePrice, toProductDto } from "@/lib/products";
 import { ensureCatalogue } from "@/lib/shops/sync";
 
 function intParam(v: string | null) {
@@ -23,34 +26,53 @@ export async function GET(request: Request, ctx: RouteContext<"/api/designs/[des
     maxPriceMinor: intParam(q.get("max_price_minor")),
     inStockOnly: q.get("in_stock_only") === "true",
     shop: q.get("shop") ?? undefined,
-    perItem: Math.min(10, intParam(q.get("matches_per_item")) ?? 5),
+    perItem: Math.min(10, intParam(q.get("matches_per_item")) ?? 3),
   });
+  const wanted = (c: string) => categories.length === 0 || (categories as string[]).includes(c);
 
-  const all = listItems(designId);
-  const items = all
-    .filter((i) => categories.length === 0 || categories.includes(i.category))
-    .map((i) => ({
+  const chosen = listDesignProducts(designId);
+  let items: DesignProductDto[];
+  let total: { amount_minor: number; currency: string } | null = null;
+  if (chosen.length) {
+    items = chosen.filter((c) => wanted(c.category)).map((c) => ({
+      id: c.id,
+      category: c.category,
+      label: CATEGORY_LABELS[c.category],
+      quantity: c.quantity,
+      in_render: c.in_render == null ? null : c.in_render === 1,
+      replaced_after_render: c.replaced_after_render === 1,
+      chosen: toProductDto(c.product),
+      alternatives: alternativesFor(c, matchCtx),
+    }));
+    if (new Set(chosen.map((c) => c.product.currency)).size === 1) {
+      total = { amount_minor: chosen.reduce((s, c) => s + effectivePrice(c.product) * c.quantity, 0), currency: chosen[0].product.currency };
+    }
+  } else {
+    items = listItems(designId).filter((i) => wanted(i.category)).map((i) => ({
       id: i.id,
       category: i.category,
       label: i.label,
-      confidence: i.confidence,
-      bbox: JSON.parse(i.bbox),
-      dominant_colors: JSON.parse(i.dominant_colors),
-      matches: matchesForItem(i, matchCtx),
+      quantity: 1,
+      in_render: true,
+      replaced_after_render: false,
+      chosen: null,
+      alternatives: matchesForItem(i, matchCtx),
     }));
+  }
 
-  const top = items.map((i) => i.matches[0]?.product).filter(Boolean);
-  const total = top.reduce((s, p) => s + (p!.sale_price?.amount_minor ?? p!.price.amount_minor), 0);
-  const sameCurrency = new Set(top.map((p) => p!.price.currency)).size <= 1;
-  return Response.json({
+  const res: DesignProductsResponse = {
     design_id: designId,
-    status: design.status,
+    status: design.status as DesignDto["status"],
+    mode: chosen.length ? "products" : "detected",
     items,
     budget_summary: {
-      budget: design.budget_total_minor ? { amount_minor: design.budget_total_minor, currency: design.budget_currency } : null,
-      top_match_total: sameCurrency && top.length ? { amount_minor: total, currency: top[0]!.price.currency } : null,
-      within_budget: design.budget_total_minor && sameCurrency && design.budget_currency === top[0]?.price.currency ? total <= design.budget_total_minor : null,
+      budget: design.budget_total_minor ? { amount_minor: design.budget_total_minor, currency: design.budget_currency ?? "USD" } : null,
+      total,
+      within_budget: design.budget_total_minor && total && total.currency === design.budget_currency ? total.amount_minor <= design.budget_total_minor : null,
     },
-    notice: "Matches are similar products from integrated shops, not exact copies of what appears in the render. Prices and availability come from the shops and may change.",
-  });
+    notice: chosen.length
+      ? "Each design is furnished with these real products from partner shops. The AI image may simplify small details; the shop page shows exactly what you buy. Prices and availability come from the shops and may change."
+      : "Matches are similar products from integrated shops, not exact copies of what appears in the render. Prices and availability come from the shops and may change.",
+  };
+  return Response.json(res);
 }
