@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { DirectionPicker } from "@/components/direction-picker";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { readApiJson } from "@/lib/api-client";
 import { ROOM_TYPES, ROOM_TYPE_LABELS } from "@/lib/categories";
 import type { DesignDirection } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -38,8 +39,9 @@ export function UploadForm() {
     body.set("design_direction", direction);
     try {
       const res = await fetch("/api/rooms", { method: "POST", body });
-      const json = await res.json();
+      const json = await readApiJson<{ id?: string; error?: { message?: string } }>(res);
       if (!res.ok) throw new Error(json.error?.message ?? "Upload failed");
+      if (!json.id) throw new Error("The server did not return a room id.");
       router.push(`/rooms/${json.id}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Upload failed");

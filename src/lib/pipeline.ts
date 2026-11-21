@@ -13,12 +13,30 @@ import { structureScore } from "./structure";
 import { buildPrompt, getStyle } from "./styles";
 import { getVisionProvider } from "./vision";
 
-export function startDesignJob(designId: string) {
+function runDesignSafe(designId: string) {
+  return runDesign(designId).catch((e) => {
+    console.error(`[design ${designId}] unexpected failure`, e);
+    try {
+      setStatus(designId, "failed", {
+        error_code: "internal_error",
+        error_message: "Something went wrong while generating the design.",
+      });
+    } catch (statusError) {
+      console.error(`[design ${designId}] could not mark failed`, statusError);
+    }
+  });
+}
+
+/** Schedule design work. Prefer Next.js `after()` on serverless so the job can finish after the HTTP response. */
+export function startDesignJob(designId: string, schedule?: (task: Promise<unknown>) => void) {
+  const task = runDesignSafe(designId);
+  if (schedule) {
+    schedule(task);
+    return;
+  }
+  // Local/dev fallback. setImmediate is dropped on many serverless platforms once the response ends.
   setImmediate(() => {
-    runDesign(designId).catch((e) => {
-      console.error(`[design ${designId}] unexpected failure`, e);
-      setStatus(designId, "failed", { error_code: "internal_error", error_message: "Something went wrong while generating the design." });
-    });
+    void task;
   });
 }
 

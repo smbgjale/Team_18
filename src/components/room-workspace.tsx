@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { DesignDto, RoomDto } from "@/lib/api-types";
 import { ROOM_TYPE_LABELS, type RoomType } from "@/lib/categories";
+import { readApiJson } from "@/lib/api-client";
 import { getDirection, getStyle, stylesFor, type DesignDirection } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
@@ -94,9 +95,14 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
     const dollars = Number(budget);
     if (budget && dollars > 0) body.budget = { amount_minor: Math.round(dollars * 100), currency: "USD" };
     try {
-      const res = await fetch(`/api/rooms/${roomId}/designs`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-      const json = await res.json();
+      const res = await fetch(`/api/rooms/${roomId}/designs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const json = await readApiJson<{ id?: string; error?: { message?: string } }>(res);
       if (!res.ok) throw new Error(json.error?.message ?? "Could not start the design");
+      if (!json.id) throw new Error("The server did not return a design id.");
       setActiveId(json.id);
       await load();
     } catch (e) {

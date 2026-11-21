@@ -1,13 +1,27 @@
 import path from "node:path";
+import os from "node:os";
 
 const root = process.cwd();
+
+function resolveDataDir() {
+  if (process.env.HOMELY_DATA_DIR) {
+    const dir = process.env.HOMELY_DATA_DIR;
+    return path.isAbsolute(dir) ? dir : path.resolve(root, dir);
+  }
+  // Vercel (and most serverless hosts) only allow writes under /tmp.
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return path.join(os.tmpdir(), "gojjodesign");
+  }
+  return path.resolve(root, "var");
+}
 
 export type ProviderName = "openai" | "cloudflare" | "mock";
 export type MeshProviderName = "local" | "meshy";
 
 export const config = {
   root,
-  dataDir: path.resolve(root, process.env.HOMELY_DATA_DIR ?? "var"),
+  dataDir: resolveDataDir(),
+  isServerless: Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME),
   renderProvider: (process.env.RENDER_PROVIDER ?? "").toLowerCase(),
   visionProvider: (process.env.VISION_PROVIDER ?? "").toLowerCase(),
   openai: {

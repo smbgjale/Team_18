@@ -151,16 +151,24 @@ function addColumn(conn: Database.Database, table: string, column: string, type:
 
 export function db(): Database.Database {
   if (!g.__homelyDb) {
-    mkdirSync(config.dataDir, { recursive: true });
-    const conn = new Database(path.join(config.dataDir, "homely.db"));
-    conn.pragma("journal_mode = WAL");
-    conn.pragma("foreign_keys = ON");
-    conn.exec(SCHEMA);
-    addColumn(conn, "rooms", "width_cm", "INTEGER");
-    addColumn(conn, "rooms", "length_cm", "INTEGER");
-    addColumn(conn, "rooms", "height_cm", "INTEGER");
-    addColumn(conn, "rooms", "design_direction", "TEXT");
-    g.__homelyDb = conn;
+    try {
+      mkdirSync(config.dataDir, { recursive: true });
+      // WAL needs extra sidecar files and can fail on some ephemeral mounts; DELETE is safer on serverless.
+      const conn = new Database(path.join(config.dataDir, "homely.db"));
+      conn.pragma(config.isServerless ? "journal_mode = DELETE" : "journal_mode = WAL");
+      conn.pragma("foreign_keys = ON");
+      conn.exec(SCHEMA);
+      addColumn(conn, "rooms", "width_cm", "INTEGER");
+      addColumn(conn, "rooms", "length_cm", "INTEGER");
+      addColumn(conn, "rooms", "height_cm", "INTEGER");
+      addColumn(conn, "rooms", "design_direction", "TEXT");
+      g.__homelyDb = conn;
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      throw new Error(
+        `Could not open the app database in ${config.dataDir}: ${message}`,
+      );
+    }
   }
   return g.__homelyDb;
 }
