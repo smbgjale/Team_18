@@ -12,9 +12,9 @@ test("sync loads the sample shops, is idempotent, and matching respects category
   const { matchItem } = await import("../src/lib/matching");
 
   const first = await syncAll();
-  assert.equal(first.length, 3);
+  assert.equal(first.length, 4);
   assert.ok(first.every((r) => r.created > 0 && r.rejected.length === 0));
-  assert.equal(listShops().length, 3);
+  assert.equal(listShops().length, 4);
 
   const second = await syncAll();
   assert.ok(second.every((r) => r.created === 0 && r.updated === 0 && r.deactivated === 0));

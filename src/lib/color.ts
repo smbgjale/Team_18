@@ -4,6 +4,7 @@ export const NAMED_COLORS: Record<string, string> = {
   brown: "#7a5538", oak: "#b98a56", walnut: "#6b4a2f", mustard: "#d1a02a", blush: "#e2b8ae",
   blue: "#6f93b8", brass: "#b8963e", gold: "#b8963e", cream: "#e8dfc9", red: "#a8423a",
   pink: "#e2b8ae", yellow: "#d1a02a", orange: "#c4704f", silver: "#b4b3af", tan: "#d6c5a6",
+  mahogany: "#6e2f1f", teak: "#9c6b3c", natural: "#cbb489", rust: "#9a4a2a", sisal: "#cbb489", jute: "#cbb489",
 };
 
 export function hexToRgb(hex: string): [number, number, number] {
@@ -45,7 +46,7 @@ export function nearestColorName(hex: string) {
   let best = "grey";
   let bestD = Infinity;
   for (const [name, h] of Object.entries(NAMED_COLORS)) {
-    if (["gray", "gold", "cream", "pink", "red", "yellow", "orange", "silver", "tan"].includes(name)) continue;
+    if (["gray", "gold", "cream", "pink", "red", "yellow", "orange", "silver", "tan", "sisal", "jute"].includes(name)) continue;
     const d = deltaE(hex, h);
     if (d < bestD) {
       bestD = d;

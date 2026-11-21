@@ -182,9 +182,19 @@ const g = globalThis as unknown as { __catalogueReady?: Promise<void> };
 // Loads the sample shops on first use so a fresh checkout works without a manual step.
 export function ensureCatalogue(): Promise<void> {
   if (!g.__catalogueReady) {
+    // Registers shops added to data/shops.json since the database was created and imports any
+    // shop that has no products yet; scheduled syncs keep the rest up to date.
     g.__catalogueReady = (async () => {
-      const n = (db().prepare("SELECT COUNT(*) AS n FROM products").get() as { n: number }).n;
-      if (n === 0) await syncAll();
+      await registerShopsFromConfig();
+      const count = db().prepare("SELECT COUNT(*) AS n FROM products WHERE shop_id = ?");
+      for (const shop of listShops()) {
+        if ((count.get(shop.id) as { n: number }).n > 0) continue;
+        try {
+          await syncShop(shop);
+        } catch (e) {
+          console.error(`[catalogue] sync failed for ${shop.slug}:`, e);
+        }
+      }
     })().catch((e) => {
       g.__catalogueReady = undefined;
       throw e;

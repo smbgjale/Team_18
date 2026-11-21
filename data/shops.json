@@ -100,5 +100,39 @@
     },
     "agreement_type": "demo",
     "is_demo": true
+  },
+  {
+    "slug": "mvule-and-sisal",
+    "name": "Mvule & Sisal",
+    "website_url": "https://mvuleandsisal.example",
+    "currency": "USD",
+    "connector_type": "feed_csv",
+    "connector_config": {
+      "path": "data/catalogue/mvule-and-sisal.csv"
+    },
+    "category_map": {
+      "Handcrafted > Sofas": "sofa",
+      "Handcrafted > Armchairs": "armchair",
+      "Handcrafted > Beds": "bed",
+      "Handcrafted > Coffee Tables": "coffee_table",
+      "Handcrafted > Dining Tables": "dining_table",
+      "Handcrafted > Side Tables": "side_table",
+      "Handcrafted > Chairs": "chair",
+      "Handcrafted > Desks": "desk",
+      "Handcrafted > Wardrobes": "wardrobe",
+      "Handcrafted > TV Units": "tv_unit",
+      "Handcrafted > Shelfs": "shelf",
+      "Handcrafted > Rugs": "rug",
+      "Handcrafted > Curtainss": "curtains",
+      "Handcrafted > Ceiling Lights": "ceiling_light",
+      "Handcrafted > Floor Lamps": "floor_lamp",
+      "Handcrafted > Table Lamps": "table_lamp",
+      "Handcrafted > Wall Arts": "wall_art",
+      "Handcrafted > Mirrors": "mirror",
+      "Handcrafted > Plant Pots": "plant_pot",
+      "Handcrafted > Cushions": "cushion"
+    },
+    "agreement_type": "demo",
+    "is_demo": true
   }
 ]
