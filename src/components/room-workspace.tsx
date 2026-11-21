@@ -232,7 +232,7 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
                   <button
                     key={d.id}
                     type="button"
-                    onClick={() => setActiveId(d.id)}
+                    onClick={() => { setActiveId(d.id); setSelectedStyle(d.style); }}
                     className={cn("overflow-hidden rounded-lg border text-left", active?.id === d.id && "ring-2 ring-primary")}
                     aria-label={`${styleName(d.style)} design, ${d.status}`}
                   >

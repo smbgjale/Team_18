@@ -3,7 +3,7 @@ import { colorNameToHex, colorScore } from "./color";
 import { effectivePrice, queryProducts, toProductDto, type ProductRow } from "./products";
 import { styleAffinity } from "./styles";
 
-export const WEIGHTS = { keyword: 0.2, style: 0.25, color: 0.25, price: 0.2, availability: 0.1 };
+export const WEIGHTS = { keyword: 0.1, style: 0.35, color: 0.25, price: 0.2, availability: 0.1 };
 
 export interface MatchItemInput {
   category: Category;

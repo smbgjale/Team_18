@@ -30,7 +30,7 @@ This document records what the first implementation does, where it intentionally
 | Redis + BullMQ job queue, separate worker | Jobs run in the web server process (`setImmediate`) | Fine for one instance. Jobs in flight are lost on restart; designs stuck for over 5 minutes are marked failed. Add a queue before scaling out. |
 | Accounts, quotas, rate limits | None. Rooms and designs are reachable by unguessable ID only | Add authentication, per-user quotas and rate limiting before any public launch, because each design costs money with a real provider. |
 | Depth/edge control maps sent to the provider | Layout preservation is requested through the prompt (OpenAI image edit has no depth/edge input) | The prompt asks to keep walls, windows, doors and camera angle, and the structure score measures the result. To get stronger locking, add a provider adapter that accepts depth/edge control (see doc 5 section 5.1). |
-| Embedding similarity (CLIP/SigLIP) in matching | Keyword overlap between the detected item's description and the product text replaces the visual component | Weights in `src/lib/matching.ts`: keyword 0.20, style 0.25, colour 0.25, price 0.20, availability 0.10. Add image embeddings (doc 6 section 6.5) when the catalogue grows beyond a few thousand products. |
+| Embedding similarity (CLIP/SigLIP) in matching | Keyword overlap between the detected item's description and the product text replaces the visual component | Weights in `src/lib/matching.ts`: keyword 0.10, style 0.35, colour 0.25, price 0.20, availability 0.10. Add image embeddings (doc 6 section 6.5) when the catalogue grows beyond a few thousand products. |
 | Item crops stored | Not stored; colour is measured from the render at detection time | Add crops when embeddings are introduced. |
 | Admin API for shops | `data/shops.json` plus `npm run catalogue:sync` | Add the admin endpoints in doc 4 section 4.6 together with authentication. |
 | Quality gate rejects bad renders and retries | Score recorded, no automatic retry | Calibrate a threshold on real provider output first (doc 5 section 5.8), then enable rejection and retry. |
@@ -41,7 +41,7 @@ This document records what the first implementation does, where it intentionally
 For each detected item: hard filters (category and compatible categories, active, not out of stock, user price range, in-stock only, shop) then a weighted score:
 
 ```
-score = categoryExactness * (0.20 keyword + 0.25 style + 0.25 colour + 0.20 price + 0.10 availability)
+score = categoryExactness * (0.10 keyword + 0.35 style + 0.25 colour + 0.20 price + 0.10 availability)
 ```
 
 - `colour` uses CIE76 distance in Lab between the item's measured colour and the product colour.
