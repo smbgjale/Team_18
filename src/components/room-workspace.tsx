@@ -1,6 +1,7 @@
 "use client";
 
-import { AlertTriangle, Download, Loader2, RefreshCw, Sparkles } from "lucide-react";
+import { AlertTriangle, Box, Download, Loader2, RefreshCw, Sparkles } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CompareSlider } from "@/components/compare-slider";
@@ -15,12 +16,17 @@ import type { DesignDto, RoomDto, StyleDto } from "@/lib/api-types";
 import { ROOM_TYPE_LABELS, type RoomType } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 
+const Room3D = dynamic(() => import("@/components/room3d/room-3d"), {
+  ssr: false,
+  loading: () => <Skeleton className="aspect-[16/10] w-full rounded-xl" />,
+});
+
 const ACTIVE = ["queued", "rendering", "render_ready", "matching"];
 const STEP: Record<string, string> = {
   queued: "Waiting in the queue",
-  rendering: "Rendering your 3D-style design",
-  render_ready: "Finding furniture in the design",
-  matching: "Matching products from shops",
+  rendering: "Choosing real products and rendering your room",
+  render_ready: "Checking the products in the image",
+  matching: "Checking the products in the image",
 };
 
 export function RoomWorkspace({ roomId }: { roomId: string }) {
@@ -33,6 +39,8 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [tab, setTab] = useState("slider");
+  const [sceneVersion, setSceneVersion] = useState(0);
   const initialised = useRef(false);
 
   const load = useCallback(async () => {
@@ -135,22 +143,31 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
           )}
 
           {active?.status === "failed" && (
-            <div className="flex flex-col items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-8 text-center" role="alert">
-              <AlertTriangle className="size-7 text-destructive" />
-              <p className="font-medium">We could not create this design.</p>
-              <p className="max-w-md text-sm text-muted-foreground">{active.error?.message}</p>
-              <Button variant="outline" onClick={() => { setSelectedStyle(active.style); generate(); }} disabled={busy}>
-                <RefreshCw /> Try again
-              </Button>
-            </div>
+            <>
+              <div className="flex flex-col items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-8 text-center" role="alert">
+                <AlertTriangle className="size-7 text-destructive" />
+                <p className="font-medium">We could not create the image for this design.</p>
+                <p className="max-w-md text-sm text-muted-foreground">{active.error?.message}</p>
+                <Button variant="outline" onClick={() => { setSelectedStyle(active.style); generate(); }} disabled={busy}>
+                  <RefreshCw /> Try again
+                </Button>
+              </div>
+              {active.has_products && (
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground">The products for this design were still chosen, so you can arrange them in 3D.</p>
+                  <Room3D designId={active.id} version={sceneVersion} />
+                </div>
+              )}
+            </>
           )}
 
           {active && hasImage && (
             <>
-              <Tabs defaultValue="slider">
+              <Tabs value={tab} onValueChange={(v) => setTab(String(v))}>
                 <TabsList>
                   <TabsTrigger value="slider">Slide to compare</TabsTrigger>
                   <TabsTrigger value="side">Side by side</TabsTrigger>
+                  <TabsTrigger value="3d"><Box /> 3D view</TabsTrigger>
                 </TabsList>
                 <TabsContent value="slider">
                   <CompareSlider before={active.original_image_url} after={active.render_image_url!} aspect={aspect} />
@@ -166,6 +183,15 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
                     ))}
                   </div>
                 </TabsContent>
+                <TabsContent value="3d">
+                  {active.has_products ? (
+                    <Room3D designId={active.id} version={sceneVersion} />
+                  ) : (
+                    <p className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">
+                      This design was made before designs were furnished with real products, so there is nothing to place in 3D. Generate a new design to get a 3D view.
+                    </p>
+                  )}
+                </TabsContent>
               </Tabs>
               <div className="flex flex-wrap items-center gap-2">
                 <a href={`/api/designs/${active.id}/download?format=png`} className={buttonVariants()}>
@@ -174,8 +200,17 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
                 <a href={`/api/designs/${active.id}/download?format=jpeg`} className={buttonVariants({ variant: "outline" })}>
                   <Download /> Download JPEG
                 </a>
+                {active.has_products && tab !== "3d" && (
+                  <Button variant="outline" onClick={() => setTab("3d")}>
+                    <Box /> Open 3D view
+                  </Button>
+                )}
               </div>
-              <p className="text-xs text-muted-foreground">{active.disclaimer}</p>
+              <p className="text-xs text-muted-foreground">
+                {tab === "3d"
+                  ? "Interactive 3D layout: the real products at their real sizes and colours, drawn as simplified shapes. It is a planning view, not a photo-real model of each product."
+                  : active.disclaimer}
+              </p>
               {active.error && active.error.code === "warning" && <p className="text-xs text-amber-700">{active.error.message}</p>}
             </>
           )}
@@ -255,7 +290,14 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
         </aside>
       </div>
 
-      {active && <ShopThisLook key={active.id} designId={active.id} ready={active.status === "completed"} />}
+      {active && (
+        <ShopThisLook
+          key={active.id}
+          designId={active.id}
+          ready={active.status === "completed" || (active.status === "failed" && active.has_products)}
+          onChanged={() => setSceneVersion((n) => n + 1)}
+        />
+      )}
     </main>
   );
 }
