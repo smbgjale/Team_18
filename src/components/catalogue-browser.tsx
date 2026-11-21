@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { CategoryDto, ProductDto, ShopDto } from "@/lib/api-types";
+import { DIRECTIONS } from "@/lib/styles";
 
 const selectCls = "h-9 w-full rounded-lg border bg-background px-3 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50";
 
@@ -15,6 +16,7 @@ export function CatalogueBrowser() {
   const [shops, setShops] = useState<ShopDto[]>([]);
   const [category, setCategory] = useState("");
   const [shop, setShop] = useState("");
+  const [look, setLook] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sort, setSort] = useState("relevance");
   const [inStock, setInStock] = useState(false);
@@ -33,6 +35,7 @@ export function CatalogueBrowser() {
     const p = new URLSearchParams({ sort, offset: String(offset), limit: "24" });
     if (category) p.set("category", category);
     if (shop) p.set("shop", shop);
+    if (look) p.set("direction", look);
     if (q.trim()) p.set("q", q.trim());
     if (inStock) p.set("in_stock_only", "true");
     if (Number(maxPrice) > 0) p.set("max_price_minor", String(Math.round(Number(maxPrice) * 100)));
@@ -51,7 +54,7 @@ export function CatalogueBrowser() {
     }, 200);
     return () => { clearTimeout(t); ctrl.abort(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, shop, maxPrice, sort, inStock, q]);
+  }, [category, shop, look, maxPrice, sort, inStock, q]);
 
   const loadMore = async () => {
     if (next == null) return;
@@ -70,7 +73,7 @@ export function CatalogueBrowser() {
         </p>
       </div>
 
-      <div className="grid gap-3 rounded-xl border bg-card p-4 sm:grid-cols-2 lg:grid-cols-6">
+      <div className="grid gap-3 rounded-xl border bg-card p-4 sm:grid-cols-2 lg:grid-cols-7">
         <div className="space-y-1.5 lg:col-span-2">
           <Label htmlFor="q">Search</Label>
           <Input id="q" placeholder="e.g. oak coffee table" value={q} onChange={(e) => setQ(e.target.value)} />
@@ -90,6 +93,13 @@ export function CatalogueBrowser() {
           </select>
         </div>
         <div className="space-y-1.5">
+          <Label htmlFor="look">Look</Label>
+          <select id="look" className={selectCls} value={look} onChange={(e) => setLook(e.target.value)}>
+            <option value="">Any look</option>
+            {DIRECTIONS.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+          </select>
+        </div>
+        <div className="space-y-1.5">
           <Label htmlFor="max">Max price (USD)</Label>
           <Input id="max" type="number" min={0} placeholder="No limit" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
         </div>
@@ -101,7 +111,7 @@ export function CatalogueBrowser() {
             <option value="price_desc">Price: high to low</option>
           </select>
         </div>
-        <label className="flex items-center gap-2 text-sm sm:col-span-2 lg:col-span-6">
+        <label className="flex items-center gap-2 text-sm sm:col-span-2 lg:col-span-7">
           <input type="checkbox" className="size-4 accent-[var(--primary)]" checked={inStock} onChange={(e) => setInStock(e.target.checked)} />
           In stock only (products with unknown stock are hidden)
         </label>

@@ -1,10 +1,10 @@
-import { Palette, ShoppingBag, SplitSquareHorizontal } from "lucide-react";
+import { Box, Palette, ShoppingBag } from "lucide-react";
 import { UploadForm } from "@/components/upload-form";
 
 const FEATURES = [
-  { icon: Palette, title: "3D-style redesigns", text: "Pick a style and get a professional-looking 3D render of your room that keeps its layout." },
-  { icon: SplitSquareHorizontal, title: "Compare and explore", text: "Slide between your photo and the redesign, try more styles, and download your favourites." },
-  { icon: ShoppingBag, title: "Shop this look", text: "See similar real products from partner shops, filtered by category and budget." },
+  { icon: Palette, title: "Modern or traditional", text: "Choose the look for your home, then a style within it: from Scandinavian and Industrial to Rustic Farmhouse and African Heritage." },
+  { icon: ShoppingBag, title: "Real products", text: "Every design is furnished with real products from partner shops that fit your room and budget, so you can buy what you see." },
+  { icon: Box, title: "3D view", text: "Get a 3D-style render of your room, then walk around a 3D layout of the chosen products at their real sizes and move them around." },
 ];
 
 export default function Home() {
@@ -14,11 +14,12 @@ export default function Home() {
         <div className="space-y-5">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">See your room redesigned, then furnish it for real.</h1>
           <p className="max-w-prose text-lg text-muted-foreground">
-            Upload a photo, choose a style, and HOMELY AI creates a 3D-style visualisation of your room. Then it finds furniture and decor from
-            integrated shops that match the look.
+            Upload a photo, choose a modern or traditional look, and HOMELY AI furnishes your room with real products from partner shops and
+            shows it as a 3D-style visualisation.
           </p>
           <p className="max-w-prose text-sm text-muted-foreground">
-            Results are AI-generated images in a 3D-render style. They are not editable 3D models, and sizes are approximate.
+            The redesign is an AI-generated image in a 3D-render style, so products in it may look slightly different from the real ones. The 3D
+            view is a simplified layout of the real products at their listed sizes, not a photo-real model.
           </p>
         </div>
         <UploadForm />

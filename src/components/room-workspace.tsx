@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CompareSlider } from "@/components/compare-slider";
+import { DirectionPicker } from "@/components/direction-picker";
 import { ShopThisLook } from "@/components/shop-this-look";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -12,8 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { DesignDto, RoomDto, StyleDto } from "@/lib/api-types";
+import type { DesignDto, RoomDto } from "@/lib/api-types";
 import { ROOM_TYPE_LABELS, type RoomType } from "@/lib/categories";
+import { getDirection, getStyle, stylesFor, type DesignDirection } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 const Room3D = dynamic(() => import("@/components/room3d/room-3d"), {
@@ -32,8 +34,8 @@ const STEP: Record<string, string> = {
 export function RoomWorkspace({ roomId }: { roomId: string }) {
   const [room, setRoom] = useState<RoomDto | null>(null);
   const [notFound, setNotFound] = useState(false);
-  const [styles, setStyles] = useState<StyleDto[]>([]);
-  const [selectedStyle, setSelectedStyle] = useState("scandinavian");
+  const [direction, setDirection] = useState<DesignDirection>("modern");
+  const [selectedStyle, setSelectedStyle] = useState("modern");
   const [prompt, setPrompt] = useState("");
   const [budget, setBudget] = useState("");
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -51,14 +53,17 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
     setRoom(json);
     if (!initialised.current) {
       initialised.current = true;
-      if (json.designs[0]) setActiveId(json.designs[0].id);
+      const latest = json.designs[0];
+      const dir = json.design_direction ?? (latest && getStyle(latest.style)?.direction) ?? "modern";
+      setDirection(dir);
+      setSelectedStyle(latest && getStyle(latest.style)?.direction === dir ? latest.style : stylesFor(dir)[0].id);
+      if (latest) setActiveId(latest.id);
     }
   }, [roomId]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- initial data fetch
     load();
-    fetch("/api/styles").then((r) => r.json()).then((j) => setStyles(j.items));
   }, [load]);
 
   const anyActive = room?.designs.some((d) => ACTIVE.includes(d.status));
@@ -68,10 +73,23 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
     return () => clearInterval(t);
   }, [anyActive, load]);
 
-  const generate = async () => {
+  const changeDirection = (d: DesignDirection) => {
+    setDirection(d);
+    if (getStyle(selectedStyle)?.direction !== d) setSelectedStyle(stylesFor(d)[0].id);
+    setRoom((r) => r && { ...r, design_direction: d });
+    fetch(`/api/rooms/${roomId}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ design_direction: d }) }).catch(() => {});
+  };
+
+  const selectStyle = (id: string) => {
+    setSelectedStyle(id);
+    const d = getStyle(id)?.direction;
+    if (d) setDirection(d);
+  };
+
+  const generate = async (style = selectedStyle) => {
     setCreating(true);
     setFormError(null);
-    const body: Record<string, unknown> = { style: selectedStyle, layout_fidelity: "high" };
+    const body: Record<string, unknown> = { style, layout_fidelity: "high" };
     if (prompt.trim()) body.prompt = prompt.trim();
     const dollars = Number(budget);
     if (budget && dollars > 0) body.budget = { amount_minor: Math.round(dollars * 100), currency: "USD" };
@@ -109,7 +127,9 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
   const aspect = room.width_px / room.height_px;
   const hasImage = !!active?.render_image_url && ["render_ready", "matching", "completed"].includes(active.status);
   const busy = creating || !!anyActive;
-  const styleName = (id: string) => styles.find((s) => s.id === id)?.name ?? id;
+  const styleName = (id: string) => getStyle(id)?.name ?? id;
+  const activeDirection = active && getStyle(active.style)?.direction;
+  const selected = getStyle(selectedStyle);
 
   return (
     <main className="mx-auto max-w-6xl space-y-12 px-4 py-8">
@@ -119,7 +139,9 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
             <div>
               <h1 className="text-2xl font-bold tracking-tight">{room.name ?? ROOM_TYPE_LABELS[room.room_type as RoomType] ?? "Your room"}</h1>
               <p className="text-sm text-muted-foreground">
-                {active ? `${styleName(active.style)} style` : "Choose a style to create your first design"}
+                {active
+                  ? `${styleName(active.style)} style${activeDirection ? ` · ${getDirection(activeDirection).name}` : ""}`
+                  : `${getDirection(direction).name} look · choose a style to create your first design`}
               </p>
             </div>
             {active?.is_demo_preview && <Badge variant="outline">Demo preview, no AI provider connected</Badge>}
@@ -148,7 +170,7 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
                 <AlertTriangle className="size-7 text-destructive" />
                 <p className="font-medium">We could not create the image for this design.</p>
                 <p className="max-w-md text-sm text-muted-foreground">{active.error?.message}</p>
-                <Button variant="outline" onClick={() => { setSelectedStyle(active.style); generate(); }} disabled={busy}>
+                <Button variant="outline" onClick={() => { selectStyle(active.style); generate(active.style); }} disabled={busy}>
                   <RefreshCw /> Try again
                 </Button>
               </div>
@@ -218,9 +240,13 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
 
         <aside className="space-y-5">
           <div className="space-y-4 rounded-xl border bg-card p-4">
-            <h2 className="font-semibold">{room.designs.length ? "Try another style" : "Pick a style"}</h2>
-            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Design style">
-              {styles.map((s) => (
+            <div className="space-y-2">
+              <h2 className="font-semibold">Modern or traditional?</h2>
+              <DirectionPicker compact value={direction} onChange={changeDirection} />
+            </div>
+            <h3 className="text-sm font-semibold">{room.designs.length ? "Try another style" : "Pick a style"}</h3>
+            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={`${getDirection(direction).name} styles`}>
+              {stylesFor(direction).map((s) => (
                 <button
                   key={s.id}
                   type="button"
@@ -242,9 +268,7 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
                 </button>
               ))}
             </div>
-            {styles.find((s) => s.id === selectedStyle) && (
-              <p className="text-xs text-muted-foreground">{styles.find((s) => s.id === selectedStyle)!.description}</p>
-            )}
+            {selected && <p className="text-xs text-muted-foreground">{selected.description}</p>}
             <div className="space-y-1.5">
               <Label htmlFor="wishes">Wishes (optional)</Label>
               <Input id="wishes" maxLength={240} placeholder="e.g. add a reading corner" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
@@ -253,7 +277,7 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
               <Label htmlFor="budget">Total furniture budget in USD (optional)</Label>
               <Input id="budget" type="number" min={0} inputMode="numeric" placeholder="e.g. 3000" value={budget} onChange={(e) => setBudget(e.target.value)} />
             </div>
-            <Button className="w-full" size="lg" onClick={generate} disabled={busy || styles.length === 0}>
+            <Button className="w-full" size="lg" onClick={() => generate()} disabled={busy}>
               {busy ? <Loader2 className="animate-spin" /> : <Sparkles />} {busy ? "Generating..." : "Generate design"}
             </Button>
             {formError && <p className="text-sm text-destructive" role="alert">{formError}</p>}
@@ -267,7 +291,7 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
                   <button
                     key={d.id}
                     type="button"
-                    onClick={() => { setActiveId(d.id); setSelectedStyle(d.style); }}
+                    onClick={() => { setActiveId(d.id); selectStyle(d.style); }}
                     className={cn("overflow-hidden rounded-lg border text-left", active?.id === d.id && "ring-2 ring-primary")}
                     aria-label={`${styleName(d.style)} design, ${d.status}`}
                   >

@@ -3,9 +3,11 @@
 import { ImagePlus, Loader2, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { DirectionPicker } from "@/components/direction-picker";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ROOM_TYPES, ROOM_TYPE_LABELS } from "@/lib/categories";
+import type { DesignDirection } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export function UploadForm() {
@@ -14,6 +16,7 @@ export function UploadForm() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [roomType, setRoomType] = useState("living_room");
+  const [direction, setDirection] = useState<DesignDirection | null>(null);
   const [dragging, setDragging] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,11 +29,13 @@ export function UploadForm() {
   };
 
   const submit = async (f: File) => {
+    if (!direction) return setError("Choose Modern or Traditional first.");
     setBusy(true);
     setError(null);
     const body = new FormData();
     body.set("file", f);
     body.set("room_type", roomType);
+    body.set("design_direction", direction);
     try {
       const res = await fetch("/api/rooms", { method: "POST", body });
       const json = await res.json();
@@ -43,6 +48,7 @@ export function UploadForm() {
   };
 
   const useSample = async () => {
+    if (!direction) return setError("Choose Modern or Traditional first.");
     const blob = await (await fetch("/sample-room.jpg")).blob();
     await submit(new File([blob], "sample-room.jpg", { type: "image/jpeg" }));
   };
@@ -80,6 +86,16 @@ export function UploadForm() {
         <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => choose(e.target.files?.[0] ?? null)} />
       </div>
 
+      <fieldset className="space-y-2">
+        <legend className="mb-2 text-sm font-medium">Which look do you want for your home?</legend>
+        <DirectionPicker
+          value={direction}
+          onChange={(d) => { setDirection(d); setError(null); }}
+          disabled={busy}
+          label="Which look do you want for your home?"
+        />
+      </fieldset>
+
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
         <div className="flex-1 space-y-1.5">
           <Label htmlFor="room-type">Room type</Label>
@@ -94,10 +110,15 @@ export function UploadForm() {
             ))}
           </select>
         </div>
-        <Button size="lg" disabled={!file || busy} onClick={() => file && submit(file)} className="h-9 sm:w-48">
+        <Button size="lg" disabled={!file || !direction || busy} onClick={() => file && submit(file)} className="h-9 sm:w-48">
           {busy ? <Loader2 className="animate-spin" /> : <Sparkles />} Continue
         </Button>
       </div>
+      {(!file || !direction) && !error && (
+        <p className="text-xs text-muted-foreground">
+          {!file && !direction ? "Add a photo and choose Modern or Traditional to continue." : !file ? "Add a photo of your room to continue." : "Choose Modern or Traditional to continue."}
+        </p>
+      )}
 
       <button type="button" disabled={busy} onClick={useSample} className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground disabled:opacity-50">
         No photo handy? Try a sample room
