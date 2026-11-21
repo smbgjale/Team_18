@@ -19,7 +19,7 @@ export function DirectionPicker({ value, onChange, disabled, compact, label = "D
       value={value}
       onValueChange={(v) => isDirection(v) && onChange(v)}
       disabled={disabled}
-      className={cn("grid-cols-2", compact ? "gap-1 rounded-lg bg-muted p-1" : "gap-3")}
+      className={cn(compact ? "grid-cols-2 gap-1 rounded-lg bg-muted p-1" : "gap-2 sm:grid-cols-2 sm:gap-3")}
     >
       {DIRECTIONS.map((d) =>
         compact ? (
@@ -53,8 +53,8 @@ export function DirectionPicker({ value, onChange, disabled, compact, label = "D
                   ))}
                 </span>
               </span>
-              <span className="block text-xs text-muted-foreground">{d.description}</span>
-              <span className="block text-xs text-muted-foreground/80">{stylesFor(d.id).map((s) => s.name).join(", ")}</span>
+              <span className="block text-sm leading-snug text-muted-foreground sm:text-xs">{d.description}</span>
+              <span className="block text-xs text-muted-foreground">{stylesFor(d.id).map((s) => s.name).join(" · ")}</span>
             </span>
           </label>
         ),

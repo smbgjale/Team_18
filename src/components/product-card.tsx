@@ -31,7 +31,7 @@ export function ProductCard({ product, href, matchLabel, quantity, footer, highl
         {matchLabel && <Badge className="absolute left-2 top-2">{matchLabel}</Badge>}
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3">
-        <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+        <div className="flex min-h-5 items-center justify-between gap-2 text-xs text-muted-foreground">
           <span className="truncate font-medium">{product.shop.name}</span>
           {avail && <Badge variant={avail.variant}>{avail.label}</Badge>}
         </div>
