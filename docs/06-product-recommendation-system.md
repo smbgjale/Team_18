@@ -1,5 +1,7 @@
 # 6. Product Recommendation System
 
+> MVP note: the first implementation matches with keyword, style, colour, price and availability scores and no image embeddings yet. See [MVP Implementation Status](09-mvp-implementation-status.md).
+
 Covers (a) how shops are integrated, (b) how products are normalised, (c) how items in a generated design are identified, and (d) how products are matched and ranked.
 
 ## 6.1 Shop integration strategy

@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "nordhaus-living",
+    "name": "Nordhaus Living",
+    "website_url": "https://nordhaus.example",
+    "currency": "USD",
+    "connector_type": "feed_csv",
+    "connector_config": {
+      "path": "data/catalogue/nordhaus-living.csv"
+    },
+    "category_map": {
+      "Furniture > Sofas": "sofa",
+      "Furniture > Armchairs": "armchair",
+      "Furniture > Beds": "bed",
+      "Furniture > Coffee Tables": "coffee_table",
+      "Furniture > Dining Tables": "dining_table",
+      "Furniture > Side Tables": "side_table",
+      "Furniture > Desks": "desk",
+      "Furniture > Chairs": "chair",
+      "Furniture > Wardrobes": "wardrobe",
+      "Furniture > TV Units": "tv_unit",
+      "Furniture > Shelfs": "shelf",
+      "Furniture > Rugs": "rug",
+      "Furniture > Curtainss": "curtains",
+      "Furniture > Ceiling Lights": "ceiling_light",
+      "Furniture > Floor Lamps": "floor_lamp",
+      "Furniture > Table Lamps": "table_lamp",
+      "Furniture > Wall Arts": "wall_art",
+      "Furniture > Mirrors": "mirror",
+      "Furniture > Plant Pots": "plant_pot",
+      "Furniture > Cushions": "cushion"
+    },
+    "agreement_type": "demo",
+    "is_demo": true
+  },
+  {
+    "slug": "casa-terra",
+    "name": "Casa Terra",
+    "website_url": "https://casaterra.example",
+    "currency": "USD",
+    "connector_type": "feed_csv",
+    "connector_config": {
+      "path": "data/catalogue/casa-terra.csv"
+    },
+    "category_map": {
+      "Home & Living / Sofas": "sofa",
+      "Home & Living / Armchairs": "armchair",
+      "Home & Living / Beds": "bed",
+      "Home & Living / Coffee Tables": "coffee_table",
+      "Home & Living / Dining Tables": "dining_table",
+      "Home & Living / Side Tables": "side_table",
+      "Home & Living / Desks": "desk",
+      "Home & Living / Chairs": "chair",
+      "Home & Living / Wardrobes": "wardrobe",
+      "Home & Living / TV Units": "tv_unit",
+      "Home & Living / Shelfs": "shelf",
+      "Home & Living / Rugs": "rug",
+      "Home & Living / Curtainss": "curtains",
+      "Home & Living / Ceiling Lights": "ceiling_light",
+      "Home & Living / Floor Lamps": "floor_lamp",
+      "Home & Living / Table Lamps": "table_lamp",
+      "Home & Living / Wall Arts": "wall_art",
+      "Home & Living / Mirrors": "mirror",
+      "Home & Living / Plant Pots": "plant_pot",
+      "Home & Living / Cushions": "cushion"
+    },
+    "agreement_type": "demo",
+    "is_demo": true
+  },
+  {
+    "slug": "loft-and-co",
+    "name": "Loft & Co",
+    "website_url": "https://loftandco.example",
+    "currency": "USD",
+    "connector_type": "feed_csv",
+    "connector_config": {
+      "path": "data/catalogue/loft-and-co.csv"
+    },
+    "category_map": {
+      "SOFAS": "sofa",
+      "ARMCHAIRS": "armchair",
+      "BEDS": "bed",
+      "COFFEE TABLES": "coffee_table",
+      "DINING TABLES": "dining_table",
+      "SIDE TABLES": "side_table",
+      "DESKS": "desk",
+      "CHAIRS": "chair",
+      "WARDROBES": "wardrobe",
+      "TV UNITS": "tv_unit",
+      "SHELFS": "shelf",
+      "RUGS": "rug",
+      "CURTAINSS": "curtains",
+      "CEILING LIGHTS": "ceiling_light",
+      "FLOOR LAMPS": "floor_lamp",
+      "TABLE LAMPS": "table_lamp",
+      "WALL ARTS": "wall_art",
+      "MIRRORS": "mirror",
+      "PLANT POTS": "plant_pot",
+      "CUSHIONS": "cushion"
+    },
+    "agreement_type": "demo",
+    "is_demo": true
+  }
+]

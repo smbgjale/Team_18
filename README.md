@@ -6,7 +6,7 @@ HOMELY AI turns a photo of a real room into a professional **3D-style rendered r
 
 ## Documentation
 
-This repository currently contains the development documents only (no application code yet). Read them in order:
+The MVP is implemented in this repository (see [Running the MVP](#running-the-mvp) and [MVP implementation status](docs/09-mvp-implementation-status.md)). The design documents below describe the full plan; the status document lists where the MVP intentionally differs.
 
 | # | Document | What it covers |
 |---|----------|----------------|
@@ -18,6 +18,7 @@ This repository currently contains the development documents only (no applicatio
 | 6 | [Product Recommendation System](docs/06-product-recommendation-system.md) | Shop integrations, item detection, matching and ranking |
 | 7 | [Development Roadmap](docs/07-development-roadmap.md) | MVP, v1.x, v2 (interactive 3D) phases |
 | 8 | [Testing and Deployment Plan](docs/08-testing-and-deployment.md) | Test strategy, quality evals, environments, CI/CD, monitoring |
+| 9 | [MVP Implementation Status](docs/09-mvp-implementation-status.md) | What is built, what is simplified, how to connect real AI and real shops |
 
 ## Feature summary
 
@@ -28,3 +29,31 @@ This repository currently contains the development documents only (no applicatio
 ## Proposed stack (can be swapped)
 
 TypeScript, Next.js (web + API routes), PostgreSQL with `pgvector`, Redis + BullMQ (job queue), S3-compatible object storage, a provider-agnostic `RenderProvider` interface for image generation, and a vision model for furniture detection.
+
+## Running the MVP
+
+Requirements: Node.js 22+ and npm.
+
+```bash
+npm install
+npm run dev        # http://localhost:4815
+```
+
+No configuration is needed to try it. Without an API key the app runs in **demo mode**:
+
+- Renders come from a local stand-in that restyles your photo and overlays sample furniture. It is clearly labelled "Demo preview" and is **not** a real AI 3D-style render.
+- The catalogue contains three **fictional sample shops** (about 220 products) loaded from CSV feeds in `data/catalogue/`. Their "View on shop" links open a sample product page inside the app.
+
+To get real 3D-style renders, copy `.env.example` to `.env.local` and set `OPENAI_API_KEY`. The app then uses the image provider for renders and a vision model to detect furniture in them. See the [AI Integration Guide](docs/05-ai-integration-guide.md) and the status document for details.
+
+Useful commands:
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` / `npm run build` / `npm start` | Run the app (port 4815) |
+| `npm test` | Unit and catalogue/matching tests |
+| `npm run typecheck`, `npm run lint` | Static checks |
+| `npm run catalogue:sync` | Re-sync all shops from their connectors (`catalogue:dry-run` previews changes) |
+| `npm run catalogue:generate` | Regenerate the sample shops and product images |
+
+Data (SQLite database, uploaded photos, renders) is stored in `var/` and is git-ignored.

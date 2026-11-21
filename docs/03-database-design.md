@@ -1,6 +1,6 @@
 # 3. Database Design
 
-PostgreSQL 15+ with the `pgvector` extension. Prices are stored in minor units (integer) plus ISO currency to avoid float errors. Primary keys are UUIDs.
+PostgreSQL 15+ with the `pgvector` extension. (The MVP implementation uses SQLite without users or vectors; see [MVP Implementation Status](09-mvp-implementation-status.md).) Prices are stored in minor units (integer) plus ISO currency to avoid float errors. Primary keys are UUIDs.
 
 ## 3.1 Entity overview
 
