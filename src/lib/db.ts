@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import { mkdirSync } from "node:fs";
 import { config } from "./config";
-import { blobConfigured, dbFilePath, pullDatabase, pushDatabase, requireDurableStorage } from "./persist";
+import { blobConfigured, dbFilePath, pullDatabase, pushDatabase } from "./persist";
 
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS rooms (
@@ -177,7 +177,6 @@ function closeConnection() {
  * On Vercel + Blob, reloads the shared SQLite file so rooms exist across instances.
  */
 export async function ensureDb(): Promise<Database.Database> {
-  requireDurableStorage();
   try {
     if (blobConfigured()) {
       closeConnection();
