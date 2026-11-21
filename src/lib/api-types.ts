@@ -52,6 +52,14 @@ export interface DesignProductsResponse {
 
 export interface ScenePlacement { x: number; z: number; rot: number }
 
+export interface ProductModelDto {
+  status: "missing" | "pending" | "ready" | "failed";
+  url: string | null;
+  provider: "local" | "meshy" | null;
+  preview: boolean;
+  error: string | null;
+}
+
 export interface SceneItemDto {
   id: string;
   category: string;
@@ -62,6 +70,7 @@ export interface SceneItemDto {
   color_hex: string;
   layout: ScenePlacement[] | null;
   product: ProductDto;
+  model: ProductModelDto;
 }
 
 export interface SceneDto {

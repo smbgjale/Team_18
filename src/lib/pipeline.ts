@@ -41,6 +41,8 @@ function selectProducts(designId: string) {
 
 const firstWord = (json: string) => (JSON.parse(json) as string[])[0] ?? null;
 
+// The room image is a separate system from image-to-3D. It keeps the uploaded room's walls, windows and doors
+// and uses catalogue photos only as references. GLB conversion lives in src/lib/mesh and is started by the user.
 export async function runDesign(designId: string) {
   const design = getDesign(designId);
   if (!design) return;

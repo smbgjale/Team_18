@@ -3,6 +3,7 @@ import { DEFAULT_DIMS_CM, type Category } from "./categories";
 import { colorNameToHex } from "./color";
 import { db } from "./db";
 import { getRoom, listDesignProducts, roomDims, type DesignRow } from "./designs";
+import { readModels } from "./mesh/store";
 import { effectivePrice, toProductDto } from "./products";
 import { getStyle } from "./styles";
 
@@ -20,6 +21,7 @@ export function sceneFor(design: DesignRow): SceneDto | null {
   const style = getStyle(design.style);
   const dims = roomDims(room);
   const rows = listDesignProducts(design.id);
+  const models = readModels(rows.map((r) => ({ id: r.product.id, image_url: r.product.image_url })));
   const currencies = new Set(rows.map((r) => r.product.currency));
   const total = rows.reduce((s, r) => s + effectivePrice(r.product) * r.quantity, 0);
   return {
@@ -45,6 +47,7 @@ export function sceneFor(design: DesignRow): SceneDto | null {
         color_hex: r.product.dominant_color_hex ?? colorNameToHex(colors[0] ?? "") ?? "#9a8f80",
         layout: r.layout_json ? JSON.parse(r.layout_json) : null,
         product: toProductDto(r.product),
+        model: models.get(r.product.id) ?? { status: "missing", url: null, provider: null, preview: false, error: null },
       };
     }),
     total: rows.length && currencies.size === 1 ? { amount_minor: total, currency: rows[0].product.currency } : null,

@@ -54,14 +54,14 @@ This is a deliberate product boundary and must be reflected in UI copy, marketin
 | Editable? | No. Only re-generate with a different prompt/style | Yes. Move, rotate and swap products, change the room's width and length | Yes. Also materials, lighting, walls, openings |
 | Camera | Fixed to the uploaded photo's viewpoint | Free orbit and zoom | Free orbit / walk-through, AR |
 | Products | The chosen real products are given to the AI as reference photos; the AI may change details, drop or add objects | Exactly the chosen catalogue products, at the real width/depth/height and colour from the shop | Exactly the chosen catalogue products as photo-real 3D models |
-| Product shapes | Photo-real looking, but generated | **Simplified generic shape per category** (a sofa looks like a generic sofa of the right size and colour) | The product's own 3D model (glTF) supplied by the shop or built for it |
+| Product shapes | Photo-real looking, but generated | A saved GLB of the catalogue photo when the user creates one (a generated mesh when an image-to-3D key is set, otherwise a box textured with the photo). Until then, a simplified shape at the real size and colour | A shop-supplied CAD model, or a reconstruction of the room itself |
 | Room geometry | Taken from the photo (approximately) | A rectangular room with estimated dimensions that the user can edit; one window, no doors; not derived from the photo | Measured or reconstructed (LiDAR, photogrammetry, layout estimation) |
 | Geometric accuracy | Approximate | Real product sizes; room as accurate as the dimensions entered | Metric |
-| Typical tech | Image diffusion / image-editing models with structure guidance | Three.js via React Three Fiber, procedural shapes from catalogue dimensions | Three.js / Babylon.js / Unity with glTF assets, room reconstruction |
+| Typical tech | Image diffusion / image-editing models with structure guidance | Three.js via React Three Fiber. Procedural shapes, or a saved glTF from the catalogue photo (local preview or Meshy) | Three.js / Babylon.js / Unity with shop glTF assets and room reconstruction |
 | Effort/cost | Low per image | Low: runs in the browser, no per-product assets | High: asset pipeline, 3D models per product, room reconstruction |
 
 Consequences for the product:
-- UI must say "3D-style render" or "AI visualisation" for the image, and "3D layout view" with "real sizes, simplified shapes" for the 3D view. Never call either a "3D model of your room" or a photo-real 3D model of the products.
+- UI must say "3D-style render" or "AI visualisation" for the image. The 3D view says "real sizes, simplified shapes" until a model exists, then "Saved photo models" or "Generated 3D models". Never call the image or the room a 3D model of the room. A photo-textured GLB is not a photo-real mesh.
 - Sizes in the render are not reliable. The 3D view uses the shop's dimensions, so it can warn when a product is larger than the room, but it does not replace measuring the real room.
 - The image may not reproduce every chosen product faithfully. The product list marks products that the image check could not find, and products swapped after the image was made.
 - A full interactive 3D room model remains a **later version** (see [Roadmap](07-development-roadmap.md)) and needs room reconstruction and per-product 3D assets.
@@ -73,12 +73,12 @@ In scope:
 - Before/after comparison, regenerate with other styles, download.
 - Small curated product catalogue (roughly 3 to 5 shops, a few hundred to a few thousand products) loaded via the connector layer (official API, feed, or curated CSV with the shop's permission).
 - Products chosen up front for every design, with alternatives filterable by category and budget.
-- 3D layout view of the chosen products (simplified shapes at real sizes).
+- 3D layout view of the chosen products (simplified shapes at real sizes, replaced by a saved GLB when the user creates one).
 - Outbound links to shop product pages (with affiliate/UTM parameters where an agreement exists).
 - Accounts (email or social login), saved rooms/designs.
 
 Out of scope for MVP:
-- Room reconstruction from the photo, per-product photo-real 3D models, AR placement.
+- Room reconstruction from the photo, shop-supplied CAD models, and AR placement. Image-to-3D from a catalogue photo is in scope as a saved GLB, separate from the room image.
 - On-platform checkout or cart (users buy on the shop's site).
 - Large-scale catalogue (100k+ products) and real-time inventory for every shop.
 - Custom-trained image models.

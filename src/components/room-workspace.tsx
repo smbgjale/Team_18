@@ -230,7 +230,7 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
               </div>
               <p className="text-xs text-muted-foreground">
                 {tab === "3d"
-                  ? "Interactive 3D layout: the real products at their real sizes and colours, drawn as simplified shapes. It is a planning view, not a photo-real model of each product."
+                  ? "Interactive 3D layout of the same products. Drag, rotate and zoom them. Create 3D models to replace the simplified shapes with a saved GLB of each catalogue photo. This is not a 3D model of your room."
                   : active.disclaimer}
               </p>
               {active.error && active.error.code === "warning" && <p className="text-xs text-amber-700">{active.error.message}</p>}

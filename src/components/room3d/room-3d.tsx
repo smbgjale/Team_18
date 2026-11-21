@@ -11,7 +11,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { SceneDto, SceneItemDto } from "@/lib/api-types";
+import type { ProductModelDto, SceneDto, SceneItemDto } from "@/lib/api-types";
 import { CATEGORY_LABELS, WALL_MOUNTED, type Category } from "@/lib/categories";
 import { formatMoney } from "@/lib/format";
 import {
@@ -19,6 +19,7 @@ import {
   type Dims, type Placement, type SceneRoom,
 } from "@/lib/scene-layout";
 import { cn } from "@/lib/utils";
+import { GlbFurniture } from "./glb-model";
 import { accentFor, FurnitureModel } from "./models";
 
 type Layouts = Record<string, Placement[]>;
@@ -183,14 +184,31 @@ function Furniture({ scene, layouts, selected, onSelect, onMove }: SceneProps) {
                 document.body.style.cursor = "";
               }}
             >
-              <FurnitureModel
-                category={category}
-                dims={dims}
-                color={item.color_hex}
-                accent={accentFor(item.product.materials)}
-                round={item.round}
-                cord={category === "ceiling_light" ? Math.max(0.1, room.height - y - dims.h) : undefined}
-              />
+              {item.model.status === "ready" && item.model.url ? (
+                <GlbFurniture
+                  url={item.model.url}
+                  dims={dims}
+                  fallback={
+                    <FurnitureModel
+                      category={category}
+                      dims={dims}
+                      color={item.color_hex}
+                      accent={accentFor(item.product.materials)}
+                      round={item.round}
+                      cord={category === "ceiling_light" ? Math.max(0.1, room.height - y - dims.h) : undefined}
+                    />
+                  }
+                />
+              ) : (
+                <FurnitureModel
+                  category={category}
+                  dims={dims}
+                  color={item.color_hex}
+                  accent={accentFor(item.product.materials)}
+                  round={item.round}
+                  cord={category === "ceiling_light" ? Math.max(0.1, room.height - y - dims.h) : undefined}
+                />
+              )}
               {isSelected && <SelectionOutline dims={dims} />}
             </group>
           );
@@ -209,7 +227,11 @@ export default function Room3D({ designId, version }: { designId: string; versio
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [roomDraft, setRoomDraft] = useState<{ width: string; length: string } | null>(null);
   const [attempt, setAttempt] = useState(0);
+  const [modelBusy, setModelBusy] = useState(false);
+  const [modelError, setModelError] = useState<string | null>(null);
+  const [modelNote, setModelNote] = useState<string | null>(null);
   const roomChanged = useRef(false);
+  const pendingModels = scene?.items.some((item) => item.model.status === "pending") ?? false;
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -240,6 +262,28 @@ export default function Room3D({ designId, version }: { designId: string; versio
     }, 700);
     return () => clearTimeout(t);
   }, [dirty, layouts, scene, designId]);
+
+  useEffect(() => {
+    if (!pendingModels) return;
+    const apply = (items: { product_id: string; model: ProductModelDto }[]) => {
+      const byProduct = new Map(items.map((item) => [item.product_id, item.model]));
+      setScene((prev) => prev && {
+        ...prev,
+        items: prev.items.map((item) => {
+          const model = byProduct.get(item.product.id);
+          return model ? { ...item, model } : item;
+        }),
+      });
+    };
+    const tick = () => {
+      fetch(`/api/designs/${designId}/models`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((body: { items?: { product_id: string; model: ProductModelDto }[] } | null) => body?.items && apply(body.items))
+        .catch(() => undefined);
+    };
+    const timer = setInterval(tick, 4000);
+    return () => clearInterval(timer);
+  }, [pendingModels, designId]);
 
   const change = useCallback((next: (prev: Layouts) => Layouts) => {
     setLayouts(next);
@@ -274,6 +318,18 @@ export default function Room3D({ designId, version }: { designId: string; versio
   const selDraggable = !!selCategory && isDraggable(selCategory, present);
   const tooBig = scene.items.filter((i) => !WALL_MOUNTED.includes(i.category as Category) && !fitsInRoom(i.dims_m, room));
   const M = Math.max(room.width, room.length);
+  const modelStates = scene.items.map((item) => item.model);
+  const readyModels = modelStates.filter((model) => model.status === "ready");
+  const needsModels = modelStates.filter((model) => model.status === "missing" || model.status === "failed").length;
+  const pendingCount = modelStates.filter((model) => model.status === "pending").length;
+  const photoPreview = readyModels.some((model) => model.preview);
+  const generatedMesh = readyModels.some((model) => model.provider === "meshy");
+  const modelBadge = readyModels.length === 0
+    ? "Real sizes, simplified shapes"
+    : readyModels.length === modelStates.length
+      ? generatedMesh && !photoPreview ? "Generated 3D models" : photoPreview && !generatedMesh ? "Saved photo models" : "Saved 3D models"
+      : "Some pieces are 3D models";
+  const failedModel = scene.items.find((item) => item.model.status === "failed" && item.model.error);
 
   const rotate = () => {
     if (!selected || !selItem) return;
@@ -292,6 +348,28 @@ export default function Room3D({ designId, version }: { designId: string; versio
   };
 
   const resetLayout = () => change(() => defaultLayout(inputsFor(scene), room));
+
+  const createModels = () => {
+    setModelBusy(true);
+    setModelError(null);
+    setModelNote(null);
+    fetch(`/api/designs/${designId}/models`, { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" })
+      .then(async (r) => {
+        const body = await r.json().catch(() => null);
+        if (!r.ok) throw new Error(body?.error?.message ?? "The 3D models could not be created.");
+        const byProduct = new Map<string, ProductModelDto>((body.items ?? []).map((item: { product_id: string; model: ProductModelDto }) => [item.product_id, item.model]));
+        setScene((prev) => prev && {
+          ...prev,
+          items: prev.items.map((item) => {
+            const model = byProduct.get(item.product.id);
+            return model ? { ...item, model } : item;
+          }),
+        });
+        if (body.notice) setModelNote(body.notice);
+      })
+      .catch((e: Error) => setModelError(e.message))
+      .finally(() => setModelBusy(false));
+  };
 
   const applyRoom = () => {
     if (!roomDraft) return;
@@ -352,7 +430,7 @@ export default function Room3D({ designId, version }: { designId: string; versio
           </Canvas>
         </div>
         <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1.5">
-          <Badge variant="secondary" className="bg-background/90">Real sizes, simplified shapes</Badge>
+          <Badge variant="secondary" className="bg-background/90">{modelBadge}</Badge>
           <Badge variant="outline" className="bg-background/90">Room {room.width.toFixed(1)} x {room.length.toFixed(1)} m</Badge>
           {saveState === "saving" && <Badge variant="outline" className="bg-background/90">Saving...</Badge>}
           {saveState === "saved" && <Badge variant="outline" className="bg-background/90">Layout saved</Badge>}
@@ -368,6 +446,24 @@ export default function Room3D({ designId, version }: { designId: string; versio
         <p className="pointer-events-none absolute inset-x-3 bottom-2 text-center text-[11px] text-muted-foreground">
           <Move className="mr-1 inline size-3" />Drag furniture to move it · drag empty space to look around · scroll or pinch to zoom
         </p>
+      </div>
+
+      <div className="flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <p className="text-sm font-medium">3D models from the catalogue photos</p>
+          <p className="text-sm text-muted-foreground">
+            The redesign above stays an AI image of your room, with the same walls, windows and doors. These models use the same products and are saved, so a product is not converted again.
+            {(photoPreview || readyModels.length === 0) && " Without an image-to-3D key, each model is a saved GLB textured with the catalogue photo. Set MESHY_API_KEY for a generated mesh."}
+          </p>
+          {modelNote && <p className="text-sm text-muted-foreground">{modelNote}</p>}
+          {modelError && <p className="text-sm text-destructive" role="alert">{modelError}</p>}
+          {failedModel && <p className="text-sm text-destructive" role="alert">{failedModel.product.name}: {failedModel.model.error}</p>}
+        </div>
+        {(needsModels > 0 || pendingCount > 0) && (
+          <Button className="shrink-0" onClick={createModels} disabled={modelBusy || pendingCount > 0}>
+            {modelBusy || pendingCount > 0 ? "Creating 3D models..." : needsModels === scene.items.length ? "Create 3D models" : `Create ${needsModels} remaining`}
+          </Button>
+        )}
       </div>
 
       {tooBig.length > 0 && (
@@ -454,6 +550,9 @@ export default function Room3D({ designId, version }: { designId: string; versio
                   <span className="min-w-0 flex-1 truncate">
                     {i.product.name}
                     <span className="text-muted-foreground"> · {CATEGORY_LABELS[i.category as Category]}{i.quantity > 1 ? ` x ${i.quantity}` : ""}</span>
+                  </span>
+                  <span className="shrink-0 text-xs text-muted-foreground">
+                    {i.model.status === "ready" ? (i.model.preview ? "Photo" : "3D") : i.model.status === "pending" ? "Creating" : i.model.status === "failed" ? "Failed" : ""}
                   </span>
                   <span className="shrink-0 tabular-nums">{formatMoney(i.product.sale_price ?? i.product.price)}</span>
                 </button>

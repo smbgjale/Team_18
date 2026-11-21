@@ -24,7 +24,7 @@
 - Download: correct format, signed URL expiry, watermark on free tier, authorisation (another user's design → 404).
 - Compare: original and render share aspect ratio; slider usable on touch devices.
 - **Evaluation set (30 to 50 rooms)** scored per [AI guide §5.8](05-ai-integration-guide.md#58-evaluation-before-committing-to-a-provider). Store scores per prompt/model version; block releases that regress layout pass rate by more than 3 points or render-look rating by more than 0.3.
-- Wording check: automated UI/content test that "3D model" / "editable" never appears in user-facing copy for the image feature, and that the disclaimer is shown. The 3D layout view must keep its "real sizes, simplified shapes" label.
+- Wording check: the redesign image is not described as an editable 3D model of the room, and the disclaimer is shown. The 3D layout view says "real sizes, simplified shapes" until a GLB exists, and a photo-textured preview is not called a photo-real model.
 - Reference products: the render request contains the room photo plus at most `maxReferenceImages` product photos (each within the provider's size limit), and the prompt names every chosen product (covered by `tests/cloudflare.test.ts` and `tests/furnish.test.ts`).
 
 ### Furnishing and 3D layout view

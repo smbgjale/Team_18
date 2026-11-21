@@ -2,7 +2,7 @@
 
 Goal: the output must look like a **professional 3D interior design render** (clean global illumination, physically plausible materials, soft shadows, tidy styled composition) while **keeping the original room layout**. It must not look like a casually retouched photo.
 
-Reminder: the result is a generated 2D image in a 3D-render style, **not** a 3D model. The separate 3D layout view does not use AI; it draws the chosen products from their catalogue dimensions. See [Product Overview §1.4](01-product-overview.md#14-3d-style-rendered-image-vs-interactive-3d-model).
+Reminder: the result is a generated 2D image in a 3D-render style, **not** a 3D model of the room. A separate image-to-3D step can turn each catalogue photo into a saved GLB for the layout view; that does not change this image. Until a model is saved, the layout view draws a simplified shape from the catalogue dimensions. The image generator is still asked to keep the original walls, windows and doors. See [Product Overview §1.4](01-product-overview.md#14-3d-style-rendered-image-vs-interactive-3d-model).
 
 > Provider names, model names, parameters and prices change often. Treat the examples here as patterns. Before choosing, check the provider's current documentation, pricing, content policy and licence terms for commercial use, then run the evaluation in §5.8.
 

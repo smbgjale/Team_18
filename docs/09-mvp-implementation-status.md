@@ -20,7 +20,8 @@ This document records what the first implementation does, where it intentionally
 | Designs furnished with real catalogue products before rendering (style, palette, room size, budget, availability) | Done (see 9.6) |
 | Product photos sent to the image model as reference images; prompt names every product | Done (Cloudflare up to 3, OpenAI up to 4, demo composites them) |
 | Image check of which chosen products are visible (`in_render`) | Done (vision provider; demo marks all visible) |
-| Interactive 3D layout view: orbit, zoom, drag, rotate, keyboard nudging, room size, saved layout | Done (simplified shapes at real sizes, see 9.6) |
+| Interactive 3D layout view: orbit, zoom, drag, rotate, keyboard nudging, room size, saved layout | Done. Simplified shapes until the user creates a GLB (see 9.6) |
+| Image-to-3D from the catalogue photo already stored on the product, saved and reused | Done. `MESHY_API_KEY` sends the photo to Meshy. Without it, a GLB textured with that photo is saved. The room image generator is unchanged |
 | Matching: category filter, style, colour, price/budget, availability, shop diversity | Done (see 9.3), now used for alternatives |
 | "Products in this design" with alternatives, swap, category and budget filters, outbound links with click tracking (`/r/{id}`) | Done |
 | Tests for scoring, prompts, structure score, sync idempotency, matching, furnishing, 3D layout rules and a demo pipeline run | Done |
@@ -94,7 +95,7 @@ What the 3D view is and is not:
 | It is | It is not |
 |---|---|
 | A real 3D scene in the browser (React Three Fiber / Three.js) | A reconstruction of the uploaded room: the room is a rectangle with default dimensions for the room type (editable), one window and no doors |
-| Exactly the products in the design, at the width, depth and height from the shop and in the product's colour | The products' own 3D models: each category is drawn as a simplified generic shape (round tables, rugs and mirrors are round) |
+| Exactly the products in the design, at the width, depth and height from the shop. A saved GLB is scaled to those sizes; otherwise a simplified shape (round tables, rugs and mirrors are round) | A shop CAD file, or a measured model of the room |
 | Editable: drag, rotate 90°, arrow keys and R, swap products, change room size; saved per design | Linked to the image: moving things does not change the AI image, and a swapped product appears in the image only after generating a new design |
 
 Limitations:
@@ -102,4 +103,5 @@ Limitations:
 - There is no collision detection between pieces, only clamping to the walls, and a warning when a product is larger than the room.
 - When a shop provides no dimensions, a typical size for the category is used and the product panel says so.
 - The 3D view needs WebGL; a message is shown when the browser does not support it.
+- Without an image-to-3D key, a saved model is the catalogue photo on a box at the product's real size. It is not a scanned mesh. A failed GLB falls back to the simplified shape.
 

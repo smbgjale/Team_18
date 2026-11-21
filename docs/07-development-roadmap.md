@@ -48,7 +48,7 @@ Exit (MVP launch criteria):
 
 ## Phase 3: v2 — Full interactive 3D room (separate product track)
 
-Already in the MVP (a first, simplified step): every design is furnished with real catalogue products, and a 3D layout view shows them at their real sizes and colours as simplified shapes in a rectangular room with editable dimensions, with drag, rotate, swap and saved layouts (see [Overview §1.4](01-product-overview.md#14-3d-style-rendered-image-vs-interactive-3d-model)). The remaining work below turns that into a full 3D room.
+Already in the MVP (a first step): every design is furnished with real catalogue products, and a 3D layout view shows them at their real sizes in a rectangular room with editable dimensions, with drag, rotate, swap and saved layouts. The user can also save a GLB built from each catalogue photo (see [Overview §1.4](01-product-overview.md#14-3d-style-rendered-image-vs-interactive-3d-model)). The remaining work below turns that into a full 3D room.
 
 Prerequisites and workstreams:
 - **Room reconstruction:** from measured dimensions, a floor plan wizard, or reconstruction from photos/LiDAR (device-dependent).

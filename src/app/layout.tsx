@@ -18,7 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <footer className="border-t py-6 text-center text-xs text-muted-foreground">
-          HOMELY AI MVP. Designs are AI-generated 3D-style images, not editable 3D models. Prices and availability come from partner shops and may change.
+          HOMELY AI MVP. Designs are AI-generated 3D-style images, not a 3D model of your room. The 3D view can show saved models of the catalogue products. Prices and availability come from partner shops and may change.
         </footer>
       </body>
     </html>

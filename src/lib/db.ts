@@ -120,6 +120,19 @@ CREATE TABLE IF NOT EXISTS design_products (
   layout_json TEXT
 );
 CREATE INDEX IF NOT EXISTS design_products_design_idx ON design_products(design_id, sort);
+CREATE TABLE IF NOT EXISTS product_models (
+  product_id TEXT PRIMARY KEY REFERENCES products(id) ON DELETE CASCADE,
+  source_url TEXT NOT NULL,
+  source_hash TEXT NOT NULL,
+  status TEXT NOT NULL,
+  provider TEXT NOT NULL,
+  provider_task_id TEXT,
+  model_key TEXT,
+  error_message TEXT,
+  generations INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
 CREATE TABLE IF NOT EXISTS click_events (
   id TEXT PRIMARY KEY,
   product_id TEXT NOT NULL REFERENCES products(id),

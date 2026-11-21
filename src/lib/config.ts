@@ -3,6 +3,7 @@ import path from "node:path";
 const root = process.cwd();
 
 export type ProviderName = "openai" | "cloudflare" | "mock";
+export type MeshProviderName = "local" | "meshy";
 
 export const config = {
   root,
@@ -35,3 +36,15 @@ function pick(explicit: string): ProviderName {
 // An explicit RENDER_PROVIDER / VISION_PROVIDER wins; otherwise the first configured provider is used.
 export const activeRenderProvider = () => pick(config.renderProvider);
 export const activeVisionProvider = () => pick(config.visionProvider);
+
+// Image-to-3D is separate from the room image generator. An explicit IMAGE_TO_3D_PROVIDER wins.
+// A Meshy key selects Meshy. Otherwise a GLB is built from the catalogue photo and saved the same way.
+export function activeMeshProvider(): MeshProviderName {
+  const explicit = (process.env.IMAGE_TO_3D_PROVIDER ?? "").toLowerCase();
+  if (explicit === "local" || explicit === "meshy") return explicit;
+  return process.env.MESHY_API_KEY ? "meshy" : "local";
+}
+
+export function meshyConfig() {
+  return { apiKey: process.env.MESHY_API_KEY, model: process.env.MESHY_MODEL || "latest" };
+}

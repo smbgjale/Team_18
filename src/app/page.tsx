@@ -4,7 +4,7 @@ import { UploadForm } from "@/components/upload-form";
 const FEATURES = [
   { icon: Palette, title: "Modern or traditional", text: "Choose the look for your home, then a style within it: from Scandinavian and Industrial to Rustic Farmhouse and African Heritage." },
   { icon: ShoppingBag, title: "Real products", text: "Every design is furnished with real products from partner shops that fit your room and budget, so you can buy what you see." },
-  { icon: Box, title: "3D view", text: "Get a 3D-style render of your room, then walk around a 3D layout of the chosen products at their real sizes and move them around." },
+  { icon: Box, title: "3D view", text: "Get a 3D-style render of your room, then move the same products in 3D. Create models from their catalogue photos and reuse the saved GLB files." },
 ];
 
 export default function Home() {
@@ -18,8 +18,9 @@ export default function Home() {
             shows it as a 3D-style visualisation.
           </p>
           <p className="max-w-prose text-sm text-muted-foreground">
-            The redesign is an AI-generated image in a 3D-render style, so products in it may look slightly different from the real ones. The 3D
-            view is a simplified layout of the real products at their listed sizes, not a photo-real model.
+            The redesign is an AI-generated image that keeps your walls, windows and doors. Products in it may look slightly different from the
+            real ones. The 3D view places those same products at their listed sizes. Create 3D models when you want a saved GLB instead of a
+            simplified shape.
           </p>
         </div>
         <UploadForm />
