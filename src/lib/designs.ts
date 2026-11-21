@@ -33,6 +33,7 @@ export interface RoomRow {
   width_cm: number | null;
   length_cm: number | null;
   height_cm: number | null;
+  design_direction: string | null;
   created_at: string;
 }
 

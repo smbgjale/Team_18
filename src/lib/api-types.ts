@@ -1,3 +1,5 @@
+import type { DesignDirection } from "./styles";
+
 export interface Money { amount_minor: number; currency: string }
 
 export interface ProductDto {
@@ -91,12 +93,13 @@ export interface RoomDto {
   id: string;
   name: string | null;
   room_type: string;
+  design_direction: DesignDirection | null;
   original_image_url: string;
   width_px: number;
   height_px: number;
   designs: DesignDto[];
 }
 
-export interface StyleDto { id: string; name: string; description: string; swatches: string[] }
+export interface StyleDto { id: string; name: string; direction: DesignDirection; description: string; swatches: string[] }
 export interface CategoryDto { id: string; name: string }
 export interface ShopDto { slug: string; name: string; website_url: string; is_demo: boolean; product_count: number }

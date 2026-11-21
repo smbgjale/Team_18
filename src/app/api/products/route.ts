@@ -1,6 +1,7 @@
 import { queryProducts, toProductDto } from "@/lib/products";
 import { parseCategories } from "@/lib/matching";
 import { ensureCatalogue } from "@/lib/shops/sync";
+import { isDirection } from "@/lib/styles";
 
 const num = (v: string | null) => (v && Number.isFinite(Number(v)) ? Math.round(Number(v)) : undefined);
 
@@ -15,6 +16,7 @@ export async function GET(request: Request) {
     shop: q.get("shop") ?? undefined,
     q: q.get("q") ?? undefined,
     style: q.get("style") ?? undefined,
+    direction: isDirection(q.get("direction")) ? (q.get("direction") as "modern" | "traditional") : undefined,
     minPriceMinor: num(q.get("min_price_minor")),
     maxPriceMinor: num(q.get("max_price_minor")),
     inStockOnly: q.get("in_stock_only") === "true",

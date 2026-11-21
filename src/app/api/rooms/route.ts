@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { jsonError } from "@/lib/http";
 import { clientIp, rateLimited } from "@/lib/rate-limit";
 import { fileUrl, putFile } from "@/lib/storage";
+import { isDirection } from "@/lib/styles";
 
 const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
 
@@ -20,11 +21,13 @@ export async function POST(request: Request) {
   const file = form.get("file");
   const roomType = String(form.get("room_type") ?? "living_room") as RoomType;
   const name = String(form.get("name") ?? "").slice(0, 80) || null;
+  const direction = form.get("design_direction");
 
   if (!(file instanceof File)) return jsonError(400, "invalid_request", "A room photo is required.");
   if (!ALLOWED.includes(file.type)) return jsonError(422, "unsupported_type", "Please upload a JPEG, PNG or WebP photo.");
   if (file.size > config.maxUploadBytes) return jsonError(422, "file_too_large", "The photo is larger than 15 MB.");
   if (!ROOM_TYPES.includes(roomType)) return jsonError(400, "invalid_request", "Unknown room type.");
+  if (!isDirection(direction)) return jsonError(400, "invalid_request", "Choose a design direction: modern or traditional.");
 
   let processed: Buffer;
   let info: OutputInfo;
@@ -42,6 +45,6 @@ export async function POST(request: Request) {
 
   const id = nanoid(16);
   const key = await putFile(`rooms/${id}/original.jpg`, processed);
-  db().prepare("INSERT INTO rooms (id, name, room_type, original_image_key, width_px, height_px) VALUES (?,?,?,?,?,?)").run(id, name, roomType, key, info.width, info.height);
-  return Response.json({ id, name, room_type: roomType, original_image_url: fileUrl(key), width_px: info.width, height_px: info.height }, { status: 201 });
+  db().prepare("INSERT INTO rooms (id, name, room_type, design_direction, original_image_key, width_px, height_px) VALUES (?,?,?,?,?,?,?)").run(id, name, roomType, direction, key, info.width, info.height);
+  return Response.json({ id, name, room_type: roomType, design_direction: direction, original_image_url: fileUrl(key), width_px: info.width, height_px: info.height }, { status: 201 });
 }

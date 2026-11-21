@@ -1,7 +1,7 @@
 import { DEFAULT_DIMS_CM, ROOM_ITEMS, itemQuantity, type Category, type RoomType } from "./categories";
 import { colorNameToHex, colorScore } from "./color";
 import { effectivePrice, queryProducts, type ProductRow } from "./products";
-import { getStyle, styleAffinity } from "./styles";
+import { getStyle, matchesDirection, styleAffinity } from "./styles";
 
 export interface FurnishPick {
   category: Category;
@@ -43,15 +43,19 @@ export function scoreForRoom(p: ProductRow, opts: Pick<FurnishOptions, "style">)
 export const pickTotal = (picks: FurnishPick[]) => picks.reduce((s, x) => s + effectivePrice(x.product) * x.quantity, 0);
 
 // Chooses one real catalogue product per furniture category for the room: the best match for the
-// style and palette that fits the room. When that is over budget it repeatedly makes the swap that
+// style and palette that fits the room, keeping to the style's direction (modern or traditional)
+// unless a category has nothing in it. When that is over budget it repeatedly makes the swap that
 // costs the least match quality per unit of money saved, and drops optional decor as a last resort.
 export function furnishRoom(opts: FurnishOptions): { picks: FurnishPick[]; overBudget: boolean } {
   const ranked = new Map<Category, { product: ProductRow; score: number }[]>();
   const picks: FurnishPick[] = [];
+  const direction = getStyle(opts.style)?.direction;
 
   for (const category of ROOM_ITEMS[opts.roomType]) {
-    const candidates = queryProducts({ categories: [category], excludeOutOfStock: true })
-      .filter((p) => fitsRoom(p, opts.room) && (!opts.budgetCurrency || p.currency === opts.budgetCurrency))
+    const fitting = queryProducts({ categories: [category], excludeOutOfStock: true })
+      .filter((p) => fitsRoom(p, opts.room) && (!opts.budgetCurrency || p.currency === opts.budgetCurrency));
+    const sameDirection = direction ? fitting.filter((p) => matchesDirection(JSON.parse(p.style_tags), direction)) : fitting;
+    const candidates = (sameDirection.length ? sameDirection : fitting)
       .map((product) => ({ product, score: scoreForRoom(product, opts) }))
       .sort((a, b) => b.score - a.score || effectivePrice(a.product) - effectivePrice(b.product));
     if (!candidates.length) continue;

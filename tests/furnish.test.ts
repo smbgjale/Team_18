@@ -29,6 +29,21 @@ test("furnishRoom picks one in-stock, style-matched product per category that fi
   assert.equal(dining.picks.find((p) => p.category === "chair")?.quantity, 4);
 });
 
+test("a traditional design is furnished only with traditional products", async () => {
+  const { furnishRoom } = await import("../src/lib/furnish");
+  const { getStyle } = await import("../src/lib/styles");
+  for (const style of ["african", "rustic", "classic"]) {
+    const { picks } = furnishRoom({ roomType: "living_room", style, budgetMinor: 300000, budgetCurrency: "USD", room: { width: 480, length: 420 } });
+    assert.ok(picks.length >= 6);
+    for (const p of picks) {
+      const tags = JSON.parse(p.product.style_tags) as string[];
+      assert.ok(tags.some((t) => getStyle(t)?.direction === "traditional"), `${style}: ${p.product.name} (${tags}) is traditional`);
+    }
+  }
+  const african = furnishRoom({ roomType: "bedroom", style: "african", room: { width: 420, length: 400 } });
+  assert.ok(african.picks.filter((p) => JSON.parse(p.product.style_tags).includes("african")).length >= african.picks.length / 2);
+});
+
 test("furnishRoom trades down to stay within a budget", async () => {
   const { furnishRoom, pickTotal } = await import("../src/lib/furnish");
   const free = furnishRoom({ roomType: "bedroom", style: "modern", room: { width: 420, length: 400 } });

@@ -146,6 +146,7 @@ export function db(): Database.Database {
     addColumn(conn, "rooms", "width_cm", "INTEGER");
     addColumn(conn, "rooms", "length_cm", "INTEGER");
     addColumn(conn, "rooms", "height_cm", "INTEGER");
+    addColumn(conn, "rooms", "design_direction", "TEXT");
     g.__homelyDb = conn;
   }
   return g.__homelyDb;

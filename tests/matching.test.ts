@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { colorScore, deltaE } from "../src/lib/color";
-import { styleAffinity, buildPrompt, getStyle, sanitizeUserPrompt } from "../src/lib/styles";
+import { styleAffinity, buildPrompt, getStyle, sanitizeUserPrompt, STYLES, stylesFor, matchesDirection } from "../src/lib/styles";
 import { itemBudgetMinor } from "../src/lib/matching";
 import { structureScore } from "../src/lib/structure";
 import sharp from "sharp";
@@ -17,6 +17,17 @@ test("style affinity: exact, adjacent, unrelated, untagged", () => {
   assert.equal(styleAffinity("modern", ["minimalist"]), 0.5);
   assert.equal(styleAffinity("modern", ["bohemian"]), 0);
   assert.equal(styleAffinity("modern", []), 0.5);
+  assert.equal(styleAffinity("classic", ["african"]), 0.25, "same direction, not adjacent");
+  assert.equal(styleAffinity("african", ["industrial"]), 0, "other direction");
+});
+
+test("styles come in two directions of four, and adjacent styles share a direction", () => {
+  assert.deepEqual(stylesFor("modern").map((s) => s.id), ["modern", "scandinavian", "minimalist", "industrial"]);
+  assert.deepEqual(stylesFor("traditional").map((s) => s.id), ["classic", "rustic", "african", "bohemian"]);
+  for (const s of STYLES) for (const a of s.adjacent) assert.equal(getStyle(a)?.direction, s.direction, `${s.id} -> ${a}`);
+  assert.ok(matchesDirection(["rustic", "classic"], "traditional"));
+  assert.ok(!matchesDirection(["scandinavian"], "traditional"));
+  assert.ok(matchesDirection([], "traditional"), "untagged products are not ruled out");
 });
 
 test("prompt asks for a 3D render look and keeps the layout", () => {
@@ -24,7 +35,11 @@ test("prompt asks for a 3D render look and keeps the layout", () => {
   assert.match(prompt, /3D interior design visualization/);
   assert.match(prompt, /Keep the original room layout exactly/);
   assert.match(prompt, /industrial loft/);
+  assert.match(prompt, /a modern home with clean lines/);
   assert.doesNotMatch(prompt, /ignore previous/i);
+  const traditional = buildPrompt({ style: getStyle("african")!, roomType: "living_room", fidelity: "high" });
+  assert.match(traditional, /a traditional home with handcrafted details/);
+  assert.match(traditional, /East African heritage/);
 });
 
 test("user prompt is length-limited and single-line", () => {

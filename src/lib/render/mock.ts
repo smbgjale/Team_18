@@ -6,6 +6,7 @@ import type { RenderProvider, RenderRequest, RenderResult } from "./types";
 const TINT: Record<string, string> = {
   modern: "#9aa3ad", scandinavian: "#e9e2d0", minimalist: "#ece6da",
   industrial: "#7b6a5c", bohemian: "#d4a070", classic: "#c9b88f",
+  rustic: "#b38d66", african: "#b5774c",
 };
 
 // Local stand-in used when no AI image provider is configured. It does NOT redesign the

@@ -33,4 +33,10 @@ test("sync loads the sample shops, is idempotent, and matching respects category
   }
   assert.ok(matches[0].score >= matches[matches.length - 1].score);
   assert.ok(new Set(matches.map((m) => m.product.shop.slug)).size >= 1);
+
+  const traditional = queryProducts({ direction: "traditional" });
+  assert.ok(traditional.length >= 80);
+  assert.ok(traditional.every((p) => (JSON.parse(p.style_tags) as string[]).some((t) => ["classic", "rustic", "african", "bohemian"].includes(t))));
+  const modern = queryProducts({ direction: "modern" });
+  assert.equal(modern.length + traditional.length, queryProducts({}).length);
 });

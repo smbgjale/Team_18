@@ -1,6 +1,7 @@
 import { db } from "./db";
 import type { ProductDto } from "./api-types";
 import { isCategory } from "./categories";
+import { stylesFor, type DesignDirection } from "./styles";
 
 export interface ProductRow {
   id: string;
@@ -41,6 +42,7 @@ export interface ProductFilters {
   inStockOnly?: boolean;
   excludeOutOfStock?: boolean;
   style?: string;
+  direction?: DesignDirection;
   limit?: number;
   offset?: number;
   sort?: "relevance" | "price_asc" | "price_desc";
@@ -65,6 +67,11 @@ export function queryProducts(f: ProductFilters): ProductRow[] {
   if (f.inStockOnly) where.push("p.availability IN ('in_stock','low_stock')");
   else if (f.excludeOutOfStock) where.push("p.availability != 'out_of_stock'");
   if (f.style) { where.push("p.style_tags LIKE ?"); params.push(`%"${f.style}"%`); }
+  if (f.direction) {
+    const ids = stylesFor(f.direction).map((s) => s.id);
+    where.push(`(${ids.map(() => "p.style_tags LIKE ?").join(" OR ")})`);
+    params.push(...ids.map((id) => `%"${id}"%`));
+  }
   const order =
     f.sort === "price_asc" ? "ORDER BY COALESCE(p.sale_price_minor, p.price_minor) ASC"
     : f.sort === "price_desc" ? "ORDER BY COALESCE(p.sale_price_minor, p.price_minor) DESC"
