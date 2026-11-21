@@ -49,7 +49,7 @@ npm run dev        # http://localhost:4815
 No configuration is needed to try it. Without an API key the app runs in **demo mode**:
 
 - Renders come from a local stand-in that restyles your photo and overlays the images of the products chosen for the design. It is clearly labelled "Demo preview" and is **not** a real AI 3D-style render. The 3D view works the same in demo mode and with a real provider.
-- The catalogue uses only the shops that were connected: [Sabahar](https://sabahar.com/) (handwoven cushion covers and a fabric basket) and [Ethiopian Cultural Shop](https://ethiopianculturalshop.com/home-goods/) (handwoven baskets). Photos, prices and "View on shop" links come from those websites. Clothing, towels, table linen and cups are not imported. These shops do not sell sofas, beds or tables, so a design is furnished with the cushions and baskets they do sell.
+- The catalogue is real furniture and decor from [High Fashion Home](https://www.highfashionhome.com): sofas, chairs, tables, beds, lamps, rugs, art, mirrors, cushions and planters. Photos stay on their CDN. Each one kept for the app is a JPEG of the whole product on a white studio background, at least 1000 px on the short side. "View on shop" opens the product page. The shop does not publish curtains, and it does not list width, depth and height, so the 3D view uses a typical size for the category and says so. Refresh the snapshot with `npm run catalogue:studio` (it reads the public catalogue and checks every photo).
 
 To get real AI renders, copy `.env.example` to `.env.local` and connect one provider:
 
@@ -66,6 +66,7 @@ Useful commands:
 | `npm test` | Unit and catalogue/matching tests |
 | `npm run typecheck`, `npm run lint` | Static checks |
 | `npm run catalogue:sync` | Re-sync all shops from their connectors (`catalogue:dry-run` previews changes) |
-| `npm run catalogue:generate` | Regenerate the sample shops and product images |
+| `npm run catalogue:studio` | Rebuild the High Fashion Home snapshot from the public catalogue, keeping only studio photos that pass the image rules |
+| `npm run catalogue:generate` | Regenerate the unused sample CSV files (it does not change the live shop list) |
 
 Data (SQLite database, uploaded photos, renders) is stored in `var/` and is git-ignored.

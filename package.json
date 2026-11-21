@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "catalogue:generate": "node scripts/generate-demo-catalogue.mjs",
     "catalogue:sync": "tsx scripts/sync-catalogue.ts",
+    "catalogue:studio": "tsx scripts/refresh-studio-catalogue.ts",
     "catalogue:dry-run": "tsx scripts/sync-catalogue.ts --dry-run",
     "sample-room": "node scripts/make-sample-room.mjs",
     "test": "tsx --test tests/*.test.ts"

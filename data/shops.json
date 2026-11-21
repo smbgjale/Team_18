@@ -1,38 +1,33 @@
 [
   {
-    "slug": "sabahar",
-    "name": "Sabahar",
-    "website_url": "https://sabahar.com",
+    "slug": "high-fashion-home",
+    "name": "High Fashion Home",
+    "website_url": "https://www.highfashionhome.com",
     "currency": "USD",
-    "connector_type": "shopify",
+    "connector_type": "curated_json",
     "connector_config": {
-      "shop_url": "https://sabahar.com",
-      "style_tags": [
-        "african"
-      ]
+      "path": "data/catalogue/studio-furniture.json"
     },
     "category_map": {
+      "sofa": "sofa",
+      "armchair": "armchair",
+      "coffee_table": "coffee_table",
+      "dining_table": "dining_table",
+      "chair": "chair",
+      "bed": "bed",
+      "side_table": "side_table",
+      "desk": "desk",
+      "wardrobe": "wardrobe",
+      "shelf": "shelf",
+      "tv_unit": "tv_unit",
+      "rug": "rug",
+      "wall_art": "wall_art",
+      "mirror": "mirror",
       "cushion": "cushion",
-      "Basket": "plant_pot"
-    },
-    "agreement_type": "public_catalogue",
-    "is_demo": false
-  },
-  {
-    "slug": "ethiopian-cultural-shop",
-    "name": "Ethiopian Cultural Shop",
-    "website_url": "https://ethiopianculturalshop.com",
-    "currency": "USD",
-    "connector_type": "woocommerce",
-    "connector_config": {
-      "store_url": "https://ethiopianculturalshop.com",
-      "category": "44",
-      "style_tags": [
-        "african"
-      ]
-    },
-    "category_map": {
-      "Basket": "plant_pot"
+      "plant_pot": "plant_pot",
+      "table_lamp": "table_lamp",
+      "floor_lamp": "floor_lamp",
+      "ceiling_light": "ceiling_light"
     },
     "agreement_type": "public_catalogue",
     "is_demo": false

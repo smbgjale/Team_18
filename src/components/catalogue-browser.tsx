@@ -68,8 +68,8 @@ export function CatalogueBrowser() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Shop catalogue</h1>
         <p className="text-sm text-muted-foreground">
-          Products from {shops.length ? shops.map((s) => s.name).join(" and ") : "the connected shops"} only.
-          Photos, prices and product pages come from those websites. They sell handwoven cushions and baskets, so a design uses those pieces.
+          Real furniture and decor from {shops.length ? shops.map((s) => s.name).join(" and ") : "the connected shop"}.
+          Each photo is a studio shot of the whole product, at least 1000 px on the short side. Prices and product pages stay on the shop. Curtains are not in this catalogue, and bedroom storage is dressers and chests.
         </p>
       </div>
 

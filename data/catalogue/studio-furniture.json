@@ -1,0 +1,2824 @@
+{
+  "source": "https://www.highfashionhome.com",
+  "checked_at": "2026-11-21T13:48:41.101Z",
+  "rules": "Each image is JPEG, PNG, or WebP, at least 512 px on the short side, with the product isolated on a white or studio-light background.",
+  "products": [
+    {
+      "externalId": "39639802773579",
+      "name": "Abbott Club Leather Chair, Cigar",
+      "description": "A staunchly traditional, English library-style club chair features perfectly distressed top-grain leather, with tufting for texture and brass nailhead trim for a modern touch.",
+      "category": "armchair",
+      "price": 3359.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abbott-leather-club-chair-cigar",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/100129-002_PRM_1.jpg?v=1645744957&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.34
+      }
+    },
+    {
+      "externalId": "40352392183883",
+      "name": "Abide Chair",
+      "description": "Crafted for comfort and style, the Abide Chair is a luxurious retreat in any room. Wrapped in caramel-toned long-haired faux sheepskin, it exudes warmth and elegance, inviting you to unwind in its embrace. The plush cushions and bold rounded forms offer natural comfort, while the rich textural depth adds a touch of sophistication. Whether used as a standalone statement piece or paired with other f",
+      "category": "armchair",
+      "price": 1550.4,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abide-chair",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AbideChair4.jpg?v=1709157784&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.49
+      }
+    },
+    {
+      "externalId": "42355208159307",
+      "name": "Abria Chair, Cream",
+      "description": "The Abria Chair offers a playful yet chic seating option. It features a plush, armless silhouette completely wrapped in a deeply textured faux fur. The slightly reclined, continuous seat and backrest provide an inviting, relaxed profile. This cozy upper section is supported by two distinctively curved, exposed wood sled-style legs that add a touch of warmth and architectural interest to the overal",
+      "category": "armchair",
+      "price": 613.6,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abria-chair-cream",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/DOV89017-CREM3.jpg?v=1776706209&width=1400",
+      "brand": "Dovetail",
+      "colors": [
+        "cream"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.52
+      }
+    },
+    {
+      "externalId": "42355204096075",
+      "name": "Abria Chair, Sand",
+      "description": "The Abria Chair offers a playful yet chic seating option. It features a plush, armless silhouette completely wrapped in a deeply textured faux fur. The slightly reclined, continuous seat and backrest provide an inviting, relaxed profile. This cozy upper section is supported by two distinctively curved, exposed wood sled-style legs that add a touch of warmth and architectural interest to the overal",
+      "category": "armchair",
+      "price": 676,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abria-chair-sand",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/DOV89017-SAND3.jpg?v=1776706237&width=1400",
+      "brand": "Dovetail",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.51
+      }
+    },
+    {
+      "externalId": "41841687461963",
+      "name": "Acadia Chair, Arctic Cloud",
+      "description": "The Acadia Chair brings effortless sophistication and plush comfort to any living space. Its sculptural silhouette features soft, rounded contours balanced by a sturdy wood base for a modern yet timeless look. Designed for ultimate relaxation, this chair offers generous cushioning that envelops you in coziness. Perfect for contemporary or minimalist interiors, the Acadia Chair adds warmth and refi",
+      "category": "armchair",
+      "price": 823.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/acadia-chair-arctic-cloud",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AcadiaChair_ArcticCloud2.jpg?v=1761309289&width=1400",
+      "brand": "Alder & Tweed",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.49
+      }
+    },
+    {
+      "externalId": "41086796070987",
+      "name": "Ace Chair, Surrey Auburn by Four Hands",
+      "description": "The Ace Chair combines a modern design with a relaxed, comfortable look. Its reclined back offers an inviting feel, perfect for lounging or casual seating. With sleek lines and a laid-back style, this chair effortlessly enhances any contemporary living space.",
+      "category": "armchair",
+      "price": 899.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/ace-chair-surrey-auburn",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AceChair_SurreyAuburn3.jpg?v=1734650825&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.53
+      }
+    },
+    {
+      "externalId": "41766904627275",
+      "name": "Acelia Bed King, Rhea Light Barley",
+      "description": "Available online only. The Acelia Bed King balances a rounded, fully upholstered headboard with a tubular frame that creates a crisp geometric outline. Wrapped in embossed faux leather for added texture and accented with stainless steel in a gold finish, this bed combines modern structure with subtle gleam. Reinforced wood construction and included folding slats ensure long-lasting durability and ",
+      "category": "bed",
+      "price": 3157.25,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/acelia-bed-king-rhea-light-barley",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AceliaBedKing_RheaLightBarley1.jpg?v=1758602119&width=1400",
+      "brand": "Sunpan",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.7
+      }
+    },
+    {
+      "externalId": "41695807668299",
+      "name": "Aceton Bed, White Oak",
+      "description": "The Aceton Bed is a sleek and modern centerpiece for any bedroom. Built with a clean-lined design, it provides a versatile aesthetic that complements a range of interiors. The white oak construction ensures durability while offering a natural, warm presence to your space.",
+      "category": "bed",
+      "price": 1734,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/aceton-bed-white-oak",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AcetonBed_WhiteOak1.jpg?v=1755591824&width=1400",
+      "brand": "Universal",
+      "colors": [
+        "white",
+        "oak"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.63
+      }
+    },
+    {
+      "externalId": "29560692637771",
+      "name": "Affinity Upholstered Bed",
+      "description": "The Affinity Upholstered Bed combines modern design with simplicity, featuring an upholstered headboard that adds a touch of elegance to any bedroom.",
+      "category": "bed",
+      "price": 1626.3,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/affinity-upholstered-bed",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/affinity_upholstered_bed_1.jpg?v=1589250014&width=1400",
+      "brand": "Hooker",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.59
+      }
+    },
+    {
+      "externalId": "41402097631307",
+      "name": "Agi Bed, Camel",
+      "description": "",
+      "category": "bed",
+      "price": 2028,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/agi-bed-camel",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AgiBed_CamelEK1.jpg?v=1752825958&width=1400",
+      "brand": "Dovetail",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.71
+      }
+    },
+    {
+      "externalId": "42354974720075",
+      "name": "Agi Bed, Chocolate",
+      "description": "The Agi Bed brings soft, refined comfort to the bedroom with its fully upholstered silhouette. Featuring a textured fabric finish, this piece highlights a rounded headboard profile that adds a gentle, contemporary look to any space. The fully upholstered frame and headboard are crafted over a sturdy birch wood base, providing both elegance and durability.",
+      "category": "bed",
+      "price": 2028,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/agi-bed-beige-1",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/DOV3216EK-CHOC1.jpg?v=1776707701&width=1400",
+      "brand": "Dovetail",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.76
+      }
+    },
+    {
+      "externalId": "43001073107019",
+      "name": "Aidan Bed, Plushtone Linen by Four Hands",
+      "description": "Ships directly from the vendor. The Aidan Bed brings low-profile luxury to the bedroom with a substantial upholstered frame inspired by modern Italian design. A wide padded headboard with softly rounded corners creates a plush backdrop, while clean side rails and a streamlined footboard maintain a tailored silhouette. Durable performance upholstery is designed to resist spills, stains, high traffi",
+      "category": "bed",
+      "price": 1179.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/aidan-bed-plushtone-linen-by-four-hands",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/106185-0463.jpg?v=1789122796&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.84
+      }
+    },
+    {
+      "externalId": "39819361189963",
+      "name": "Beaubien Chandelier, Natural Brass",
+      "description": "Four arms swivel around a center point on our modern, linear Beaubien Chandelier. Create a unique, dynamic design in your modern loft, entryway or over a dining table. Beaubien's white globe bulbs covers add the perfect amount of diffused light to your space.",
+      "category": "ceiling_light",
+      "price": 1050,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/beaubien-chandelier-natural-brass",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/BeaubienChandelier_NaturalBrass1.jpg?v=1663862095&width=1400",
+      "brand": "Regina Andrew",
+      "colors": [
+        "brass",
+        "natural"
+      ],
+      "materials": [],
+      "styleTags": [
+        "industrial"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.9
+      }
+    },
+    {
+      "externalId": "40040614854731",
+      "name": "Goccia Large Pendant",
+      "description": "The Goccia Large Pendant showcases timeless elegance with a modern twist. Its classic tear drop shape features exquisite seeded glass, suspended delicately by fine chains, creating a mesmerizing play of light. This pendant transcends traditional design, seamlessly blending into contemporary interiors. The rich antique bright silver leaf finish adds a touch of sophistication and refinement. Illumin",
+      "category": "ceiling_light",
+      "price": 2316,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/goccia-large-pendant",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/GocciaLargePendant1.jpg?v=1695929993&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.75
+      }
+    },
+    {
+      "externalId": "39908606771275",
+      "name": "Kore Small Chandelier, Nickel/Smoke Grey",
+      "description": "Dazzling and eye-catching, this small, modern chandelier will add a stunning display of radiance to any space. Features a smoke grey fluted glass design with a complementing metal frame in a nickel finish. Also available in a brass finish with clear glass.",
+      "category": "ceiling_light",
+      "price": 1841,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/kore-small-chandelier-nickel-smoke-grey",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/106786_KORECHANDELIER_SMOKEGREY.jpg?v=1669154587&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "grey"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.46
+      }
+    },
+    {
+      "externalId": "39260696019019",
+      "name": "Maxin 15 Light Chandelier",
+      "description": "Elevate an entryway with the Maxim Chandelier. This stunning piece updates a modern setting.",
+      "category": "ceiling_light",
+      "price": 3060,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/maxin-15-light-chandelier",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/uttermost-maxin-chandelier-ut21344_zm.jpg?v=1617913400&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.82
+      }
+    },
+    {
+      "externalId": "39260692185163",
+      "name": "Telesto 8 Light Pendant",
+      "description": "A dramatic soft contemporary look blends straight lines and linear glass to give us this eye-catching Telesto 8 Light Pendant.",
+      "category": "ceiling_light",
+      "price": 808.8,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/telesto-8-light-pendant",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/Telesto8LightPendant1.jpg?v=1617913383&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.81
+      }
+    },
+    {
+      "externalId": "39819283923019",
+      "name": "Wick Chandelier, Natural Brass",
+      "description": "Four arms swivel around a center point on our modern, linear Wick Chandelier. Create a unique, dynamic design in your modern loft, entryway or over a dining table. Wick's frosted glass bulb covers add the perfect amount of diffused light to your space.",
+      "category": "ceiling_light",
+      "price": 2200,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/wick-chandelier-natural-brass",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/WickChandelier_NaturalBrass1.jpg?v=1663861997&width=1400",
+      "brand": "Regina Andrew",
+      "colors": [
+        "brass",
+        "natural"
+      ],
+      "materials": [],
+      "styleTags": [
+        "industrial"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.94
+      }
+    },
+    {
+      "externalId": "42119998636107",
+      "name": "Ajani Leather Dining Arm Chair, Charcoal Black",
+      "description": "Available online only. The Ajani Leather Dining Arm Chair features a simple frame that allows finer details to stand out. Crafted from iron with a hand-hammered finish, this piece showcases a distinctly textured look. Tan leather and a bolster back add the perfect touch of comfort, making it a great dining room addition. As leather is a natural material, unique variations such as markings and wrin",
+      "category": "chair",
+      "price": 998.6,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/ajani-leather-dining-arm-chair-charcoal-black",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AjaniLeatherDiningArmChair_CharcoalBlack1.jpg?v=1770468063&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "black",
+        "charcoal"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.64
+      }
+    },
+    {
+      "externalId": "42119995949131",
+      "name": "Ajani Leather Dining Arm Chair, Tan",
+      "description": "Available online only. The Ajani Leather Dining Arm Chair features a simple frame that allows finer details to stand out. Crafted from iron with a hand-hammered finish, this piece showcases a distinctly textured look. Tan leather and a bolster back add the perfect touch of comfort, making it a great dining room addition. As leather is a natural material, unique variations such as markings and wrin",
+      "category": "chair",
+      "price": 998.6,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/ajani-leather-dining-arm-chair-tan",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AjaniLeatherDiningArmChair_Tan1.jpg?v=1770468084&width=1400",
+      "brand": "Sunpan",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.64
+      }
+    },
+    {
+      "externalId": "41718514352203",
+      "name": "Amara Arched Dining Chair, Cream",
+      "description": "The Amara Arched Dining Chair blends style and functionality. Crafted from high-quality rattan and mahogany, it features a comfortable contract-grade linen seat and a lightweight, durable frame. The arched back design and plated brass leg caps add elegance and warmth, making these chairs a perfect complement to any kitchen or dining space.",
+      "category": "chair",
+      "price": 349,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/amara-arched-dining-chair-cream-set-of-2",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AmaraArchedDiningChair_Cream_Setof24.jpg?v=1757082154&width=1400",
+      "brand": "TOV Furniture",
+      "colors": [
+        "cream"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.71
+      }
+    },
+    {
+      "externalId": "40071826931787",
+      "name": "Amare Arm Chair, Sonoma Butterscotch by Four Hands",
+      "description": "Available online only. Ships directly from the manufacturer. The Amare Arm Chair is a testament to monochromatic sophistication. Drawing inspiration from the simplicity of Scandinavian design, it features a solid ash frame with a striking open silhouette, creating a harmonious balance with its top-grain leather seating. This chair effortlessly marries style and comfort, making it the ideal choice ",
+      "category": "chair",
+      "price": 629.1,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/amare-arm-chair-sonoma-butterscotch",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/236452-001_SID_1.jpg?v=1695936747&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "scandinavian"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.81
+      }
+    },
+    {
+      "externalId": "41259709399115",
+      "name": "Anasa Dining Chair, Gray",
+      "description": "Introduce a unique, stylish piece to your home with the Anasa Dining Chair Gray, an exceptional example of modern design. Made from high-quality Polyester fabric, Rubberwood, it strikes the perfect balance between aesthetics and practicality, offering a versatile solution for any space. Its chic and contemporary design makes it a standout addition to any modern home.",
+      "category": "chair",
+      "price": 382.5,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/anasa-dining-chair-gray",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/110499_02.jpg?v=1745050313&width=1400",
+      "brand": "Zuo",
+      "colors": [
+        "grey"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.74
+      }
+    },
+    {
+      "externalId": "41358242316363",
+      "name": "Antibes Arm Chair, B140",
+      "description": "The Antibes Chair combines coastal elegance with everyday comfort. This chair adds a touch of relaxed sophistication to any room. Its versatile design makes it perfect for dining, lounging, or as an accent piece in your living space. Whether you're enjoying a meal or sipping your morning coffee, the Antibes Chair offers both style and comfort in one beautifully crafted package.",
+      "category": "chair",
+      "price": 674.1,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/antibes-arm-chair-b140",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/350548_102-3.jpg?v=1743105673&width=1400",
+      "brand": "Bernhardt",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.43
+      }
+    },
+    {
+      "externalId": "41716220461131",
+      "name": "3-Footed Marble Top Coffee Table, Grey",
+      "description": "Available online only. Ships directly from the vendor. The 3-Footed Marble Top Coffee Table is a striking centerpiece that perfectly balances style and functionality. Featuring a gray-white marble top with natural veining, it adds a touch of elegance and sophistication to any living space. Supported by a bold black cast aluminum and metal base, the table offers stability and durability while makin",
+      "category": "coffee_table",
+      "price": 760.63,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/3-footed-marble-top-coffee-table-grey",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/3-FootedMarbleTopCoffeeTable_Grey2.jpg?v=1756784913&width=1400",
+      "brand": "Sagebrook Home",
+      "colors": [
+        "grey"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.74
+      }
+    },
+    {
+      "externalId": "67232128794699",
+      "name": "Abaso Coffee Table, Ombre Eucalyptus by Four Hands",
+      "description": "The Abaso Coffee Table. From the 30th Anniversary Capsule. Made from a mix of thick oak and eucalyptus veneers, this low, large-scale coffee table features chunky squared legs, dovetail joinery, and a beautiful ombre finish. A versatile piece for living spaces that need presence and practical comfort together.",
+      "category": "coffee_table",
+      "price": 2259.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abaso-coffee-table-ombre-eucalyptus-by-four-hands-232775-004",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/232775-004__01_PRM_1.jpg?v=1791910493&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.78
+      }
+    },
+    {
+      "externalId": "42298267369547",
+      "name": "Abaso Rectangular Coffee Table, Rustic Ebony by Four Hands",
+      "description": "Made from thick-cut oak veneer with a faux rustic finish made to emulate wormwood, this large, rectangular coffee table features chunky squared legs and dovetail joinery detailing.",
+      "category": "coffee_table",
+      "price": 2019.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abaso-rectangular-coffee-table-rustic-ebony",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/238571-002_PRM_1.jpg?v=1695923887&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "rustic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.79
+      }
+    },
+    {
+      "externalId": "42298163724363",
+      "name": "Abaso Rectangular Coffee Table, Rustic Wormwood by Four Hands",
+      "description": "",
+      "category": "coffee_table",
+      "price": 2019.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abaso-rectangular-coffee-table-rustic-wormwood",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/238571-001_PRM_1.jpg?v=1695923882&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "rustic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.79
+      }
+    },
+    {
+      "externalId": "42375336460363",
+      "name": "Abaso Rectangular Coffee Table, Whitewash Rustic by Four Hands",
+      "description": "The Abaso Rectangular Coffee Table is a low, substantial table with a simple blocky shape and chunky legs. Its raw, grounded silhouette gives it a rustic, relaxed feel.",
+      "category": "coffee_table",
+      "price": 2019.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abaso-rectangular-coffee-table-whitewash-rustic-by-four-hands",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/238571-003_PRM_1.jpg?v=1777564766&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "rustic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.78
+      }
+    },
+    {
+      "externalId": "42340767957067",
+      "name": "Abaso Round Coffee Table, Ebony Rustic by Four Hands",
+      "description": "",
+      "category": "coffee_table",
+      "price": 1939.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/abaso-round-coffee-table-ebony-rustic-by-four-hands",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/250798-002_PRM_1.jpg?v=1777564265&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "rustic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.68
+      }
+    },
+    {
+      "externalId": "40884327874635",
+      "name": "Animique Pillow, Ebony",
+      "description": "Indulge in comfort with the Animique Pillow. This plush accent piece, with its inviting texture, adds a cozy touch to any space. The unique design and softness make it a standout in both style and comfort. Enhance your living area with the Animique Pillow, where relaxation meets modern elegance, creating the perfect blend for your home.",
+      "category": "cushion",
+      "price": 169,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/animique-pillow-ebony",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/4046-E.jpg?v=1734642213&width=1400",
+      "brand": "DV Kap Home",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.18
+      }
+    },
+    {
+      "externalId": "40196443603019",
+      "name": "Animique Pillow, Fern",
+      "description": "The Animique Pillow is an artful blend of style and comfort. Crafted with precision, the intricate patterns and rich textures create a dynamic visual appeal. Made from high-quality materials, this pillow adds a touch of personality to any space. The thoughtful design and meticulous craftsmanship make it a versatile and chic accent for both modern and traditional interiors. Enhance your home with t",
+      "category": "cushion",
+      "price": 169,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/animique-pillow-fern",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AnimiquePillow_Fern1.jpg?v=1702485619&width=1400",
+      "brand": "DV Kap Home",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.18
+      }
+    },
+    {
+      "externalId": "40884347961419",
+      "name": "Dance Pillow, Pacific",
+      "description": "The Dance Pillow brings vibrant energy and stylish comfort to your living space. Crafted from high-quality, durable fabric, it features a lively, modern pattern that adds a playful touch to any decor. The plush filling offers exceptional support, making it perfect for lounging on sofas, beds, or chairs. Enhance your home with the Dance Pillow’s dynamic design and cozy feel.",
+      "category": "cushion",
+      "price": 179,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/dance-pillow-pacific",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/4172-P.jpg?v=1734642231&width=1400",
+      "brand": "DV Kap Home",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.15
+      }
+    },
+    {
+      "externalId": "40884489486411",
+      "name": "Domino Pillow, Onyx",
+      "description": "The Domino Pillow combines modern flair with cozy comfort. Crafted from high-quality, durable fabric, it features a bold, geometric pattern that adds a contemporary touch to any space. The plush filling ensures excellent support, making it perfect for lounging on sofas, beds, or chairs. Enhance your home decor with the stylish and comfortable Domino Pillow.",
+      "category": "cushion",
+      "price": 179,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/domino-pillow-onyx",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/4175-O.jpg?v=1734642280&width=1400",
+      "brand": "DV Kap Home",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.16
+      }
+    },
+    {
+      "externalId": "40884479164491",
+      "name": "Domino Pillow, Topaz",
+      "description": "The Domino Pillow combines modern flair with cozy comfort. Crafted from high-quality, durable fabric, it features a bold, geometric pattern that adds a contemporary touch to any space. The plush filling ensures excellent support, making it perfect for lounging on sofas, beds, or chairs. Enhance your home decor with the stylish and comfortable Domino Pillow.",
+      "category": "cushion",
+      "price": 179,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/domino-pillow-topaz",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/4175-T.jpg?v=1734642271&width=1400",
+      "brand": "DV Kap Home",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.15
+      }
+    },
+    {
+      "externalId": "41902400110667",
+      "name": "Milkweed Pillow",
+      "description": "The Milkweed Pillow brings a vibrant, naturalistic design element to your home. This square accent cushion features a stunning, detailed pattern of stylized butterflies, rendered with rich textures and a beautiful array of colors. The intricate design and plush fabrication make it a captivating focal point for any sofa, armchair, or bed. Use this unique piece to infuse your living space with a tou",
+      "category": "cushion",
+      "price": 169,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/milkweed-pillow",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/MilkweedPIllow1.jpg?v=1763195590&width=1400",
+      "brand": "DV Kap Home",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.16
+      }
+    },
+    {
+      "externalId": "29560138891339",
+      "name": "Curata Writing Desk",
+      "description": "Perfectly curated with you in mind, the Curata Writing Desk has all of the details you need for any chic, modern theme. Straight lines and bold tones showcase this piece to match well in any office setting.",
+      "category": "desk",
+      "price": 2015.1,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/curata-writing-desk",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/curata_writing_desk_1.jpg?v=1588360126&width=1400",
+      "brand": "Hooker",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.86
+      }
+    },
+    {
+      "externalId": "32194895741003",
+      "name": "Dune Desk",
+      "description": "The unique design of the Dune Desk will make it a standout piece in any space.",
+      "category": "desk",
+      "price": 1375,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/dune-desk",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/DuneDesk3.jpg?v=1588890389&width=1400",
+      "brand": "Rowe",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.78
+      }
+    },
+    {
+      "externalId": "29549190381643",
+      "name": "Linea Desk, Black",
+      "description": "Nothing will get in your way when doing work with the beautiful Linea Desk.",
+      "category": "desk",
+      "price": 4251,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/linea-desk-black",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/linea_desk_black_1_1.jpg?v=1588356779&width=1400",
+      "brand": "Bernhardt",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.8
+      }
+    },
+    {
+      "externalId": "29550285062219",
+      "name": "Portuguese Desk, Black",
+      "description": "The Portuguese Desk is carefully and precisely designed with jaw-dropping detail. The unique yet vintage feel towards this product will intensify your decor greatly.",
+      "category": "desk",
+      "price": 3658,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/portuguese-desk",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/portuguese-desk-1_1_1_3cebd5a8-bb42-4a1a-a501-eb37a0c0574b.jpg?v=1588356904&width=1400",
+      "brand": "Noir",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.82
+      }
+    },
+    {
+      "externalId": "29562186661963",
+      "name": "Raffael Desk, Antique Brown by Four Hands",
+      "description": "The Raffael adds the perfect amount of texture to an interior with its intricate carving. Natural material and a touch of modern flare combine to create the ideal accent piece.",
+      "category": "desk",
+      "price": 2259.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/raffael-desk-antique-brown",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/raffael_desk_antique_brown_7.jpg?v=1587253083&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.7
+      }
+    },
+    {
+      "externalId": "32942521057355",
+      "name": "Trey Executive Desk, Black Wash by Four Hands",
+      "description": "The Trey Executive Desk is inspired by sleek mid-century design. Its modern silhouette paired with its simple decorations offers a bold, artistic expression in a refined manner.",
+      "category": "desk",
+      "price": 1619.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/trey-executive-desk-black-wash",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/223816-002_BCK_1.jpg?v=1605032262&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.66
+      }
+    },
+    {
+      "externalId": "41342437883979",
+      "name": "Layered Dining Table, Mud Brown",
+      "description": "The Lily Drink Table Small combines structural strength with aesthetic appeal. Its sleek design and carefully crafted form ensure durability while adding a touch of elegance to any space. With its minimalist style and sturdy base, this table serves as both a functional and visually captivating accent piece for your home.",
+      "category": "dining_table",
+      "price": 1584.88,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/layered-dining-table-mud-brown",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/LayeredSolidOakDiningTable_MudBrown2.jpg?v=1755419259&width=1400",
+      "brand": "Union Home",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.88
+      }
+    },
+    {
+      "externalId": "41342437818443",
+      "name": "Layered Dining Table, Natural",
+      "description": "The Layered Solid Oak Dining Table offers both structural strength and aesthetic appeal. Crafted from high-quality solid oak, its layered design enhances the natural beauty of the wood while providing lasting durability. The clean lines and timeless elegance make it a striking centerpiece in any dining room, blending functionality with style.",
+      "category": "dining_table",
+      "price": 1584.88,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/layered-dining-table-natural",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/LayeredSolidOakDiningTable_Natural1.jpg?v=1755419268&width=1400",
+      "brand": "Union Home",
+      "colors": [
+        "natural"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.85
+      }
+    },
+    {
+      "externalId": "32840663957579",
+      "name": "Montana Dining Table, Gray/Gold Base",
+      "description": "The high drama of the Montana Dining Table with its sweeping, golden base will surely stand out in any room. The oval tabletop that looks like marble is in fact durable, Italian ceramic that’s stain, heat and scratch-resistant.",
+      "category": "dining_table",
+      "price": 2799,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/montana-dining-table-gray-gold-base",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/MontanaDiningTable_GrayGoldBase2.jpg?v=1673650685&width=1400",
+      "brand": "Nuevo",
+      "colors": [
+        "grey",
+        "gold"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.89
+      }
+    },
+    {
+      "externalId": "40943182118987",
+      "name": "Paden Dining Table, Seasoned Brown Acacia by Four Hands",
+      "description": "",
+      "category": "dining_table",
+      "price": 1219.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/paden-dining-table-seasoned-brown-acacia",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/Paden_Dining_Table_Seasoned_Brown_Acacia_3.jpg?v=1721841089&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.88
+      }
+    },
+    {
+      "externalId": "40751463891019",
+      "name": "Paden Dining Table, Worn Oak by Four Hands",
+      "description": "Available online only. Ships directly from the vendor. The Paden Dining Table is a study in shape and elegance. Crafted from solid brown oak, it features crescent-shaped legs and a sprawling oval tabletop, adding an organic presence to the dining room. This table combines natural beauty with sophisticated design, making it a perfect centerpiece for any dining space.",
+      "category": "dining_table",
+      "price": 1779.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/paden-dining-table-worn-oak",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/105188-010_FRT_1.jpg?v=1716415970&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "oak"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.84
+      }
+    },
+    {
+      "externalId": "41768061927499",
+      "name": "Taji Rectangular Dining Table, Calcatta/Gold Beaten",
+      "description": "Experience the perfect combination of style and functionality with the Taji Rectangular Dining Table. This table is designed with both durability and aesthetics in mind, featuring a ceramic top that is heat-resistant and very family-friendly. The sleek and modern design of this table is sure to impress your guests and elevate the overall ambiance of your dining space.",
+      "category": "dining_table",
+      "price": 2599,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/taji-rectangular-dining-table-calcatta-gold-beaten",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/TajiRectangularDiningTable_CalcattaGoldBeaten1.jpg?v=1758570621&width=1400",
+      "brand": "Nuevo",
+      "colors": [
+        "gold"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.9
+      }
+    },
+    {
+      "externalId": "43206707019851",
+      "name": "Capo Floor Lamp, Matte Black",
+      "description": "Available online only. Ships directly from the vendor. The Capo Floor Lamp commands attention with a sculptural silhouette and distinctive undulating base. Handcrafted by skilled artisans in India, its substantial form brings organic character and visual depth to living rooms, bedrooms and lounge spaces. A softly contrasting shade balances the bold base while providing warm, ambient illumination. ",
+      "category": "floor_lamp",
+      "price": 1302.75,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/capo-floor-lamp-matte-black",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/1119111.jpg?v=1789649837&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.84
+      }
+    },
+    {
+      "externalId": "41722812170315",
+      "name": "Graham Floor Lamp, Burgundy",
+      "description": "The Graham Velvet Floor Lamp adds luxury and sophistication to any space with its soft-pile velvet finish and elegant tapered silhouette. Accented with refined brass trim at the base, this lamp makes a striking statement while providing ambient lighting. Perfect for corners or next to seating areas, it elevates both style and function in your home.",
+      "category": "floor_lamp",
+      "price": 399,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/graham-velvet-floor-lamp-terracotta-1",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/GrahamVelvetFloorLamp_Burgundy1.jpg?v=1757083732&width=1400",
+      "brand": "TOV Furniture",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.89
+      }
+    },
+    {
+      "externalId": "41722819084363",
+      "name": "Graham Floor Lamp, Chocolate Brown",
+      "description": "The Graham Velvet Floor Lamp adds luxury and sophistication to any space with its soft-pile velvet finish and elegant tapered silhouette. Accented with refined brass trim at the base, this lamp makes a striking statement while providing ambient lighting. Perfect for corners or next to seating areas, it elevates both style and function in your home.",
+      "category": "floor_lamp",
+      "price": 399,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/graham-velvet-floor-lamp-chocolate-brown",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/GrahamVelvetFloorLamp_ChocolateBrown2.jpg?v=1757083717&width=1400",
+      "brand": "TOV Furniture",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.88
+      }
+    },
+    {
+      "externalId": "67433672867915",
+      "name": "Tress Floor Lamp, Brown",
+      "description": "Available online only. Ships directly from the vendor. The Tress Floor Lamp brings a graceful sense of movement to contemporary interiors with its sculptural base composed of stacked spindle forms. The rhythmic vertical silhouette is complemented by a softly tapered linen shade that diffuses light into a warm, inviting glow. A distinctive lighting accent that adds height and artistic character to ",
+      "category": "floor_lamp",
+      "price": 1347.75,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/tress-floor-lamp-brown",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/1134672.jpg?v=1794233671&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.91
+      }
+    },
+    {
+      "externalId": "42101876457547",
+      "name": "Westley Floor Lamp, Russet Mango by Four Hands",
+      "description": "Available online only. Ships directly from the vendor. The Westley Floor Lamp brings heritage-inspired character to living spaces or offices with a bold, sculptural presence. A thick, turned wood base anchors the design, while a clean tapered shade balances the silhouette with understated simplicity. Tall proportions add visual height and provide ambient illumination, making the Westley Floor Lamp",
+      "category": "floor_lamp",
+      "price": 1379.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/westley-floor-lamp-russet-mango-by-four-hands",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/WestleyFloorLamp_RussetMangobyFourHands1.jpg?v=1770083211&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.85
+      }
+    },
+    {
+      "externalId": "39710985814091",
+      "name": "Acid Wash Floor Mirror by Four Hands",
+      "description": "Artistic reflection. Black-finished iron forms a clean, rectangular frame for acid-washed mirror with hand-painted blue hues.",
+      "category": "mirror",
+      "price": 2019.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/acid-wash-floor-mirror",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/AcidWashFloorMirror2.jpg?v=1654711565&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.54
+      }
+    },
+    {
+      "externalId": "29560217075787",
+      "name": "Bellvue Large Round Mirror, Polished Brass by Four Hands",
+      "description": "You won’t be the only beautiful one in the room; our Bellvue Large Round Mirror will capture people’s attention and love as well!",
+      "category": "mirror",
+      "price": 899.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/bellvue-round-mirror",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/bellvue_round_mirror_3.jpg?v=1637695920&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "brass"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.63
+      }
+    },
+    {
+      "externalId": "29854247387211",
+      "name": "Canute Mirror, Antique Gold",
+      "description": "The perfect reflection of your distinctive and stylish taste. The Canute Mirror gives a space an alluring effect.",
+      "category": "mirror",
+      "price": 417.6,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/canute-mirror",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/canute_mirror_2.jpg?v=1689113659&width=1400",
+      "brand": "Uttermost",
+      "colors": [
+        "gold"
+      ],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.78
+      }
+    },
+    {
+      "externalId": "40155540422731",
+      "name": "Galet Mirror",
+      "description": "Crafted with an undulating, organic shape, the Galet Rectangle Mirror exudes timeless beauty. The mirror's asymmetric design is complemented by a classic antique gold leaf finish, adding a touch of sophistication to any space.",
+      "category": "mirror",
+      "price": 550,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/galet-mirror",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/21-1160_1.jpg?v=1700257607&width=1400",
+      "brand": "Regina Andrew",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.83
+      }
+    },
+    {
+      "externalId": "39260697329739",
+      "name": "Linneah Mirrors, Set of 4",
+      "description": "The Linneah Mirrors elevates any modern setting with their trendy design.",
+      "category": "mirror",
+      "price": 340.8,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/linneah-mirrors-set-of-4",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/LinneahMirrors_Setof4-2.jpg?v=1617913405&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.72
+      }
+    },
+    {
+      "externalId": "29854247157835",
+      "name": "Rahila Mirrored Wall Panels, Set of 2",
+      "description": "Adding a whole new level of visual interest, the Rahila Mirrored Wall Panels have details that emphasize home decor.",
+      "category": "mirror",
+      "price": 496.8,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/rahila-mirrored-wall-panels",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/rahila_mirrored_wall_panel_2.jpg?v=1587524337&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.4
+      }
+    },
+    {
+      "externalId": "41550130315339",
+      "name": "Country Ferns, Green, Set of 2",
+      "description": "The Country Ferns set brings a natural woodland charm indoors with its delicate fern stems. Each bunch is artfully arranged in a shaped glass vase filled with faux water, creating a refreshing and whimsical accent that requires no maintenance. Perfect for adding a touch of greenery to any room.",
+      "category": "plant_pot",
+      "price": 271.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/country-ferns-green-s-2",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/CountryFerns_Green_S21.jpg?v=1750855361&width=1400",
+      "brand": "Uttermost",
+      "colors": [
+        "green"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.77
+      }
+    },
+    {
+      "externalId": "41962721804363",
+      "name": "Eucalyptus Tree in Cardinal Planter, Black",
+      "description": "The Eucalyptus Tree in Cardinal Planter offers a clean, architectural element with a soft silvery-green color palette. Standing 60 inches tall, this faux tree features small, distinctive leaves on a slender trunk, creating an upright and elegant column of greenery. It is potted in the Cardinal Planter, a sleek black vessel with a tapered square silhouette that provides a modern, minimalist base.",
+      "category": "plant_pot",
+      "price": 349,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/eucalyptus-tree-in-cardinal-planter-black",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/EucalyptusTreeinCardinalPlanter_Black.jpg?v=1765936168&width=1400",
+      "brand": "DW Silks",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.87
+      }
+    },
+    {
+      "externalId": "41550152171595",
+      "name": "Evarado Aloe Planter, Glossy White",
+      "description": "The Evarado Aloe Planter features a striking aloe vera arrangement displayed in a glossy white bowl. Enhanced with natural stones for added texture and realism, this contemporary piece offers a refreshing, modern accent perfect for tabletops, consoles, or open shelving.",
+      "category": "plant_pot",
+      "price": 314.4,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/evarado-aloe-planter-glossy-white",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/EvaradoAloePlanter_GlossyWhite1.jpg?v=1750855240&width=1400",
+      "brand": "Uttermost",
+      "colors": [
+        "white"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1000,
+        "height": 1000,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.79
+      }
+    },
+    {
+      "externalId": "41550142472267",
+      "name": "Garden Peony Bouquet, White",
+      "description": "The Garden Peony Bouquet brings timeless elegance to any space with its lush white peony blossoms and buds. Arranged in a clear glass vase with realistic faux water, this lifelike floral display offers enduring beauty without the upkeep of fresh flowers.",
+      "category": "plant_pot",
+      "price": 196.8,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/60198",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/GardenPeonyBouquet_White2.jpg?v=1750855302&width=1400",
+      "brand": "Uttermost",
+      "colors": [
+        "white"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.59
+      }
+    },
+    {
+      "externalId": "41962720460875",
+      "name": "Lambs Ear And Eucalyptus in Glass Bubble Bowl, Clear",
+      "description": "The Lambs Ear And Eucalyptus in Glass Bubble Bowl combines soft texture with deep, vibrant greens for a sophisticated tabletop accent. This arrangement features the velvety, silvery-green foliage of lamb's ear mixed with round eucalyptus leaves. It is set within a clear glass bubble bowl, securely held in place by decorative black pebbles.",
+      "category": "plant_pot",
+      "price": 249,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/lambs-ear-and-eucalyptus-in-glass-bubble-bowl-clear",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/LambsEarAndEucalyptusinGlassBubbleBowl.jpg?v=1765528673&width=1400",
+      "brand": "DW Silks",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.55
+      }
+    },
+    {
+      "externalId": "41962657218635",
+      "name": "Mood Moss in Fortune Planter, Natural",
+      "description": "The Mood Moss in Fortune Planter is a unique, long-form accent piece. It features clumps of preserved mood moss arranged in a long, shallow, canoe-shaped wooden planter. This piece provides a beautiful, maintenance-free, natural centerpiece perfect for long dining tables, consoles, or mantels.",
+      "category": "plant_pot",
+      "price": 299,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/mood-moss-in-fortune-planter-natural",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/MoodMossinFortunePlanter1.jpg?v=1766102518&width=1400",
+      "brand": "DW Silks",
+      "colors": [
+        "natural"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.89
+      }
+    },
+    {
+      "externalId": "41482286399563",
+      "name": "Jeremiah Brent x Loloi Rug Bleecker BLE-05, JM Natural/Charcoal",
+      "description": "The Bleecker Rug by Jeremiah Brent × Loloi features high-contrast linear patterns and subtle distressing, reflecting a refined take on modern design. Power-loomed in Turkey from durable polyester, its warm colorways shift beautifully with the light, adding dynamic depth to any room. Easy to clean and ideal for living rooms, bedrooms, and hallways, Bleecker balances style and function effortlessly.",
+      "category": "rug",
+      "price": 89,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/jeremiah-brent-loloi-rug-bleecker-ble-05-jm-natural-charcoal",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/BLEEBLE-05NACC.jpg?v=1747867721&width=1400",
+      "brand": "Loloi",
+      "colors": [
+        "charcoal",
+        "natural"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.4
+      }
+    },
+    {
+      "externalId": "41482294034507",
+      "name": "Jeremiah Brent x Loloi Rug Bleecker BLE-06, JM Silver/Charcoal",
+      "description": "The Bleecker Rug by Jeremiah Brent × Loloi features high-contrast linear patterns and subtle distressing, reflecting a refined take on modern design. Power-loomed in Turkey from durable polyester, its warm colorways shift beautifully with the light, adding dynamic depth to any room. Easy to clean and ideal for living rooms, bedrooms, and hallways, Bleecker balances style and function effortlessly.",
+      "category": "rug",
+      "price": 89,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/jeremiah-brent-loloi-rug-bleecker-ble-06-jm-silver-charcoal",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/BLEEBLE-06SICC.jpg?v=1747867955&width=1400",
+      "brand": "Loloi",
+      "colors": [
+        "charcoal"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.39
+      }
+    },
+    {
+      "externalId": "40195281322059",
+      "name": "Loloi Rug Darby DAR-02, Oatmeal/Charcoal",
+      "description": "The Darby Collection is a power-loomed area rug with a dimensional, ribbed texture that mimics the look and feel of a hand-knotted rug at a more accessible price point. The rug’s neutral palette is sophisticated and versatile, fitting into contemporary living rooms, cozy bedrooms, and any room that needs a bit of texture.",
+      "category": "rug",
+      "price": 129,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/loloi-ii-rug-darby-dar-02-oatmeal-charcoal",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/DARBDAR-02OTCC.jpg?v=1702421091&width=1400",
+      "brand": "Loloi",
+      "colors": [
+        "charcoal"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.35
+      }
+    },
+    {
+      "externalId": "40037913100363",
+      "name": "Loloi Rug Darby DAR-03, Sand/Charcoal",
+      "description": "The Darby Collection is a power-loomed area rug with a dimensional, ribbed texture that mimics the look and feel of a hand-knotted rug at a more accessible price point. The rug’s neutral palette is sophisticated and versatile, fitting into contemporary living rooms, cozy bedrooms, and any room that needs a bit of texture.",
+      "category": "rug",
+      "price": 129,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/loloi-ii-rug-darby-dar-03-sand-charcoal",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/DARBDAR-03SACC.jpg?v=1695929695&width=1400",
+      "brand": "Loloi",
+      "colors": [
+        "charcoal"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.34
+      }
+    },
+    {
+      "externalId": "40037903630411",
+      "name": "Loloi Rug Darby DAR-04, Ivory/Stone",
+      "description": "The Darby Collection is a power-loomed area rug with a dimensional, ribbed texture that mimics the look and feel of a hand-knotted rug at a more accessible price point. The rug’s neutral palette is sophisticated and versatile, fitting into contemporary living rooms, cozy bedrooms, and any room that needs a bit of texture.",
+      "category": "rug",
+      "price": 129,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/loloi-ii-rug-darby-dar-04-ivory-stone",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/DARBDAR-04IVSN.jpg?v=1695929677&width=1400",
+      "brand": "Loloi",
+      "colors": [
+        "ivory"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.34
+      }
+    },
+    {
+      "externalId": "40037908185163",
+      "name": "Loloi Rug Darby DAR-06, Sand/Dark Grey",
+      "description": "The Darby Collection is a power-loomed area rug with a dimensional, ribbed texture that mimics the look and feel of a hand-knotted rug at a more accessible price point. The rug’s neutral palette is sophisticated and versatile, fitting into contemporary living rooms, cozy bedrooms, and any room that needs a bit of texture.",
+      "category": "rug",
+      "price": 129,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/loloi-ii-rug-darby-dar-06-sand-dark-grey",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/DARBDAR-06SADG.jpg?v=1695929688&width=1400",
+      "brand": "Loloi",
+      "colors": [
+        "grey"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.35
+      }
+    },
+    {
+      "externalId": "67232125419595",
+      "name": "Ames Bookcase, Weathered Mango Solid by Four Hands",
+      "description": "Ships directly from the vendor. The Ames Bookcase. A minimalist wooden bookcase with elevated details. Soft corners and waterfall sides create a seamless look that complements any space, while embossed walnut veneer on the door fronts adds a touch of texture. A versatile piece for living spaces that need presence and practical comfort together.",
+      "category": "shelf",
+      "price": 2179.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/ames-bookcase-weathered-mango-solid-by-four-hands-253149-002",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/253149-002__04_DET_1.jpg?v=1791910408&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.42
+      }
+    },
+    {
+      "externalId": "39356827533387",
+      "name": "Eiffel Extra Large Bookcase, Antique Brass",
+      "description": "Adding style and warmth to living and office spaces with the well-designed Eiffel Extra Large Bookcase. This can be placed in pairs or multiples for added impact and functionality.",
+      "category": "shelf",
+      "price": 1753.25,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/eiffel-extra-large-bookcase-antique-brass",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/EiffelExtraLargeBookcase_AntiqueBrass2.jpg?v=1621440885&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "brass"
+      ],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.87
+      }
+    },
+    {
+      "externalId": "29560632737867",
+      "name": "Eiffel Large Bookcase, Antique Brass",
+      "description": "Available online only. Adding style and warmth to living and office spaces with the well-designed Eiffel Large Bookcase. This can be placed in pairs or multiples for added impact and functionality.",
+      "category": "shelf",
+      "price": 1226.75,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/eiffel-large-bookcase-antique-brass",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/102940_eiffel_bookcase_6.jpg?v=1588368331&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "brass"
+      ],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1000,
+        "height": 1000,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.84
+      }
+    },
+    {
+      "externalId": "39356829565003",
+      "name": "Eiffel Large Low Bookcase, Antique Brass",
+      "description": "Adding style and warmth to living and office spaces with the well-designed Eiffel Large Low Bookcase. This can be placed in pairs or multiples for added impact and functionality.",
+      "category": "shelf",
+      "price": 875.75,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/eiffel-large-low-bookcase-antique-brass",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/EiffelLargeLowBookcase_AntiqueBrass1.jpg?v=1621440887&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "brass"
+      ],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1200,
+        "height": 1200,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.81
+      }
+    },
+    {
+      "externalId": "39356846604363",
+      "name": "Eiffel Large Low Bookcase, Black",
+      "description": "Adding style and warmth to living and office spaces with the well-designed Eiffel Large Low Bookcase. This can be placed in pairs or multiples for added impact and functionality.",
+      "category": "shelf",
+      "price": 875.75,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/eiffel-large-low-bookcase-black",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/EiffelLargeLowBookcase_Black1.jpg?v=1621440901&width=1400",
+      "brand": "Sunpan",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1200,
+        "height": 1200,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.81
+      }
+    },
+    {
+      "externalId": "41342437720139",
+      "name": "Laurel Shelving, Natural",
+      "description": "The Laurel Shelving combines organically inspired design with modern aesthetics. Its graceful, flowing lines and minimalist structure create a refined yet natural look, offering both beauty and practicality. Perfect for displaying books, decor, or essentials, this shelving unit brings a touch of modern elegance to any space while maintaining an earthy, organic appeal.",
+      "category": "shelf",
+      "price": 1762.64,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/laurel-shelving-natural",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/LaurelSolidWhiteOakShelving_Natural4.jpg?v=1755419327&width=1400",
+      "brand": "Union Home",
+      "colors": [
+        "natural"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.54
+      }
+    },
+    {
+      "externalId": "29560064704587",
+      "name": "Adagio Nightstand",
+      "description": "Made from hearty Gmelina solids with flat-cut cherry veneers in an espresso finish, the Adagio Nightstand features Capiz shell drawer fronts that are touch-to-open! The hand-hammered steel base comes in a bronze finish, bridging elegance and beauty.",
+      "category": "side_table",
+      "price": 2466.4,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/adagio-nightstand",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/adagio_nightstand_4.jpg?v=1675727359&width=1400",
+      "brand": "Bernhardt",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.43
+      }
+    },
+    {
+      "externalId": "42098538152011",
+      "name": "Lando Nightstand, Sand Marble",
+      "description": "Available online only. Ships directly from the vendor. The Lando Nightstand balances sculptural form with everyday function. A cream marble top with a softly rounded bullnose edge rests on an undulating sungkai wood base, creating visual depth and natural contrast. A single soft-close drawer offers convenient bedside storage while maintaining a clean, refined profile. Thoughtfully proportioned and",
+      "category": "side_table",
+      "price": 1499.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/lando-nightstand-sand-marble",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/LandoNightstand_SandMarble5.jpg?v=1781349648&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.42
+      }
+    },
+    {
+      "externalId": "40049493672011",
+      "name": "Paden Nightstand, Aged Black by Four Hands",
+      "description": "Discover the allure of the Paden Nightstand. Embodying modern sophistication, this nightstand features elegantly curved sides that add a touch of artistry to your bedroom. With its two spacious drawers, it offers practical storage with a touch of designer flair. Elevate your space with the Paden Nightstand and experience the perfect blend of contemporary style and functionality.",
+      "category": "side_table",
+      "price": 899.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/paden-nightstand-aged-black",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/PadenNightstand_AgedBlack-4.jpg?v=1695932553&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.32
+      }
+    },
+    {
+      "externalId": "40049493016651",
+      "name": "Paden Nightstand, Seasoned Brown by Four Hands",
+      "description": "Discover the allure of the Paden Nightstand. Embodying modern sophistication, this nightstand features elegantly curved sides that add a touch of artistry to your bedroom. With its two spacious drawers, it offers practical storage with a touch of designer flair. Elevate your space with the Paden Nightstand and experience the perfect blend of contemporary style and functionality.",
+      "category": "side_table",
+      "price": 899.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/paden-nightstand-seasoned-brown",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/PadenNightstand_SeasonedBrown-5.jpg?v=1695932545&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.41
+      }
+    },
+    {
+      "externalId": "41373989339211",
+      "name": "Paden Nightstand, Worn Oak by Four Hands",
+      "description": "The Paden Nightstand pairs classic design with soft, sculptural lines. Crafted from light, worn oak, its curved pedestal base adds a graceful touch to a timeless silhouette. Two spacious drawers provide practical bedside storage with effortless style.",
+      "category": "side_table",
+      "price": 1059.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/paden-nightstand-worn-oak",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/235328-004_OPN_1.jpg?v=1743799569&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "oak"
+      ],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.26
+      }
+    },
+    {
+      "externalId": "41453375422539",
+      "name": "Raleigh Nightstand, Cappuccino Marble by Four Hands",
+      "description": "Available online only. Ships directly from the vendor. The Raleigh Nightstand blends vintage charm with modern refinement, featuring a smooth marble top atop worn oak wood. A plinth base and bronze hardware add classic character, while a single drawer and open cubby offer practical bedside storage. Timeless style meets everyday function.",
+      "category": "side_table",
+      "price": 1299.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/raleigh-nightstand-cappuccino-marble-by-four-hands",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/249399-001_OPN_1.jpg?v=1746826960&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.4
+      }
+    },
+    {
+      "externalId": "39686492553291",
+      "name": "Axel Leather Sofa, Laguna Cognac",
+      "description": "Experience modern luxury with the Axel Leather Sofa. Its wide arms and down-blend seat and back cushions create a perfect balance of style and comfort. This sofa is a contemporary masterpiece, providing a spacious and inviting seating experience. Embrace the allure of modern design while sinking into the comfort of the Axel Leather Sofa, a seamless blend of chic aesthetics and irresistible cozines",
+      "category": "sofa",
+      "price": 3599,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/axel-leather-sofa-laguna-cognac",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/AxelLeatherSofa_LagunaCognac2.jpg?v=1715977586&width=1400",
+      "brand": "McCreary Modern",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.71
+      }
+    },
+    {
+      "externalId": "39688621916235",
+      "name": "Axel Sofa, Nomad Snow",
+      "description": "Experience modern luxury with the Axel Sofa. Its wide arms and down-blend seat and back cushions create a perfect balance of style and comfort. This sofa is a contemporary masterpiece, providing a spacious and inviting seating experience. Embrace the allure of modern design while sinking into the comfort of the Axel Sofa, a seamless blend of chic aesthetics and irresistible coziness. This sofa is ",
+      "category": "sofa",
+      "price": 2099,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/axel-sofa-nomad-snow",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/AxelSofa2.jpg?v=1703282957&width=1400",
+      "brand": "McCreary Modern",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.69
+      }
+    },
+    {
+      "externalId": "40202950082635",
+      "name": "Axel Sofa, Tara Oat",
+      "description": "Experience modern luxury with the Axel Sofa. Its wide arms and down-blend seat and back cushions create a perfect balance of style and comfort. This sofa is a contemporary masterpiece, providing a spacious and inviting seating experience. Embrace the allure of modern design while sinking into the comfort of the Axel Sofa, a seamless blend of chic aesthetics and irresistible coziness.",
+      "category": "sofa",
+      "price": 2299,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/axel-sofa-tara-oat",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AxelSofa_TaraOat2-2.jpg?v=1724358955&width=1400",
+      "brand": "McCreary Modern",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.69
+      }
+    },
+    {
+      "externalId": "39259363967051",
+      "name": "Ettica Sofa, Nomad Snow",
+      "description": "The elegant silhouette of the Ettica Sofa creates a lovely, standout piece for the living room. Nomad Snow is a Crypton fabric that is incredibly durable and stain resistant.",
+      "category": "sofa",
+      "price": 2099,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/ettica-sofa-nomad-snow",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/EtticaSofa_NomadSnow2.jpg?v=1714506500&width=1400",
+      "brand": "McCreary Modern",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.72
+      }
+    },
+    {
+      "externalId": "40434600673355",
+      "name": "Ettica Sofa, Tara Oat",
+      "description": "The Ettica Sofa is a chic and modern addition to your living space. With its neutral tones, this sofa effortlessly complements any decor. Crafted for comfort, its plush cushions provide a cozy seating experience. Versatile in design, it adapts to various room layouts with ease. Whether lounging alone or entertaining guests, the Ettica Sofa offers both style and relaxation. Upgrade your home with t",
+      "category": "sofa",
+      "price": 2299,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/ettica-sofa-tara-oat-1",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/EtticaSofa_TaraOat1.jpg?v=1711552091&width=1400",
+      "brand": "McCreary Modern",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.65
+      }
+    },
+    {
+      "externalId": "42942506303563",
+      "name": "Paul Sofa, Nomad Snow",
+      "description": "The Paul Sofa is a modern and sophisticated piece of furniture that is perfect for any living room. This piece adds a touch of warmth and richness to your space, making it the perfect centerpiece for your home. The Paul Sofa is designed for comfort, with plush cushions that provide exceptional support and relaxation. The sofa is also available in a variety of configurations, allowing you to custom",
+      "category": "sofa",
+      "price": 1429,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/paul-sofa-nomad-snow",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/PaulSofa_NomadSnow_2.jpg?v=1785250985&width=1400",
+      "brand": "Kuka",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.71
+      }
+    },
+    {
+      "externalId": "42201936822347",
+      "name": "Aura Table Lamp, Clear",
+      "description": "The Aura Table Lamp features a clear glass base adorned with organic glass spheres, set atop a plated brushed brass foot. A round drum hardback shade in a crisp white linen fabric completes the piece.",
+      "category": "table_lamp",
+      "price": 616.8,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/aura-table-lamp-clear",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/AuraTableLamp_Clear2.jpg?v=1773251747&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.84
+      }
+    },
+    {
+      "externalId": "42134611558475",
+      "name": "Cortado Table Lamp, Travertine",
+      "description": "Bring refined warmth to your space with the Cortado Table Lamp. An unfilled honed travertine base highlights the natural beauty and subtle texture of stone, while plated antique brass accents add a sophisticated touch of luxury. Balancing earthy materials with polished detailing, this lamp effortlessly complements both modern and classic interiors. A round hardback drum shade in crisp white linen ",
+      "category": "table_lamp",
+      "price": 418,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/cortado-table-lamp-travertine",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/CortadoTableLamp_Travertine1.jpg?v=1770749926&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.69
+      }
+    },
+    {
+      "externalId": "40030709547083",
+      "name": "Gravitas Table Lamp",
+      "description": "A true embodiment of sophistication and style. This lamp lives up to its name with its exquisite finishes and thoughtfully crafted design. The iron column base features a luxurious plated brushed brass finish, while the porous ivory stone top adds a touch of elegance. The lamp is perfectly complemented by a casual light beige linen shade with subtle texture, creating a harmonious blend of comfort ",
+      "category": "table_lamp",
+      "price": 525.6,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/gravitas-table-lamp",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/GravitasTableLamp1.jpg?v=1695928378&width=1400",
+      "brand": "Uttermost",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.7
+      }
+    },
+    {
+      "externalId": "41722911096907",
+      "name": "Maiori Striped Papier Mache Table Lamp, Black/Off-White",
+      "description": "The Maiori Striped Papier Mache Table Lamp adds a playful and stylish accent to any space. Its bold striped design, domed lampshade, and orb finial bring personality to your room. Crafted from innovative papier mache and iron, this lamp is both charming and skillfully handmade, making it a unique and delightful addition to your home.",
+      "category": "table_lamp",
+      "price": 129,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/maiori-striped-papier-mache-table-lamp-black-off-white",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/MaioriStripedPapierMacheTableLamp_BlackOff-White2.jpg?v=1757084386&width=1400",
+      "brand": "TOV Furniture",
+      "colors": [
+        "white",
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.66
+      }
+    },
+    {
+      "externalId": "41548755337291",
+      "name": "Rhine Table Lamp, Warm Brown",
+      "description": "The Rhine Table Lamp features a beautiful seeded glass body with warm tones of light and dark browns blended with smoke gray, creating a rich and textured appearance. Accented with plated antique brass details, this lamp offers a sophisticated and timeless look. Topped with a crisp white linen drum shade, it adds a clean and elegant touch to any room.",
+      "category": "table_lamp",
+      "price": 436.8,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/rhine-table-lamp-seeded-glass-warm-brown-smoke-gray",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/RhineTableLamp_WarmBrown1.jpg?v=1750820053&width=1400",
+      "brand": "Uttermost",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.73
+      }
+    },
+    {
+      "externalId": "40056068603979",
+      "name": "Thea Table Lamp",
+      "description": "Thea Table Lamp showcases exquisite craftsmanship with its distinctive luster finish, enhancing its organic shape. This lamp exudes a comforting warmth, thanks to its plated champagne amber glass that softly glistens. Its French-wired design adds a touch of sophistication, with the wire extending seamlessly from the socket. All crowned by an elegant linen drum shade for a perfect blend of style an",
+      "category": "table_lamp",
+      "price": 458,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/thea-table-lamp",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/TheaTableLamp1.jpg?v=1695934736&width=1400",
+      "brand": "Hudson Valley",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.76
+      }
+    },
+    {
+      "externalId": "29560679563339",
+      "name": "Apollo Credenza",
+      "description": "An eclectic blending of colors, textures and materials, the Apollo Credenza is sure to be a standout piece that will be the envy of all that behold it.",
+      "category": "tv_unit",
+      "price": 3455.1,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/apollo-credenza",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/apollo_credenza_4.jpg?v=1588370075&width=1400",
+      "brand": "Hooker",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.7
+      }
+    },
+    {
+      "externalId": "29560631427147",
+      "name": "Big Bang Entertainment Console",
+      "description": "Beautifully structured to add an instant burst of energy that will radiate the living space of your home. The Big Bang Entertainment Console easily complements many decor styles.",
+      "category": "tv_unit",
+      "price": 2618.1,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/big-bang-entertainment-console",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/hz2a5066.jpg?v=1588368278&width=1400",
+      "brand": "Hooker",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.63
+      }
+    },
+    {
+      "externalId": "29549190840395",
+      "name": "German Silver Console",
+      "description": "One-of-a-kind style, enticing color. The German Silver Console is sure to make any room shine with beauty.",
+      "category": "tv_unit",
+      "price": 2510.1,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/german-silver-console",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/german_silver_console_4.jpg?v=1588356821&width=1400",
+      "brand": "Hooker",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.66
+      }
+    },
+    {
+      "externalId": "40104544895051",
+      "name": "Gilmore Media Console, Aged Mango by Four Hands",
+      "description": "Available online only. Ships directly from the manufacturer. The Gilmore Media Console seamlessly blends simplicity with elegance. Crafted from solid aged mango, its rich texture and natural graining are accentuated by a tall plinth base. The console's four door fronts, with push latch doors, add a touch of sophistication. Inside, removable shelves provide versatile storage, while cutouts on the b",
+      "category": "tv_unit",
+      "price": 1859.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/gilmore-media-console-aged-mango",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/GilmoreMediaConsole_AgedMango5.jpg?v=1698004848&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.71
+      }
+    },
+    {
+      "externalId": "29560743952459",
+      "name": "Linea Entertainment Console",
+      "description": "Entertain your guest with the Linea Entertainment Console. With plenty of storage, you can hide your dishes or hid your gaming consoles with ease.",
+      "category": "tv_unit",
+      "price": 5116.5,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/linea-entertainment-console",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/linea_entertainment_console_4_2.jpg?v=1588371929&width=1400",
+      "brand": "Bernhardt",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.66
+      }
+    },
+    {
+      "externalId": "31285376647243",
+      "name": "Stormy Media Console, Aged Brown by Four Hands",
+      "description": "Available online only. Ships directly from the manufacturer. Spacious interior brings plenty of space to the Stormy Media Console. This mysterious piece brings an organic vibe to an entertainment area.",
+      "category": "tv_unit",
+      "price": 1459.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/stormy-media-console-aged-brown",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/Stormy_Media_Console_Aged_Brown_5.jpg?v=1680790324&width=1400",
+      "brand": "Four Hands",
+      "colors": [
+        "brown"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.65
+      }
+    },
+    {
+      "externalId": "31252733821003",
+      "name": "Black Galaxy Framed (Glitter)",
+      "description": "Black Galaxy Framed (Glitter) uses hand painting embellishment to bring a realistic painted look to giclees. Giclees are high quality images printed directly onto the canvas from a digital plotter then stretched over frames then coated with a brush gel finish.",
+      "category": "wall_art",
+      "price": 1851.75,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/black-galaxy-framed-glitter",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/Black_Galaxy_Framed.jpg?v=1587792600&width=1400",
+      "brand": "Leftbank",
+      "colors": [
+        "black"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.39
+      }
+    },
+    {
+      "externalId": "32727309549643",
+      "name": "Foolish in Love II Framed",
+      "description": "Foolish in Love Framed artwork is print of canvas giclee with image brush gel finish which brings a realistic painting look. Giclees are high quality images printed directly onto the canvas from a digital plotter then stretched over frames then quoted with a finish. Prints on Canvas are lithograph prints mounted onto gallery stretched canvas",
+      "category": "wall_art",
+      "price": 1095.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/foolish-in-love-ii-framed",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/52GCFC0784-HFH.jpg?v=1597179626&width=1400",
+      "brand": "Leftbank",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.32
+      }
+    },
+    {
+      "externalId": "40005923078219",
+      "name": "Icelandic Peace of Mind I Framed",
+      "description": "Icelandic Peace of Mind I Framed is a print on canvas with a hand embellishment finish which brings a realistic painting look. Giclees are high quality images printed directly onto the canvas from a digital plotter then stretched over frames then quoted with a finish.",
+      "category": "wall_art",
+      "price": 1151.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/icelandic-peace-of-mind-i-framed",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/52GCVG0383-HFH-36PUEC1610.jpg?v=1695925070&width=1400",
+      "brand": "Leftbank",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.4
+      }
+    },
+    {
+      "externalId": "41380296884299",
+      "name": "Limbo Framed by Nikki Chu, Poly Gold Float Frame",
+      "description": "Limbo Framed is a high resolution giclee on canvas. The canvas blend on non-woven fabrics adds a beautiful texture and depth to the imagery.",
+      "category": "wall_art",
+      "price": 1047.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/limbo-framed",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/52NC0104-36PUEC1607.jpg?v=1755417228&width=1400",
+      "brand": "Leftbank",
+      "colors": [
+        "gold"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.27
+      }
+    },
+    {
+      "externalId": "31748915888203",
+      "name": "Peacock Framed",
+      "description": "Peacock Framed artwork is a print on canvas giccle with a hand embellish finish which brings a realistic painting look. Giccles are high quality images printed directly onto the canvas from a digital plotter then stretched over frames then quoted with a finish. Prints on Canvas are lithograph prints mounted onto gallery stretched canvas",
+      "category": "wall_art",
+      "price": 927.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/peacock-framed",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/Peacock_Framed.jpg?v=1587274201&width=1400",
+      "brand": "Leftbank",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.38
+      }
+    },
+    {
+      "externalId": "41318321586251",
+      "name": "Varanger Framed",
+      "description": "Varanger Framed is a print on canvas with a hand embellishment finish which brings a realistic painting look. Giclees are high quality images printed directly onto the canvas from a digital plotter then stretched over frames then quoted with a finish.",
+      "category": "wall_art",
+      "price": 1686.75,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/varanger-framed",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/files/52GCVG1255-HFH_36PUEC1607.jpg?v=1750235127&width=1400",
+      "brand": "Leftbank",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.4
+      }
+    },
+    {
+      "externalId": "29560478957643",
+      "name": "Adagio Bachelor's Chest",
+      "description": "Completely transform your bedroom with the Adagio Bachelor's Chest. Contrasting hues and an ornate drawer front brings style and texture to a classic silhouette. Place a pair on each bedside for ultimate impact.",
+      "category": "wardrobe",
+      "price": 2757.6,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/adagio-bachelor-s-chest",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/adagio_bachelors_chest_3.jpg?v=1588364348&width=1400",
+      "brand": "Bernhardt",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.75
+      }
+    },
+    {
+      "externalId": "29560123818059",
+      "name": "Adagio Dresser",
+      "description": "With its double inlay Capiz shell drawer fronts, solid Gmelina wood construction, and bronze tubular steel base, the Adagio Dresser is the ultimate luxurious piece to store your carefully curated wardrobe.",
+      "category": "wardrobe",
+      "price": 5238,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/adagio-dresser",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/adagio_dresser_1.jpg?v=1588359873&width=1400",
+      "brand": "Bernhardt",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 6,
+        "whiteFraction": 0.83
+      }
+    },
+    {
+      "externalId": "32112942415947",
+      "name": "Duncan Trunk, Reclaimed Wood by Four Hands",
+      "description": "The spacious Duncan Trunk is a versatile piece that will looks great in any space.",
+      "category": "wardrobe",
+      "price": 899.2,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/duncan-trunk-reclaimed-wood",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/DuncanTrunk_ReclaimedWood3.jpg?v=1587501724&width=1400",
+      "brand": "Four Hands",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "rustic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.71
+      }
+    },
+    {
+      "externalId": "39612013477963",
+      "name": "Forrest 6 Drawer Dresser, Onyx Oak",
+      "description": "Live life like you deserve it. With this gorgeous dresser with six drawers for all your clothes, you'll never worry about hesitation again. Draw out the moment, let its diamond detail lock eyes with yours and make a decision today to up your wardrobe game which will only get better from here.",
+      "category": "wardrobe",
+      "price": 2312.8,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/forrest-6-drawer-dresser-onyx-oak",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/AT30800-OXO_forest_dresser_white_bg.jpg?v=1645743652&width=1400",
+      "brand": "Alder & Tweed",
+      "colors": [
+        "oak"
+      ],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 8,
+        "whiteFraction": 0.58
+      }
+    },
+    {
+      "externalId": "29560653840459",
+      "name": "Jade Dresser",
+      "description": "The uniquely crafted Jade Dresser will add transitional allure to any bedroom.",
+      "category": "wardrobe",
+      "price": 2104.25,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/jade-dresser",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/102924_jade_dresser_2.jpg?v=1588369100&width=1400",
+      "brand": "Sunpan",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "modern"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.63
+      }
+    },
+    {
+      "externalId": "29560065818699",
+      "name": "Raven Chest",
+      "description": "Sleek and sophisticated, the Mercury Black Glass Three Drawer Chest features an antique brass base and is a welcomed edition to the connoisseur’s home.",
+      "category": "wardrobe",
+      "price": 899,
+      "currency": "USD",
+      "productUrl": "https://www.highfashionhome.com/products/raven-chest",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0225/2528/0331/products/mercury_black_glass_chest_4.jpg?v=1588359324&width=1400",
+      "brand": "Crestview",
+      "colors": [],
+      "materials": [],
+      "styleTags": [
+        "classic"
+      ],
+      "availability": "in_stock",
+      "image": {
+        "width": 1400,
+        "height": 1400,
+        "format": "jpeg",
+        "cleanEdges": 7,
+        "whiteFraction": 0.39
+      }
+    }
+  ]
+}
