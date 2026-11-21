@@ -42,6 +42,8 @@ Provider categories:
 | Interior-design-specific API | Vendors offering room-restyling APIs | Tuned for the task | Vendor lock-in, less control, cost |
 | Self-hosted open models on GPUs | Open diffusion models with depth/edge adapters | Full control, no per-image fee | Ops burden, GPU cost, licence review |
 
+**Free option for development and pilots:** Cloudflare Workers AI has a free daily allowance and hosts an image-editing model (FLUX.2 [klein] 4B, which accepts the room photo as a reference image) and vision models for item detection (for example Llama 4 Scout). The MVP ships adapters for it; see [MVP Implementation Status §9.4](09-mvp-implementation-status.md#94-demo-mode-vs-real-mode) for limits. Free tiers of other providers change often and some exclude image generation, so check current terms before relying on one.
+
 **MVP recommendation:** start with one hosted API that supports structure/depth guidance (or a strong image-edit endpoint), behind the `RenderProvider` interface, and keep a second provider as a fallback/evaluation candidate. Do not build GPU infrastructure for the MVP.
 
 ## 5.3 Provider abstraction

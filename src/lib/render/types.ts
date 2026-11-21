@@ -25,7 +25,7 @@ export interface RenderProvider {
 
 export class RenderError extends Error {
   constructor(
-    public code: "provider_timeout" | "provider_policy_rejected" | "provider_unavailable" | "provider_bad_response",
+    public code: "provider_timeout" | "provider_policy_rejected" | "provider_unavailable" | "provider_bad_response" | "provider_quota_exceeded",
     message: string,
   ) {
     super(message);

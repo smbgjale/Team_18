@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import sharp from "sharp";
 import type { Category, RoomType } from "./categories";
-import { nearestColorName, rgbToHex } from "./color";
+import { colorNameToHex, nearestColorName, rgbToHex } from "./color";
 import { db } from "./db";
 import { getDesign, getRoom, listItems, setStatus } from "./designs";
 import { matchItem, type MatchContext } from "./matching";
@@ -55,7 +55,9 @@ export async function runDesign(designId: string) {
       error_message:
         err?.code === "provider_policy_rejected"
           ? err.message
-          : "The image generation service could not create this design. Please try again.",
+          : err?.code === "provider_quota_exceeded"
+            ? "The free daily AI allowance has been used up. Please try again after midnight UTC."
+            : "The image generation service could not create this design. Please try again.",
     });
   }
 
@@ -76,7 +78,7 @@ export async function runDesign(designId: string) {
       const n = (seen.get(it.category) ?? 0) + 1;
       if (n > 2) continue; // at most two detections per category keeps "Shop this look" focused
       seen.set(it.category, n);
-      const hex = it.colorHex ?? (await measureColor(renderPng, it.bbox, { width: meta.width!, height: meta.height! }));
+      const hex = it.colorHex ?? colorNameToHex(it.colorName) ?? (await measureColor(renderPng, it.bbox, { width: meta.width!, height: meta.height! }));
       const name = it.colorName ?? nearestColorName(hex);
       insertItem.run(nanoid(12), designId, it.category, it.label, it.confidence, JSON.stringify(it.bbox), JSON.stringify([{ hex, name }]), JSON.stringify(it.styleTags ?? [style.id]));
     }

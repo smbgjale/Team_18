@@ -44,7 +44,12 @@ No configuration is needed to try it. Without an API key the app runs in **demo 
 - Renders come from a local stand-in that restyles your photo and overlays sample furniture. It is clearly labelled "Demo preview" and is **not** a real AI 3D-style render.
 - The catalogue contains three **fictional sample shops** (about 220 products) loaded from CSV feeds in `data/catalogue/`. Their "View on shop" links open a sample product page inside the app.
 
-To get real 3D-style renders, copy `.env.example` to `.env.local` and set `OPENAI_API_KEY`. The app then uses the image provider for renders and a vision model to detect furniture in them. See the [AI Integration Guide](docs/05-ai-integration-guide.md) and the status document for details.
+To get real AI renders, copy `.env.example` to `.env.local` and connect one provider:
+
+- **Free:** Cloudflare Workers AI. Set `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` (a free Cloudflare account and a token made with the "Workers AI" template). Renders use FLUX.2 [klein] 4B and furniture detection uses Llama 4 Scout. The free daily allowance (10,000 Neurons) covers roughly 50 complete designs a day.
+- **Paid:** OpenAI. Set `OPENAI_API_KEY`.
+
+Restart `npm run dev` after changing `.env.local`. See the [AI Integration Guide](docs/05-ai-integration-guide.md) and the [status document](docs/09-mvp-implementation-status.md) for details.
 
 Useful commands:
 
