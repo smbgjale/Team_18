@@ -10,13 +10,9 @@ export function blobConfigured() {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 }
 
-/** Durable remote storage is required on Vercel so rooms survive across serverless instances. */
+/** Blob is optional. Without it, the browser cache + /api/rooms/restore keeps the current session working on Vercel. */
 export function requireDurableStorage() {
-  if (config.isServerless && !blobConfigured()) {
-    throw new Error(
-      "Vercel Blob is not configured. In the Vercel project open Storage → Create → Blob, connect it to this project, then redeploy. That keeps uploaded rooms available when you generate a design.",
-    );
-  }
+  // no-op: local /tmp works within an isolate; client restore covers cross-instance gaps.
 }
 
 export function dbFilePath() {

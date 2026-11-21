@@ -16,6 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { DesignDto, RoomDto } from "@/lib/api-types";
 import { ROOM_TYPE_LABELS, type RoomType } from "@/lib/categories";
 import { readApiJson } from "@/lib/api-client";
+import { restoreCachedRoom } from "@/lib/room-cache";
 import { getDirection, getStyle, stylesFor, type DesignDirection } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
@@ -47,10 +48,15 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
   const initialised = useRef(false);
 
   const load = useCallback(async () => {
-    const res = await fetch(`/api/rooms/${roomId}`);
+    let res = await fetch(`/api/rooms/${roomId}`);
+    if (res.status === 404) {
+      const restored = await restoreCachedRoom(roomId);
+      if (restored) res = await fetch(`/api/rooms/${roomId}`);
+    }
     if (res.status === 404) return setNotFound(true);
     if (!res.ok) return;
     const json: RoomDto = await res.json();
+    setNotFound(false);
     setRoom(json);
     if (!initialised.current) {
       initialised.current = true;
@@ -95,6 +101,8 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
     const dollars = Number(budget);
     if (budget && dollars > 0) body.budget = { amount_minor: Math.round(dollars * 100), currency: "USD" };
     try {
+      // Recreate the room on this serverless instance if /tmp was wiped.
+      await restoreCachedRoom(roomId);
       const res = await fetch(`/api/rooms/${roomId}/designs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { readApiJson } from "@/lib/api-client";
 import { ROOM_TYPES, ROOM_TYPE_LABELS } from "@/lib/categories";
+import { saveCachedRoom } from "@/lib/room-cache";
 import type { DesignDirection } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +43,16 @@ export function UploadForm() {
       const json = await readApiJson<{ id?: string; error?: { message?: string } }>(res);
       if (!res.ok) throw new Error(json.error?.message ?? "Upload failed");
       if (!json.id) throw new Error("The server did not return a room id.");
+      await saveCachedRoom({
+        id: json.id,
+        roomType,
+        designDirection: direction,
+        name: null,
+        fileName: f.name || "room.jpg",
+        mimeType: f.type || "image/jpeg",
+        bytes: await f.arrayBuffer(),
+        savedAt: Date.now(),
+      });
       router.push(`/rooms/${json.id}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Upload failed");
