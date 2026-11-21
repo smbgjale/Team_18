@@ -57,7 +57,8 @@ export function furnishRoom(opts: FurnishOptions): { picks: FurnishPick[]; overB
     const sameDirection = direction ? fitting.filter((p) => matchesDirection(JSON.parse(p.style_tags), direction)) : fitting;
     const candidates = (sameDirection.length ? sameDirection : fitting)
       .map((product) => ({ product, score: scoreForRoom(product, opts) }))
-      .sort((a, b) => b.score - a.score || effectivePrice(a.product) - effectivePrice(b.product));
+      // Equal scores prefer a real shop over the sample catalogue, then the lower price.
+      .sort((a, b) => b.score - a.score || a.product.shop_is_demo - b.product.shop_is_demo || effectivePrice(a.product) - effectivePrice(b.product));
     if (!candidates.length) continue;
     ranked.set(category, candidates);
     picks.push({ category, quantity: itemQuantity(category, opts.roomType), product: candidates[0].product });

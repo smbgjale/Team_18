@@ -1,9 +1,13 @@
 import { csvConnectorFactory } from "./csv-connector";
+import { shopifyConnectorFactory } from "./shopify-connector";
+import { woocommerceConnectorFactory } from "./woocommerce-connector";
 import type { ConnectorFactory, ShopConnector, ShopRecord } from "./types";
 
-// Register new connector types here (e.g. shopify_storefront, affiliate_network, rest_api).
+// Register new connector types here (e.g. affiliate_network, rest_api).
 const FACTORIES: Record<string, ConnectorFactory> = {
   feed_csv: csvConnectorFactory,
+  shopify: shopifyConnectorFactory,
+  woocommerce: woocommerceConnectorFactory,
 };
 
 export function registerConnector(type: string, factory: ConnectorFactory) {

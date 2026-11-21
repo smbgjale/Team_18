@@ -16,6 +16,7 @@ This document records what the first implementation does, where it intentionally
 | Download PNG or JPEG | Done |
 | `ShopConnector` interface, CSV feed connector, connector registry, sync with dry run and reports | Done |
 | Four sample shops (fictional, about 280 products, including a traditional African heritage and rustic range), category mapping, availability parsing | Done |
+| Sabahar (Shopify) and Ethiopian Cultural Shop (WooCommerce) public catalogues: cushions, baskets; real photos, prices and product pages | Done (home goods only; not full furniture) |
 | Catalogue browser with category, shop, look (modern or traditional), budget, in-stock filters | Done |
 | Designs furnished with real catalogue products before rendering (style, palette, room size, budget, availability) | Done (see 9.6) |
 | Product photos sent to the image model as reference images; prompt names every product | Done (Cloudflare up to 3, OpenAI up to 4, demo composites them) |

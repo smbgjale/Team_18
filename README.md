@@ -50,6 +50,7 @@ No configuration is needed to try it. Without an API key the app runs in **demo 
 
 - Renders come from a local stand-in that restyles your photo and overlays the images of the products chosen for the design. It is clearly labelled "Demo preview" and is **not** a real AI 3D-style render. The 3D view works the same in demo mode and with a real provider.
 - The catalogue contains four **fictional sample shops** (about 280 products) loaded from CSV feeds in `data/catalogue/`: three general shops and "Mvule & Sisal", a traditional range of African heritage and rustic farmhouse pieces (carved mahogany, sisal, kitenge and kikoy textiles, reclaimed wood). Their "View on shop" links open a sample product page inside the app.
+- Two **real shops** are read from their public catalogues: [Sabahar](https://sabahar.com/) (handwoven cushions and a fabric basket) and [Ethiopian Cultural Shop](https://ethiopianculturalshop.com/home-goods/) (handwoven baskets). Photos and prices come from the shops, and "View on shop" opens the real product page. Clothing, towels, table linen and cups are not imported, because the app has no slot for them. These are not furniture shops, so sofas, beds and tables still come from the sample catalogue. A public launch still needs each shop's agreement to keep showing their products.
 
 To get real AI renders, copy `.env.example` to `.env.local` and connect one provider:
 

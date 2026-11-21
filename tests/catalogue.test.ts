@@ -12,12 +12,18 @@ test("sync loads the sample shops, is idempotent, and matching respects category
   const { matchItem } = await import("../src/lib/matching");
 
   const first = await syncAll();
-  assert.equal(first.length, 4);
-  assert.ok(first.every((r) => r.created > 0 && r.rejected.length === 0));
-  assert.equal(listShops().length, 4);
+  const demo = ["nordhaus-living", "casa-terra", "loft-and-co", "mvule-and-sisal"];
+  assert.equal(listShops().length, 6);
+  const demoReports = first.filter((r) => demo.includes(r.shop));
+  assert.equal(demoReports.length, 4);
+  assert.ok(demoReports.every((r) => r.created > 0 && r.rejected.length === 0));
+  for (const r of first.filter((s) => !demo.includes(s.shop))) {
+    assert.ok(r.created > 0, `${r.shop} imported nothing`);
+    assert.ok(r.rejected.length < r.seen, `${r.shop} rejected every row`);
+  }
 
   const second = await syncAll();
-  assert.ok(second.every((r) => r.created === 0 && r.updated === 0 && r.deactivated === 0));
+  assert.ok(second.filter((r) => demo.includes(r.shop)).every((r) => r.created === 0 && r.updated === 0 && r.deactivated === 0));
 
   const sofas = queryProducts({ categories: ["sofa"] });
   assert.ok(sofas.length >= 6);

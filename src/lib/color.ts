@@ -5,6 +5,7 @@ export const NAMED_COLORS: Record<string, string> = {
   blue: "#6f93b8", brass: "#b8963e", gold: "#b8963e", cream: "#e8dfc9", red: "#a8423a",
   pink: "#e2b8ae", yellow: "#d1a02a", orange: "#c4704f", silver: "#b4b3af", tan: "#d6c5a6",
   mahogany: "#6e2f1f", teak: "#9c6b3c", natural: "#cbb489", rust: "#9a4a2a", sisal: "#cbb489", jute: "#cbb489",
+  almond: "#e6d3b3", copper: "#b87333", stone: "#c4b8a5", bronze: "#8c6239",
 };
 
 export function hexToRgb(hex: string): [number, number, number] {

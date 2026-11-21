@@ -134,5 +134,39 @@
     },
     "agreement_type": "demo",
     "is_demo": true
+  },
+  {
+    "slug": "sabahar",
+    "name": "Sabahar",
+    "website_url": "https://sabahar.com",
+    "currency": "USD",
+    "connector_type": "shopify",
+    "connector_config": {
+      "shop_url": "https://sabahar.com",
+      "style_tags": ["african"]
+    },
+    "category_map": {
+      "cushion": "cushion",
+      "Basket": "plant_pot"
+    },
+    "agreement_type": "public_catalogue",
+    "is_demo": false
+  },
+  {
+    "slug": "ethiopian-cultural-shop",
+    "name": "Ethiopian Cultural Shop",
+    "website_url": "https://ethiopianculturalshop.com",
+    "currency": "USD",
+    "connector_type": "woocommerce",
+    "connector_config": {
+      "store_url": "https://ethiopianculturalshop.com",
+      "category": "44",
+      "style_tags": ["african"]
+    },
+    "category_map": {
+      "Basket": "plant_pot"
+    },
+    "agreement_type": "public_catalogue",
+    "is_demo": false
   }
 ]
