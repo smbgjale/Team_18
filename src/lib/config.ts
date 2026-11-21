@@ -28,12 +28,13 @@ export const config = {
 
 function pick(explicit: string): ProviderName {
   if (explicit === "mock" || explicit === "openai" || explicit === "cloudflare") return explicit;
-  if (config.openai.apiKey) return "openai";
   if (config.cloudflare.accountId && config.cloudflare.apiToken) return "cloudflare";
+  if (config.openai.apiKey) return "openai";
   return "mock";
 }
 
-// An explicit RENDER_PROVIDER / VISION_PROVIDER wins; otherwise the first configured provider is used.
+// An explicit RENDER_PROVIDER / VISION_PROVIDER wins. Otherwise Cloudflare is used when it is configured.
+// OpenAI is only used when it is named explicitly, or when Cloudflare is not configured.
 export const activeRenderProvider = () => pick(config.renderProvider);
 export const activeVisionProvider = () => pick(config.visionProvider);
 

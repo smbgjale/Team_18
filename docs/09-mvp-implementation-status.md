@@ -62,7 +62,7 @@ score = categoryExactness * (0.10 keyword + 0.35 style + 0.25 colour + 0.20 pric
 | Cost | Free | Free daily allowance of 10,000 Neurons (resets 00:00 UTC). A design uses roughly 210 (about 125 for the render: 26 per 512 px output tile plus 5.4 per input image tile for the room photo and up to 3 product photos; about 85 for the product check), so about 45 designs a day | Paid per image |
 | Data | Stays local | Both models are listed by Cloudflare as zero data retention | See the provider's data policy |
 
-When several providers are configured, OpenAI is used first, then Cloudflare. `RENDER_PROVIDER` and `VISION_PROVIDER` (`mock`, `cloudflare`, `openai`) override the choice, for example to render with Cloudflare and detect with OpenAI.
+When Cloudflare is configured it is used for the redesign, including when an OpenAI key is also present. OpenAI runs only if `RENDER_PROVIDER` or `VISION_PROVIDER` is set to `openai`. `mock` forces the local stand-in.
 
 Cloudflare limits to keep in mind:
 - The reference image must fit within 512 x 512 px, so fine detail from the original photo is lost and the model sees only the overall layout. Output is 1024 px on the long edge.

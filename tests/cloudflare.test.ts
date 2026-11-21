@@ -4,7 +4,7 @@ import sharp, { type Metadata } from "sharp";
 
 process.env.CLOUDFLARE_ACCOUNT_ID = "acc123";
 process.env.CLOUDFLARE_API_TOKEN = "test-token";
-delete process.env.OPENAI_API_KEY;
+process.env.OPENAI_API_KEY = "sk-test";
 delete process.env.RENDER_PROVIDER;
 delete process.env.VISION_PROVIDER;
 
@@ -16,7 +16,7 @@ function stubFetch(handler: (req: Request) => Promise<Response>) {
   return () => { globalThis.fetch = original; };
 }
 
-test("Cloudflare is selected automatically when its credentials are set", async () => {
+test("Cloudflare is selected even when an OpenAI key is also set", async () => {
   const { activeRenderProvider, activeVisionProvider } = await import("../src/lib/config");
   assert.equal(activeRenderProvider(), "cloudflare");
   assert.equal(activeVisionProvider(), "cloudflare");

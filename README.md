@@ -52,13 +52,11 @@ No configuration is needed to try it. Without an API key the app runs in **demo 
 - Furniture is real stock from [High Fashion Home](https://www.highfashionhome.com): sofas, chairs, tables, beds, lamps, rugs, art, mirrors, cushions and planters. Each kept photo is a JPEG of the whole product on a white studio background, at least 1000 px on the short side. Refresh it with `npm run catalogue:studio`.
 - Ethiopian decor is from the [Etsy Ethiopian Home Decor](https://www.etsy.com/market/ethiopian_home_decor) market. A listing is placed in the room slot that matches its Etsy category: throw pillows become cushions, wall hangings and wall decor become wall art, and a rug stays a rug. Photos stay on Etsy's CDN and link back to the listing. Gabi blankets, clothing, jewelry and table linens are left out, because those categories have no room slot, and the saved listings did not include curtains. Refresh it with `npm run catalogue:etsy`.
 - "View on shop" opens the product page. Where a shop does not list width, depth and height, the 3D view uses a typical size and says so.
-- The 3D view can turn a catalogue photo into a GLB. Without `MESHY_API_KEY` that file is a box textured with the photo, saved on the product and reused. With the key, "Create 3D models" asks Meshy for a mesh and stores that instead. The room redesign stays the separate AI image and still keeps the walls, windows and doors.
+- The 3D view saves a GLB textured with the catalogue photo and reuses it. The room redesign stays the separate AI image and still keeps the walls, windows and doors.
 
-To get real AI renders, copy `.env.example` to `.env.local` and connect one provider:
+Real redesigns use Cloudflare Workers AI, which has a free daily allowance and does not need a credit card. Copy `.env.example` to `.env.local` and set `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` (a token made with the "Workers AI" template). Renders use FLUX.2 [klein] 4B, with the room photo and up to three product photos as references, and the check of which products appear in the image uses Llama 4 Scout. The free allowance (10,000 Neurons) covers roughly 45 complete designs a day. OpenAI is not used.
 
-- **Free:** Cloudflare Workers AI. Set `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` (a free Cloudflare account and a token made with the "Workers AI" template). Renders use FLUX.2 [klein] 4B (with the room photo and up to three product photos as references) and the check of which products appear in the image uses Llama 4 Scout. The free daily allowance (10,000 Neurons) covers roughly 45 complete designs a day.
-- **Paid:** OpenAI. Set `OPENAI_API_KEY`.
-- **3D models:** set `MESHY_API_KEY` to generate a mesh from a catalogue photo. Leave it empty to keep the saved photo-textured GLB. `IMAGE_TO_3D_PROVIDER=local` forces that even when a key is present.
+3D models do not need a paid image-to-3D service. **Create 3D models** saves a GLB textured with the catalogue photo and reuses it.
 
 Restart `npm run dev` after changing `.env.local`. See the [AI Integration Guide](docs/05-ai-integration-guide.md) and the [status document](docs/09-mvp-implementation-status.md) for details.
 
