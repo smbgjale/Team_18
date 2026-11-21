@@ -1,6 +1,6 @@
 # 3. Database Design
 
-PostgreSQL 15+ with the `pgvector` extension. (The MVP implementation uses SQLite without users or vectors; see [MVP Implementation Status](09-mvp-implementation-status.md).) Prices are stored in minor units (integer) plus ISO currency to avoid float errors. Primary keys are UUIDs.
+PostgreSQL 15+ with the `pgvector` extension. (The MVP implementation uses SQLite without users or vectors, and adds a `design_products` table and room dimensions for the 3D view, described in §3.4; see [MVP Implementation Status](09-mvp-implementation-status.md).) Prices are stored in minor units (integer) plus ISO currency to avoid float errors. Primary keys are UUIDs.
 
 ## 3.1 Entity overview
 
@@ -229,3 +229,30 @@ CREATE INDEX click_events_product_idx ON click_events(product_id, clicked_at DES
 - **Staleness**: products not seen in the last N syncs are set `is_active = false`, not deleted, so old matches and click history stay valid.
 - **Migrations** are managed with a migration tool (e.g. Prisma Migrate, Drizzle Kit or Flyway) and run in CI against an ephemeral database.
 - **Data minimisation**: store only the product data needed to display and rank; keep `raw_payload` for debugging with a retention limit.
+
+## 3.4 Products chosen per design and room dimensions (MVP addition)
+
+Designs are now furnished with real products before rendering, so the products are stored with the design instead of being inferred from the image:
+
+```sql
+CREATE TABLE design_products (
+  id TEXT PRIMARY KEY,
+  design_id TEXT NOT NULL REFERENCES designs(id) ON DELETE CASCADE,
+  product_id TEXT NOT NULL REFERENCES products(id),
+  category TEXT NOT NULL,                      -- the furniture slot (sofa, rug, chair, ...)
+  quantity INTEGER NOT NULL DEFAULT 1,         -- e.g. 4 dining chairs
+  sort INTEGER NOT NULL DEFAULT 0,
+  in_render INTEGER,                           -- 1/0 from the image check, NULL if not checked
+  replaced_after_render INTEGER NOT NULL DEFAULT 0, -- user swapped the product after the image was made
+  layout_json TEXT                             -- [{x, z, rot}] per unit in metres/degrees for the 3D view
+);
+
+ALTER TABLE rooms ADD COLUMN width_cm INTEGER;   -- NULL means "use the default for the room type"
+ALTER TABLE rooms ADD COLUMN length_cm INTEGER;
+ALTER TABLE rooms ADD COLUMN height_cm INTEGER;
+```
+
+- `design_items` and `product_matches` are kept for designs created before this change; new designs do not write them. Alternatives are computed on request.
+- Product dimensions come from `products.width_cm/depth_cm/height_cm`; when a shop omits them, the 3D view uses a typical size for the category and says so.
+- The SQLite schema adds columns with a small idempotent migration on start-up (`PRAGMA table_info` check). In PostgreSQL, use a regular migration and `JSONB` for `layout_json`.
+

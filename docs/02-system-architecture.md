@@ -113,6 +113,8 @@ Product links go through `GET /r/{productId}` (see [API](04-api-documentation.md
 - **Data retention:** user photos and renders deletable on request; shop product data refreshed on schedule, stale products hidden.
 - **Failure isolation:** a failing shop connector never blocks designs; a failing matcher still delivers the render.
 
-## 2.7 Future architecture (v2: interactive 3D)
+## 2.7 Scene and 3D architecture
 
-Add a *Scene service* and a *3D asset catalogue*: room layout estimation or measured dimensions → scene graph (JSON) → client renderer (Three.js/Babylon.js) loading glTF models of products. Product matching then places real catalogue products into the scene instead of inferring them from pixels. Not part of the MVP; see [Roadmap](07-development-roadmap.md).
+**MVP (built):** products are chosen before rendering (`src/lib/furnish.ts`) and stored per design (`design_products`). The pipeline sends the biggest pieces' photos to the image model as reference images. A small scene API (`GET/PUT /api/designs/{id}/scene`) returns the room's dimensions and colours plus each product with its real dimensions, colour and saved placement. The browser renders it with React Three Fiber (Three.js): a rectangular room with three walls and a window, and one procedural, simplified shape per product (`src/components/room3d/`). Default placement rules (sofa against the back wall, coffee table in front of it, chairs around the table, lamps on side tables, and so on) live in `src/lib/scene-layout.ts`, a pure module shared with the tests.
+
+**Later (v2):** add a *3D asset catalogue* (glTF per product, from shops or built), room layout estimation or measured dimensions from the photo, and materials and lighting editing. The scene JSON and placement rules stay; only the renderer swaps procedural shapes for real models. See [Roadmap](07-development-roadmap.md).

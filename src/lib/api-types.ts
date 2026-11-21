@@ -56,6 +56,7 @@ export interface SceneItemDto {
   quantity: number;
   dims_m: { w: number; d: number; h: number };
   dims_from_shop: boolean;
+  round: boolean;
   color_hex: string;
   layout: ScenePlacement[] | null;
   product: ProductDto;

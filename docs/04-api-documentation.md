@@ -184,6 +184,72 @@ Re-run matching with different constraints (e.g. new budget, another colour).
 { "max_price": { "amount_minor": 80000, "currency": "USD" }, "colors": ["beige"], "shops": ["example-furniture"] }
 ```
 
+### Products chosen up front (as implemented in the MVP)
+
+New designs are furnished with real products before rendering, so the MVP's `GET /api/designs/{designId}/items` returns those products instead of detected items (`mode: "products"`). Designs created earlier keep the detected-item format above (`mode: "detected"`, `chosen: null`). The query parameters are the same; price, stock and shop filters apply to the alternatives.
+
+```json
+{
+  "design_id": "PahnOm87yvphng",
+  "status": "completed",
+  "mode": "products",
+  "items": [
+    {
+      "id": "Xb1c9...",
+      "category": "sofa",
+      "label": "Sofas",
+      "quantity": 1,
+      "in_render": true,
+      "replaced_after_render": false,
+      "chosen": { "id": "p_5c20...", "name": "Hygge Grey 3-Seater Sofa", "price": { "amount_minor": 48499, "currency": "USD" }, "dimensions_cm": { "width": 218, "depth": 100, "height": 82 }, "...": "same fields as other product objects" },
+      "alternatives": [{ "rank": 1, "score": 0.86, "score_breakdown": { "style": 1, "color": 0.9, "...": 0 }, "product": { "...": "..." } }]
+    }
+  ],
+  "budget_summary": {
+    "budget": { "amount_minor": 300000, "currency": "USD" },
+    "total": { "amount_minor": 166293, "currency": "USD" },
+    "within_budget": true
+  },
+  "notice": "Each design is furnished with these real products from partner shops..."
+}
+```
+
+- `in_render`: `true` if the image check found the product's category in the generated image, `false` if not (the AI dropped it), `null` if the check did not run.
+- `total` is the sum of the chosen products' prices times their quantities.
+
+### `PATCH /api/designs/{designId}/products/{itemId}` (MVP)
+Swap the product used in one slot. Body `{ "product_id": "p_..." }`. The product must be active, not out of stock, and in the same or a compatible category. Sets `replaced_after_render` because the existing image no longer shows this product. Returns `{ "ok": true }`.
+
+### `GET /api/designs/{designId}/scene` (MVP)
+Data for the 3D layout view. Units are metres; the origin is the centre of the floor, `+x` is right, `+z` points towards the viewer, the back wall is at `z = -length/2`, and `rot` is the rotation about the vertical axis in degrees (0 = the product's front faces `+z`).
+
+```json
+{
+  "design_id": "PahnOm87yvphng",
+  "style": "scandinavian",
+  "room": { "width_m": 5, "length_m": 4.2, "height_m": 2.6, "wall_hex": "#f4f1ea", "floor_hex": "#d4b48a" },
+  "items": [
+    {
+      "id": "Xb1c9...",
+      "category": "sofa",
+      "quantity": 1,
+      "dims_m": { "w": 2.18, "d": 1.0, "h": 0.82 },
+      "dims_from_shop": true,
+      "round": false,
+      "color_hex": "#b4b3af",
+      "layout": [{ "x": 0, "z": -1.55, "rot": 0 }],
+      "product": { "...": "product object" }
+    }
+  ],
+  "total": { "amount_minor": 166293, "currency": "USD" }
+}
+```
+
+`layout` is `null` until the user moves something; the client then uses the default placement rules. `dims_from_shop: false` means the shop gave no dimensions and a typical size for the category is used.
+
+### `PUT /api/designs/{designId}/scene` (MVP)
+Save the layout and/or the room size. Body: `{ "room": { "width_m": 4.5, "length_m": 3.8 }, "items": [{ "id": "Xb1c9...", "layout": [{ "x": 0.2, "z": -1.5, "rot": 90 }] }] }` (both parts optional; room sides 2 to 15 m, up to 8 placements per item). Returns the updated scene. Rate limited per IP.
+
 ## 4.4 Products (catalogue browsing)
 
 ### `GET /products`

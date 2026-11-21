@@ -46,13 +46,16 @@ Exit (MVP launch criteria):
 - Multi-currency and localisation.
 - Paid plans (higher quotas, no watermark, HD upscaling).
 
-## Phase 3: v2 — Interactive 3D room (separate product track)
+## Phase 3: v2 — Full interactive 3D room (separate product track)
+
+Already in the MVP (a first, simplified step): every design is furnished with real catalogue products, and a 3D layout view shows them at their real sizes and colours as simplified shapes in a rectangular room with editable dimensions, with drag, rotate, swap and saved layouts (see [Overview §1.4](01-product-overview.md#14-3d-style-rendered-image-vs-interactive-3d-model)). The remaining work below turns that into a full 3D room.
+
 Prerequisites and workstreams:
 - **Room reconstruction:** from measured dimensions, a floor plan wizard, or reconstruction from photos/LiDAR (device-dependent).
 - **3D asset catalogue:** glTF models for products (from shop partners or generated), with scale metadata from real dimensions.
-- **Scene editor:** Three.js/Babylon.js web viewer; drag, rotate, swap products; materials and lighting; save scene JSON.
+- **Scene editor:** extend the MVP viewer (React Three Fiber) with materials and lighting, doors and multiple windows, collision checks, undo, and a 2D floor-plan mode.
 - **Rendering:** real-time view plus optional AI "photoreal pass" over a scene screenshot for presentation images.
-- **Real fit checks:** with real dimensions, "does this sofa fit" becomes meaningful (not possible with the MVP image output).
+- **Real fit checks:** the MVP warns when a product is larger than the entered room size; with a reconstructed room, check clearances, doors and walkways.
 - Optional AR placement on mobile.
 
 Gate: validated user demand from MVP/v1 usage, and partner agreement for 3D assets. This is a significant new subsystem, not an incremental feature.

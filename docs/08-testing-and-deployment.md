@@ -24,7 +24,14 @@
 - Download: correct format, signed URL expiry, watermark on free tier, authorisation (another user's design → 404).
 - Compare: original and render share aspect ratio; slider usable on touch devices.
 - **Evaluation set (30 to 50 rooms)** scored per [AI guide §5.8](05-ai-integration-guide.md#58-evaluation-before-committing-to-a-provider). Store scores per prompt/model version; block releases that regress layout pass rate by more than 3 points or render-look rating by more than 0.3.
-- Wording check: automated UI/content test that "3D model" / "editable" never appears in user-facing copy for the image feature, and that the disclaimer is shown.
+- Wording check: automated UI/content test that "3D model" / "editable" never appears in user-facing copy for the image feature, and that the disclaimer is shown. The 3D layout view must keep its "real sizes, simplified shapes" label.
+- Reference products: the render request contains the room photo plus at most `maxReferenceImages` product photos (each within the provider's size limit), and the prompt names every chosen product (covered by `tests/cloudflare.test.ts` and `tests/furnish.test.ts`).
+
+### Furnishing and 3D layout view
+- Furnishing: one product per slot, never out of stock, fits the room, mostly tagged with the chosen style; with a budget the total stays within it (or is flagged), and main pieces are never dropped (`tests/furnish.test.ts`).
+- End to end with the demo provider: a design run stores its products, renders them, marks them as visible, and the prompt names each one.
+- Default layout for every room type keeps all floor items inside the room; clamping, rotation normalisation and attachment rules (`tests/scene-layout.test.ts`).
+- Manual/browser checks: the 3D view renders on desktop and mobile; orbit and zoom; selecting, dragging (stops at walls), rotating and keyboard nudging; layout and room size persist after reload; swapping a product updates the scene; WebGL-unavailable fallback message.
 
 ### Shop integration
 - Connector fixtures for each type; pagination, auth failure, rate-limit (429) handling, timeout and partial failures.

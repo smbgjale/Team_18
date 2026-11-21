@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { Html, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Canvas, useThree, type ThreeEvent } from "@react-three/fiber";
 import { ExternalLink, Move, RotateCw, Undo2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -100,28 +100,17 @@ function RoomShell({ room, wall, floor }: { room: SceneRoom; wall: string; floor
           <meshStandardMaterial color={frame} roughness={0.6} />
         </mesh>
       ))}
-      <Html position={[0, 0.01, L / 2 + 0.3]} center zIndexRange={[10, 0]} style={{ pointerEvents: "none" }}>
-        <span className="whitespace-nowrap rounded bg-background/85 px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground shadow-sm">{W.toFixed(1)} m</span>
-      </Html>
-      <Html position={[-W / 2 - 0.3, 0.01, 0]} center zIndexRange={[10, 0]} style={{ pointerEvents: "none" }}>
-        <span className="whitespace-nowrap rounded bg-background/85 px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground shadow-sm">{L.toFixed(1)} m</span>
-      </Html>
     </group>
   );
 }
 
-function SelectionOutline({ dims, label }: { dims: Dims; label: string }) {
+function SelectionOutline({ dims }: { dims: Dims }) {
   const box = useMemo(() => new BoxGeometry(dims.w + 0.04, Math.max(0.03, dims.h) + 0.04, Math.max(0.03, dims.d) + 0.04), [dims.w, dims.h, dims.d]);
   return (
-    <group>
-      <lineSegments position={[0, dims.h / 2, 0]} raycast={() => null}>
-        <edgesGeometry args={[box]} />
-        <lineBasicMaterial color="#2563eb" />
-      </lineSegments>
-      <Html position={[0, dims.h + 0.22, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
-        <span className="block max-w-56 truncate whitespace-nowrap rounded-md bg-foreground/90 px-2 py-1 text-xs font-medium text-background shadow">{label}</span>
-      </Html>
-    </group>
+    <lineSegments position={[0, dims.h / 2, 0]} raycast={() => null}>
+      <edgesGeometry args={[box]} />
+      <lineBasicMaterial color="#2563eb" />
+    </lineSegments>
   );
 }
 
@@ -199,9 +188,10 @@ function Furniture({ scene, layouts, selected, onSelect, onMove }: SceneProps) {
                 dims={dims}
                 color={item.color_hex}
                 accent={accentFor(item.product.materials)}
+                round={item.round}
                 cord={category === "ceiling_light" ? Math.max(0.1, room.height - y - dims.h) : undefined}
               />
-              {isSelected && <SelectionOutline dims={dims} label={item.product.name} />}
+              {isSelected && <SelectionOutline dims={dims} />}
             </group>
           );
         });
@@ -336,7 +326,7 @@ export default function Room3D({ designId, version }: { designId: string; versio
       >
         <div className="aspect-[4/3] w-full sm:aspect-[16/10]">
           <Canvas
-            shadows
+            shadows="percentage"
             dpr={[1, 2]}
             camera={{ position: [room.width * 0.45, M * 0.95 + 0.8, room.length / 2 + M * 0.95], fov: 42, near: 0.1, far: 100 }}
             onPointerMissed={() => setSelected(null)}
@@ -363,10 +353,18 @@ export default function Room3D({ designId, version }: { designId: string; versio
         </div>
         <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1.5">
           <Badge variant="secondary" className="bg-background/90">Real sizes, simplified shapes</Badge>
+          <Badge variant="outline" className="bg-background/90">Room {room.width.toFixed(1)} x {room.length.toFixed(1)} m</Badge>
           {saveState === "saving" && <Badge variant="outline" className="bg-background/90">Saving...</Badge>}
           {saveState === "saved" && <Badge variant="outline" className="bg-background/90">Layout saved</Badge>}
           {saveState === "error" && <Badge variant="destructive">Could not save layout</Badge>}
         </div>
+        {selItem && (
+          <div className="pointer-events-none absolute inset-x-0 top-12 flex justify-center px-3">
+            <span className="max-w-full truncate rounded-md bg-foreground/90 px-2.5 py-1 text-xs font-medium text-background shadow">
+              {selItem.product.name}{selDraggable ? " · drag to move, R to rotate" : ""}
+            </span>
+          </div>
+        )}
         <p className="pointer-events-none absolute inset-x-3 bottom-2 text-center text-[11px] text-muted-foreground">
           <Move className="mr-1 inline size-3" />Drag furniture to move it · drag empty space to look around · scroll or pinch to zoom
         </p>

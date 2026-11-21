@@ -2,7 +2,7 @@
 
 Goal: the output must look like a **professional 3D interior design render** (clean global illumination, physically plausible materials, soft shadows, tidy styled composition) while **keeping the original room layout**. It must not look like a casually retouched photo.
 
-Reminder: the result is a generated 2D image in a 3D-render style, **not** a 3D model. See [Product Overview §1.4](01-product-overview.md#14-3d-style-rendered-image-vs-interactive-3d-model).
+Reminder: the result is a generated 2D image in a 3D-render style, **not** a 3D model. The separate 3D layout view does not use AI; it draws the chosen products from their catalogue dimensions. See [Product Overview §1.4](01-product-overview.md#14-3d-style-rendered-image-vs-interactive-3d-model).
 
 > Provider names, model names, parameters and prices change often. Treat the examples here as patterns. Before choosing, check the provider's current documentation, pricing, content policy and licence terms for commercial use, then run the evaluation in §5.8.
 
@@ -201,3 +201,18 @@ Re-run this set whenever the model, prompt template or parameters change (see [T
 | v1.1 | Inpainting for "keep my sofa / replace everything else", per-region editing (change just the floor or wall colour) |
 | v1.2 | Upscaling, multiple camera-consistent views if provider supports it |
 | v2 | Room layout estimation and real 3D scene (separate from image generation) for interactive editing; products placed as 3D assets |
+
+## 5.12 Rendering with real products as references (MVP)
+
+Each design's products are chosen before rendering (see [doc 6 §6.9](06-product-recommendation-system.md#69-furnishing-a-design-with-real-products-mvp)). The render request then carries them in two ways:
+
+1. **Reference images.** The photos of the most important pieces (ordered by budget weight: sofa or bed, dining table, wardrobe, ...) are sent with the room photo. Each provider declares how many it accepts (`maxReferenceImages`):
+   - Cloudflare FLUX.2 [klein] 4B: room photo as `input_image_0`, up to 3 product photos as `input_image_1..3`, each resized to fit 512 x 512 px. The prompt starts "Image 0 is a photo of a real room. Images 1 to N are product photos of furniture to place in the room."
+   - OpenAI `gpt-image-1` edits: the room photo and up to 4 product photos as `image[]`; the prompt says which image is which.
+   - Demo stand-in: composites the product images directly.
+2. **Prompt.** Every chosen product is listed with its colour, material, category, name and quantity, for example `oak bed ("Oslo Bed", exactly as shown in reference product image 1)`, followed by "Do not add other large furniture".
+
+After rendering, the vision provider checks which of the expected categories are visible and stores `in_render` per product, so the UI can say when the AI dropped a product. Image models do not reproduce reference products exactly (shape details, fabric, proportions may change), which is why the product list and shop pages, not the image, are the source of truth for what the user buys.
+
+Cost: reference images add input tokens or neurons to each render. On the Cloudflare free plan this is still well within the daily allowance for a demo, but measure it with real usage.
+

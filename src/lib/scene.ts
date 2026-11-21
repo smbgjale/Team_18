@@ -41,6 +41,7 @@ export function sceneFor(design: DesignRow): SceneDto | null {
         quantity: r.quantity,
         dims_m: d,
         dims_from_shop: fromShop,
+        round: /\b(round|circular|oval)\b/i.test(r.product.name),
         color_hex: r.product.dominant_color_hex ?? colorNameToHex(colors[0] ?? "") ?? "#9a8f80",
         layout: r.layout_json ? JSON.parse(r.layout_json) : null,
         product: toProductDto(r.product),

@@ -1,6 +1,6 @@
 # 6. Product Recommendation System
 
-> MVP note: the first implementation matches with keyword, style, colour, price and availability scores and no image embeddings yet. See [MVP Implementation Status](09-mvp-implementation-status.md).
+> MVP note: the first implementation matches with keyword, style, colour, price and availability scores and no image embeddings yet. New designs no longer infer products from the image: they are furnished with real products before rendering (§6.9), and matching is used to suggest alternatives. See [MVP Implementation Status](09-mvp-implementation-status.md).
 
 Covers (a) how shops are integrated, (b) how products are normalised, (c) how items in a generated design are identified, and (d) how products are matched and ranked.
 
@@ -211,3 +211,16 @@ Filters on "Shop this look" and the catalogue page: category, budget (min/max), 
 - Complementary/set recommendations and bundles within a budget.
 - Real-time stock/price via partner APIs.
 - Interactive 3D: replace inference-from-pixels with exact products as 3D assets in a scene (v2).
+
+## 6.9 Furnishing a design with real products (MVP)
+
+Instead of generating an image and then searching for look-alike products, the MVP picks the products first and renders the room with them (`src/lib/furnish.ts`):
+
+1. **Slots.** The room type defines the furniture slots (living room: sofa, coffee table, rug, curtains, floor lamp, TV unit, wall art; bedroom: bed, side table, curtains, rug, table lamp, wardrobe, mirror; and so on). Dining chairs come in fours (twos in a kitchen).
+2. **Candidates.** Active, not out of stock, in the budget's currency, and small enough for the room: the product's footprint must fit within the room's width and length minus 30 cm (in either orientation).
+3. **Score.** `0.55 style + 0.30 palette + 0.15 availability`, where `style` is 1 for a product tagged with the chosen style, 0.5 for an adjacent style or an untagged product, otherwise 0, and `palette` is the CIE76 colour distance between the product colour and the style's palette. The best-scoring candidate fills the slot.
+4. **Budget.** While the total (price times quantity) is over budget, make the single swap with the lowest loss of score per unit of money saved, across all slots. If no cheaper candidate is left, drop optional decor (plant, wall art, mirror, cushion, table lamp, shelf, side table). The main pieces are never dropped.
+5. **Alternatives.** For each chosen product the regular matcher (§6.5) ranks up to N alternatives in the same or compatible categories, using the chosen product's own colours and text as the query, and the user's price, stock and shop filters.
+
+The user can swap a product for an alternative (`PATCH /api/designs/{id}/products/{itemId}`); the 3D view updates immediately and the item is marked "changed after the image was made" until a new design is generated.
+

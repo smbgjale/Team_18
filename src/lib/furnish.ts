@@ -1,4 +1,4 @@
-import { BUDGET_WEIGHT, DEFAULT_DIMS_CM, ROOM_ITEMS, itemQuantity, type Category, type RoomType } from "./categories";
+import { DEFAULT_DIMS_CM, ROOM_ITEMS, itemQuantity, type Category, type RoomType } from "./categories";
 import { colorNameToHex, colorScore } from "./color";
 import { effectivePrice, queryProducts, type ProductRow } from "./products";
 import { getStyle, styleAffinity } from "./styles";
@@ -35,67 +35,52 @@ function paletteScore(p: ProductRow, style: string) {
   return p.dominant_color_hex ? colorScore([p.dominant_color_hex], palette) : 0.5;
 }
 
-function targets(opts: FurnishOptions, categories: Category[]) {
-  const out = new Map<Category, number>();
-  if (!opts.budgetMinor) return out;
-  const total = categories.reduce((s, c) => s + BUDGET_WEIGHT[c], 0);
-  for (const c of categories) out.set(c, (opts.budgetMinor * BUDGET_WEIGHT[c]) / total / itemQuantity(c, opts.roomType));
-  return out;
-}
-
-export function scoreForRoom(p: ProductRow, opts: FurnishOptions, target: number | undefined) {
+export function scoreForRoom(p: ProductRow, opts: Pick<FurnishOptions, "style">) {
   const style = styleAffinity(opts.style, JSON.parse(p.style_tags));
-  const palette = paletteScore(p, opts.style);
-  let price = 0.7;
-  if (target != null && (!opts.budgetCurrency || opts.budgetCurrency === p.currency)) {
-    const amount = effectivePrice(p);
-    price = amount <= target ? 1 : Math.max(0, 1 - (amount - target) / (target * 0.5));
-  }
-  return 0.45 * style + 0.25 * palette + 0.2 * price + 0.1 * (AVAILABILITY[p.availability] ?? 0.5);
+  return 0.55 * style + 0.3 * paletteScore(p, opts.style) + 0.15 * (AVAILABILITY[p.availability] ?? 0.5);
 }
 
 export const pickTotal = (picks: FurnishPick[]) => picks.reduce((s, x) => s + effectivePrice(x.product) * x.quantity, 0);
 
 // Chooses one real catalogue product per furniture category for the room: the best match for the
-// style and palette that fits the room, then trades down (or drops optional decor) until the
-// total is within budget.
+// style and palette that fits the room. When that is over budget it repeatedly makes the swap that
+// costs the least match quality per unit of money saved, and drops optional decor as a last resort.
 export function furnishRoom(opts: FurnishOptions): { picks: FurnishPick[]; overBudget: boolean } {
-  const categories = ROOM_ITEMS[opts.roomType];
-  const budgetTargets = targets(opts, categories);
-  const ranked = new Map<Category, ProductRow[]>();
+  const ranked = new Map<Category, { product: ProductRow; score: number }[]>();
   const picks: FurnishPick[] = [];
 
-  for (const category of categories) {
-    const candidates = queryProducts({ categories: [category], excludeOutOfStock: true }).filter((p) => fitsRoom(p, opts.room));
+  for (const category of ROOM_ITEMS[opts.roomType]) {
+    const candidates = queryProducts({ categories: [category], excludeOutOfStock: true })
+      .filter((p) => fitsRoom(p, opts.room) && (!opts.budgetCurrency || p.currency === opts.budgetCurrency))
+      .map((product) => ({ product, score: scoreForRoom(product, opts) }))
+      .sort((a, b) => b.score - a.score || effectivePrice(a.product) - effectivePrice(b.product));
     if (!candidates.length) continue;
-    const target = budgetTargets.get(category);
-    candidates.sort((a, b) => scoreForRoom(b, opts, target) - scoreForRoom(a, opts, target));
     ranked.set(category, candidates);
-    picks.push({ category, quantity: itemQuantity(category, opts.roomType), product: candidates[0] });
+    picks.push({ category, quantity: itemQuantity(category, opts.roomType), product: candidates[0].product });
   }
 
-  if (opts.budgetMinor) {
-    const budget = opts.budgetMinor;
-    for (let guard = 0; guard < 50 && pickTotal(picks) > budget; guard++) {
-      const byCost = [...picks].sort((a, b) => effectivePrice(b.product) * b.quantity - effectivePrice(a.product) * a.quantity);
-      let changed = false;
-      for (const pick of byCost) {
-        const current = effectivePrice(pick.product);
-        const cheaper = (ranked.get(pick.category) ?? []).find(
-          (p) => effectivePrice(p) < current && styleAffinity(opts.style, JSON.parse(p.style_tags)) >= 0.5,
-        ) ?? (ranked.get(pick.category) ?? []).filter((p) => effectivePrice(p) < current).sort((a, b) => effectivePrice(a) - effectivePrice(b))[0];
-        if (cheaper) {
-          pick.product = cheaper;
-          changed = true;
-          break;
+  const budget = opts.budgetMinor;
+  if (budget) {
+    for (let guard = 0; guard < 200 && pickTotal(picks) > budget; guard++) {
+      let best: { pick: FurnishPick; product: ProductRow; cost: number } | null = null;
+      for (const pick of picks) {
+        const list = ranked.get(pick.category) ?? [];
+        const current = list.find((c) => c.product.id === pick.product.id)!;
+        for (const c of list) {
+          const saved = (effectivePrice(pick.product) - effectivePrice(c.product)) * pick.quantity;
+          if (saved <= 0) continue;
+          const cost = (current.score - c.score + 0.02) / saved;
+          if (!best || cost < best.cost) best = { pick, product: c.product, cost };
         }
       }
-      if (!changed) {
-        const drop = picks.findIndex((p) => OPTIONAL.includes(p.category));
-        if (drop === -1) break;
-        picks.splice(drop, 1);
+      if (best) {
+        best.pick.product = best.product;
+        continue;
       }
+      const drop = picks.findIndex((p) => OPTIONAL.includes(p.category));
+      if (drop === -1) break;
+      picks.splice(drop, 1);
     }
   }
-  return { picks, overBudget: !!opts.budgetMinor && pickTotal(picks) > opts.budgetMinor };
+  return { picks, overBudget: !!budget && pickTotal(picks) > budget };
 }

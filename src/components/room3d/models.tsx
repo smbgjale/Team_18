@@ -39,13 +39,23 @@ function Box({ size, at, color, radius, roughness = 0.8, metalness = 0, emissive
   );
 }
 
-function Cyl({ rTop, rBottom, h, at, color, roughness = 0.6, metalness = 0, emissive, open }: {
-  rTop: number; rBottom?: number; h: number; at: V3; color: string; roughness?: number; metalness?: number; emissive?: string; open?: boolean;
+function Cyl({ rTop, rBottom, h, at, color, roughness = 0.6, metalness = 0, emissive, open, rot }: {
+  rTop: number; rBottom?: number; h: number; at: V3; color: string; roughness?: number; metalness?: number; emissive?: string; open?: boolean; rot?: V3;
 }) {
   return (
-    <mesh position={at} castShadow receiveShadow>
+    <mesh position={at} rotation={rot} castShadow receiveShadow>
       <cylinderGeometry args={[rTop, rBottom ?? rTop, h, 28, 1, open]} />
       <meshStandardMaterial color={color} roughness={roughness} metalness={metalness} emissive={emissive ?? "#000000"} emissiveIntensity={emissive ? 0.8 : 0} side={open ? DoubleSide : FrontSide} />
+    </mesh>
+  );
+}
+
+// Elliptical slab: `size` is [width, thickness, depth].
+function Disc({ size, at, color, roughness = 0.6, rot }: { size: V3; at: V3; color: string; roughness?: number; rot?: V3 }) {
+  return (
+    <mesh position={at} rotation={rot} scale={size} castShadow receiveShadow>
+      <cylinderGeometry args={[0.5, 0.5, 1, 48]} />
+      <meshStandardMaterial color={color} roughness={roughness} />
     </mesh>
   );
 }
@@ -83,8 +93,20 @@ function Seating({ w, d, h, color, accent, seats }: { w: number; d: number; h: n
   );
 }
 
-function Table({ w, d, h, color, accent, drawer }: { w: number; d: number; h: number; color: string; accent: string; drawer?: boolean }) {
+function Table({ w, d, h, color, accent, drawer, round }: { w: number; d: number; h: number; color: string; accent: string; drawer?: boolean; round?: boolean }) {
   const top = 0.035;
+  if (round) {
+    const legs = Math.min(w, d) > 0.7 ? 4 : 3;
+    return (
+      <group>
+        <Disc size={[w, top, d]} at={[0, h - top / 2, 0]} color={color} roughness={0.55} />
+        {Array.from({ length: legs }, (_, i) => {
+          const a = (i / legs) * Math.PI * 2 + Math.PI / 4;
+          return <Cyl key={i} rTop={0.02} h={h - top} at={[Math.cos(a) * w * 0.3, (h - top) / 2, Math.sin(a) * d * 0.3]} color={accent} roughness={0.5} />;
+        })}
+      </group>
+    );
+  }
   return (
     <group>
       <Box size={[w, top, d]} at={[0, h - top / 2, 0]} color={color} radius={0.008} roughness={0.55} />
@@ -119,7 +141,9 @@ function Lampshade({ r, h, y, color }: { r: number; h: number; y: number; color:
   );
 }
 
-export function FurnitureModel({ category, dims, color, accent, cord = 0.5 }: { category: Category; dims: Dims; color: string; accent: string; cord?: number }) {
+export function FurnitureModel({ category, dims, color, accent, round, cord = 0.5 }: {
+  category: Category; dims: Dims; color: string; accent: string; round?: boolean; cord?: number;
+}) {
   const { w, d, h } = dims;
   switch (category) {
     case "sofa":
@@ -144,7 +168,7 @@ export function FurnitureModel({ category, dims, color, accent, cord = 0.5 }: { 
     case "coffee_table":
     case "side_table":
     case "dining_table":
-      return <Table w={w} d={d} h={h} color={color} accent={accent} />;
+      return <Table w={w} d={d} h={h} color={color} accent={accent} round={round} />;
     case "desk":
       return <Table w={w} d={d} h={h} color={color} accent={accent} drawer />;
     case "chair": {
@@ -174,13 +198,15 @@ export function FurnitureModel({ category, dims, color, accent, cord = 0.5 }: { 
       );
     }
     case "rug":
-      return <Box size={[w, Math.max(0.008, h), d]} at={[0, Math.max(0.008, h) / 2, 0]} color={color} roughness={1} />;
+      return round
+        ? <Disc size={[w, Math.max(0.008, h), d]} at={[0, Math.max(0.008, h) / 2, 0]} color={color} roughness={1} />
+        : <Box size={[w, Math.max(0.008, h), d]} at={[0, Math.max(0.008, h) / 2, 0]} color={color} roughness={1} />;
     case "curtains": {
       const panel = w * 0.3;
       const folds = 6;
       return (
         <group>
-          <Cyl rTop={0.012} h={w + 0.2} at={[0, h + 0.03, 0]} color={accent} metalness={0.6} roughness={0.3} />
+          <Cyl rTop={0.012} h={w + 0.2} at={[0, h + 0.03, 0.02]} rot={[0, 0, Math.PI / 2]} color={accent} metalness={0.6} roughness={0.3} />
           {[-1, 1].map((s) => (
             <group key={s} position={[s * (w / 2 - panel / 2), 0, 0]}>
               {Array.from({ length: folds }, (_, i) => (
@@ -223,6 +249,18 @@ export function FurnitureModel({ category, dims, color, accent, cord = 0.5 }: { 
         </group>
       );
     case "mirror":
+      if (round) {
+        const t = Math.max(0.02, d);
+        return (
+          <group>
+            <Disc size={[w, t, h]} at={[0, h / 2, 0]} rot={[Math.PI / 2, 0, 0]} color={color} />
+            <mesh position={[0, h / 2, t / 2 + 0.002]} scale={[w - 0.05, h - 0.05, 1]}>
+              <circleGeometry args={[0.5, 48]} />
+              <meshStandardMaterial color="#e8eef0" metalness={1} roughness={0.05} />
+            </mesh>
+          </group>
+        );
+      }
       return (
         <group>
           <Box size={[w, h, Math.max(0.02, d)]} at={[0, h / 2, 0]} color={color} radius={0.01} />
