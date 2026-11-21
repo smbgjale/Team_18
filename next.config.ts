@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ["better-sqlite3", "sharp"],
+  serverExternalPackages: ["better-sqlite3", "sharp", "@vercel/blob"],
   allowedDevOrigins: ["127.0.0.1"],
   turbopack: {
     rules: {

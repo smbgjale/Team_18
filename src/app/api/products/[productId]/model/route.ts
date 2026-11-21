@@ -1,10 +1,15 @@
+import { ensureDb, persistDb } from "@/lib/db";
 import { jsonError } from "@/lib/http";
 import { MeshError } from "@/lib/mesh/meshy";
 import { ensureProductModel, refreshProductModel } from "@/lib/mesh/store";
 import { clientIp, rateLimited } from "@/lib/rate-limit";
 import { ensureCatalogue } from "@/lib/shops/sync";
 
+export const runtime = "nodejs";
+export const maxDuration = 60;
+
 export async function GET(_request: Request, ctx: RouteContext<"/api/products/[productId]/model">) {
+  await ensureDb();
   await ensureCatalogue();
   const { productId } = await ctx.params;
   try {
@@ -18,10 +23,12 @@ export async function GET(_request: Request, ctx: RouteContext<"/api/products/[p
 
 export async function POST(request: Request, ctx: RouteContext<"/api/products/[productId]/model">) {
   if (rateLimited(`mesh:${clientIp(request)}`, 20, 60 * 60 * 1000)) return jsonError(429, "rate_limited", "Too many 3D model requests. Please try again later.");
+  await ensureDb();
   await ensureCatalogue();
   const { productId } = await ctx.params;
   try {
     const model = await ensureProductModel(productId);
+    await persistDb();
     return Response.json({ product_id: productId, model });
   } catch (e) {
     if (e instanceof MeshError && e.code === "not_found") return jsonError(404, "not_found", e.message);

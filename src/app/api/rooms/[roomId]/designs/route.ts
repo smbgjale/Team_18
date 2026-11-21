@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import { after } from "next/server";
 import { z } from "zod";
 import { config } from "@/lib/config";
-import { db } from "@/lib/db";
+import { db, ensureDb, persistDb } from "@/lib/db";
 import { ACTIVE_STATUSES, designDto, getDesign, getRoom, listDesigns } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 import { startDesignJob } from "@/lib/pipeline";
@@ -21,6 +21,7 @@ const Body = z.object({
 
 export async function GET(_req: Request, ctx: RouteContext<"/api/rooms/[roomId]/designs">) {
   try {
+    await ensureDb();
     const { roomId } = await ctx.params;
     const room = getRoom(roomId);
     if (!room) return jsonError(404, "not_found", "Room not found.");
@@ -33,14 +34,11 @@ export async function GET(_req: Request, ctx: RouteContext<"/api/rooms/[roomId]/
 
 export async function POST(request: Request, ctx: RouteContext<"/api/rooms/[roomId]/designs">) {
   try {
+    await ensureDb();
     const { roomId } = await ctx.params;
     const room = getRoom(roomId);
     if (!room) {
-      return jsonError(
-        404,
-        "not_found",
-        "Room not found. On Vercel the temporary database can reset between requests — please upload your room photo again.",
-      );
+      return jsonError(404, "not_found", "Room not found. Please upload your room photo again.");
     }
     if (rateLimited(`design:${clientIp(request)}`, 15, 60 * 60 * 1000)) {
       return jsonError(429, "rate_limited", "Design limit reached for now. Please try again later.");
@@ -68,23 +66,18 @@ export async function POST(request: Request, ctx: RouteContext<"/api/rooms/[room
       body.budget?.currency.toUpperCase() ?? null,
       body.layout_fidelity,
     );
+    await persistDb();
 
-    // On serverless, run the job in this isolate so /tmp room files stay available.
-    // Locally, schedule it and return immediately.
     if (config.isServerless) {
       await new Promise<void>((resolve) => {
         startDesignJob(id, (task) => {
           void task.finally(resolve);
         });
       });
+      await persistDb();
       const design = getDesign(id);
       return Response.json(
-        {
-          id,
-          room_id: roomId,
-          style: body.style,
-          status: design?.status ?? "queued",
-        },
+        { id, room_id: roomId, style: body.style, status: design?.status ?? "queued" },
         { status: 202 },
       );
     }
@@ -92,6 +85,7 @@ export async function POST(request: Request, ctx: RouteContext<"/api/rooms/[room
     startDesignJob(id, (task) => {
       after(async () => {
         await task;
+        await persistDb();
       });
     });
 

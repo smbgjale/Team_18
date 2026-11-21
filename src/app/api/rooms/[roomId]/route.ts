@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db, ensureDb, persistDb } from "@/lib/db";
 import { designDto, getRoom, listDesigns } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 import { deleteFile, fileUrl } from "@/lib/storage";
@@ -9,13 +9,14 @@ export const maxDuration = 30;
 
 export async function GET(_req: Request, ctx: RouteContext<"/api/rooms/[roomId]">) {
   try {
+    await ensureDb();
     const { roomId } = await ctx.params;
     const room = getRoom(roomId);
     if (!room) {
       return jsonError(
         404,
         "not_found",
-        "Room not found. On Vercel the temporary database can reset between requests — please upload your room photo again.",
+        "Room not found. Please upload your room photo again.",
       );
     }
     return Response.json({
@@ -37,6 +38,7 @@ export async function GET(_req: Request, ctx: RouteContext<"/api/rooms/[roomId]"
 
 export async function PATCH(request: Request, ctx: RouteContext<"/api/rooms/[roomId]">) {
   try {
+    await ensureDb();
     const { roomId } = await ctx.params;
     if (!getRoom(roomId)) return jsonError(404, "not_found", "Room not found.");
     const body = (await request.json().catch(() => null)) as { design_direction?: unknown } | null;
@@ -44,6 +46,7 @@ export async function PATCH(request: Request, ctx: RouteContext<"/api/rooms/[roo
       return jsonError(400, "invalid_request", "design_direction must be modern or traditional.");
     }
     db().prepare("UPDATE rooms SET design_direction = ? WHERE id = ?").run(body.design_direction, roomId);
+    await persistDb();
     return Response.json({ id: roomId, design_direction: body.design_direction });
   } catch (e) {
     console.error("[rooms PATCH]", e);
@@ -53,6 +56,7 @@ export async function PATCH(request: Request, ctx: RouteContext<"/api/rooms/[roo
 
 export async function DELETE(_req: Request, ctx: RouteContext<"/api/rooms/[roomId]">) {
   try {
+    await ensureDb();
     const { roomId } = await ctx.params;
     const room = getRoom(roomId);
     if (!room) return jsonError(404, "not_found", "Room not found.");
@@ -60,6 +64,7 @@ export async function DELETE(_req: Request, ctx: RouteContext<"/api/rooms/[roomI
     await deleteFile(room.original_image_key);
     for (const d of designs) if (d.render_image_key) await deleteFile(d.render_image_key);
     db().prepare("DELETE FROM rooms WHERE id = ?").run(roomId);
+    await persistDb();
     return new Response(null, { status: 204 });
   } catch (e) {
     console.error("[rooms DELETE]", e);

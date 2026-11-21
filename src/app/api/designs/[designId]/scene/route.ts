@@ -1,10 +1,14 @@
 import { z } from "zod";
+import { ensureDb, persistDb } from "@/lib/db";
 import { getDesign } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 import { rateLimited, clientIp } from "@/lib/rate-limit";
 import { saveScene, sceneFor } from "@/lib/scene";
 
+export const runtime = "nodejs";
+
 export async function GET(_request: Request, ctx: RouteContext<"/api/designs/[designId]/scene">) {
+  await ensureDb();
   const { designId } = await ctx.params;
   const design = getDesign(designId);
   if (!design) return jsonError(404, "not_found", "Design not found.");
@@ -20,6 +24,7 @@ const body = z.object({
 });
 
 export async function PUT(request: Request, ctx: RouteContext<"/api/designs/[designId]/scene">) {
+  await ensureDb();
   const { designId } = await ctx.params;
   if (rateLimited(`scene:${clientIp(request)}`, 240, 60 * 60 * 1000)) return jsonError(429, "rate_limited", "Too many changes. Please wait a moment.");
   const design = getDesign(designId);
@@ -27,5 +32,6 @@ export async function PUT(request: Request, ctx: RouteContext<"/api/designs/[des
   const parsed = body.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return jsonError(400, "invalid_request", "Invalid scene data.");
   saveScene(design, parsed.data);
+  await persistDb();
   return Response.json(sceneFor(design));
 }

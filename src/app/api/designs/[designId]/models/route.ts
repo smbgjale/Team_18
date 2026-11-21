@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ensureDb, persistDb } from "@/lib/db";
 import { listDesignProducts, getDesign } from "@/lib/designs";
 import type { ProductRow } from "@/lib/products";
 import { jsonError } from "@/lib/http";
@@ -7,6 +8,9 @@ import { ensureProductModel, refreshProductModel } from "@/lib/mesh/store";
 import type { ProductModelDto } from "@/lib/api-types";
 import { clientIp, rateLimited } from "@/lib/rate-limit";
 import { ensureCatalogue } from "@/lib/shops/sync";
+
+export const runtime = "nodejs";
+export const maxDuration = 60;
 
 const MAX_MODELS = 12;
 
@@ -28,6 +32,7 @@ async function chosen(designId: string) {
 }
 
 export async function GET(_request: Request, ctx: RouteContext<"/api/designs/[designId]/models">) {
+  await ensureDb();
   await ensureCatalogue();
   const { designId } = await ctx.params;
   const products = await chosen(designId);
@@ -42,6 +47,7 @@ export async function GET(_request: Request, ctx: RouteContext<"/api/designs/[de
 
 export async function POST(request: Request, ctx: RouteContext<"/api/designs/[designId]/models">) {
   if (rateLimited(`mesh:${clientIp(request)}`, 20, 60 * 60 * 1000)) return jsonError(429, "rate_limited", "Too many 3D model requests. Please try again later.");
+  await ensureDb();
   await ensureCatalogue();
   const { designId } = await ctx.params;
   const products = await chosen(designId);
@@ -71,5 +77,6 @@ export async function POST(request: Request, ctx: RouteContext<"/api/designs/[de
     }
   }
   const notice = selected.length > batch.length ? `Only the first ${MAX_MODELS} products were converted. Create the rest from the product list.` : null;
+  await persistDb();
   return Response.json({ items, notice });
 }

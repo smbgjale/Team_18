@@ -1,9 +1,13 @@
 import sharp from "sharp";
+import { ensureDb } from "@/lib/db";
 import { getDesign } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 import { getFile } from "@/lib/storage";
 
+export const runtime = "nodejs";
+
 export async function GET(request: Request, ctx: RouteContext<"/api/designs/[designId]/download">) {
+  await ensureDb();
   const { designId } = await ctx.params;
   const design = getDesign(designId);
   if (!design?.render_image_key) return jsonError(404, "not_found", "This design has no image yet.");

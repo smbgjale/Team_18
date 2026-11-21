@@ -1,11 +1,14 @@
 import type { DesignDto, DesignProductDto, DesignProductsResponse } from "@/lib/api-types";
 import { CATEGORY_LABELS } from "@/lib/categories";
+import { ensureDb } from "@/lib/db";
 import { getDesign, listDesignProducts, listItems } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 import { parseCategories } from "@/lib/matching";
 import { alternativesFor, matchContextFor, matchesForItem } from "@/lib/pipeline";
 import { effectivePrice, toProductDto } from "@/lib/products";
 import { ensureCatalogue } from "@/lib/shops/sync";
+
+export const runtime = "nodejs";
 
 function intParam(v: string | null) {
   if (v == null || v === "") return undefined;
@@ -14,6 +17,7 @@ function intParam(v: string | null) {
 }
 
 export async function GET(request: Request, ctx: RouteContext<"/api/designs/[designId]/items">) {
+  await ensureDb();
   const { designId } = await ctx.params;
   const design = getDesign(designId);
   if (!design) return jsonError(404, "not_found", "Design not found.");

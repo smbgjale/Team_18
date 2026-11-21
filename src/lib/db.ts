@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import { mkdirSync } from "node:fs";
-import path from "node:path";
 import { config } from "./config";
+import { blobConfigured, dbFilePath, pullDatabase, pushDatabase, requireDurableStorage } from "./persist";
 
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS rooms (
@@ -149,25 +149,66 @@ function addColumn(conn: Database.Database, table: string, column: string, type:
   if (!cols.some((c) => c.name === column)) conn.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
 }
 
+function openConnection() {
+  mkdirSync(config.dataDir, { recursive: true });
+  const conn = new Database(dbFilePath());
+  conn.pragma(config.isServerless ? "journal_mode = DELETE" : "journal_mode = WAL");
+  conn.pragma("foreign_keys = ON");
+  conn.exec(SCHEMA);
+  addColumn(conn, "rooms", "width_cm", "INTEGER");
+  addColumn(conn, "rooms", "length_cm", "INTEGER");
+  addColumn(conn, "rooms", "height_cm", "INTEGER");
+  addColumn(conn, "rooms", "design_direction", "TEXT");
+  return conn;
+}
+
+function closeConnection() {
+  if (!g.__homelyDb) return;
+  try {
+    g.__homelyDb.close();
+  } catch {
+    // already closed
+  }
+  g.__homelyDb = undefined;
+}
+
+/**
+ * Call once at the start of each API request.
+ * On Vercel + Blob, reloads the shared SQLite file so rooms exist across instances.
+ */
+export async function ensureDb(): Promise<Database.Database> {
+  requireDurableStorage();
+  try {
+    if (blobConfigured()) {
+      closeConnection();
+      await pullDatabase();
+    }
+    if (!g.__homelyDb) g.__homelyDb = openConnection();
+    return g.__homelyDb;
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    throw new Error(`Could not open the app database in ${config.dataDir}: ${message}`);
+  }
+}
+
+/** Push the local SQLite file to Vercel Blob after mutations. */
+export async function persistDb(): Promise<void> {
+  if (!blobConfigured() || !g.__homelyDb) return;
+  try {
+    g.__homelyDb.pragma("wal_checkpoint(TRUNCATE)");
+  } catch {
+    // DELETE journal mode has no WAL.
+  }
+  await pushDatabase();
+}
+
 export function db(): Database.Database {
   if (!g.__homelyDb) {
     try {
-      mkdirSync(config.dataDir, { recursive: true });
-      // WAL needs extra sidecar files and can fail on some ephemeral mounts; DELETE is safer on serverless.
-      const conn = new Database(path.join(config.dataDir, "homely.db"));
-      conn.pragma(config.isServerless ? "journal_mode = DELETE" : "journal_mode = WAL");
-      conn.pragma("foreign_keys = ON");
-      conn.exec(SCHEMA);
-      addColumn(conn, "rooms", "width_cm", "INTEGER");
-      addColumn(conn, "rooms", "length_cm", "INTEGER");
-      addColumn(conn, "rooms", "height_cm", "INTEGER");
-      addColumn(conn, "rooms", "design_direction", "TEXT");
-      g.__homelyDb = conn;
+      g.__homelyDb = openConnection();
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
-      throw new Error(
-        `Could not open the app database in ${config.dataDir}: ${message}`,
-      );
+      throw new Error(`Could not open the app database in ${config.dataDir}: ${message}`);
     }
   }
   return g.__homelyDb;

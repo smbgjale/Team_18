@@ -1,7 +1,11 @@
+import { ensureDb } from "@/lib/db";
 import { designDto, getDesign, getRoom } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 
+export const runtime = "nodejs";
+
 export async function GET(_req: Request, ctx: RouteContext<"/api/designs/[designId]">) {
+  await ensureDb();
   const { designId } = await ctx.params;
   const design = getDesign(designId);
   if (!design) return jsonError(404, "not_found", "Design not found.");

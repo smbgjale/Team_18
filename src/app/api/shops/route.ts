@@ -1,8 +1,12 @@
-import { db } from "@/lib/db";
+import { db, ensureDb, persistDb } from "@/lib/db";
 import { ensureCatalogue, listShops } from "@/lib/shops/sync";
 
+export const runtime = "nodejs";
+
 export async function GET() {
+  await ensureDb();
   await ensureCatalogue();
+  await persistDb();
   const counts = new Map(
     (db().prepare("SELECT shop_id, COUNT(*) AS n FROM products WHERE is_active = 1 GROUP BY shop_id").all() as { shop_id: string; n: number }[]).map((r) => [r.shop_id, r.n]),
   );

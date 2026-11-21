@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import sharp, { type OutputInfo } from "sharp";
 import { ROOM_TYPES, type RoomType } from "@/lib/categories";
 import { config } from "@/lib/config";
-import { db } from "@/lib/db";
+import { db, ensureDb, persistDb } from "@/lib/db";
 import { jsonError } from "@/lib/http";
 import { clientIp, rateLimited } from "@/lib/rate-limit";
 import { fileUrl, putFile } from "@/lib/storage";
@@ -15,6 +15,7 @@ const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
 
 export async function POST(request: Request) {
   try {
+    await ensureDb();
     if (rateLimited(`upload:${clientIp(request)}`, 20, 60 * 60 * 1000)) {
       return jsonError(429, "rate_limited", "Too many uploads. Please try again later.");
     }
@@ -38,7 +39,6 @@ export async function POST(request: Request) {
     let processed: Buffer;
     let info: OutputInfo;
     try {
-      // rotate() applies EXIF orientation; re-encoding drops EXIF/GPS metadata.
       ({ data: processed, info } = await sharp(Buffer.from(await file.arrayBuffer()))
         .rotate()
         .resize(config.maxImageEdgePx, config.maxImageEdgePx, { fit: "inside", withoutEnlargement: true })
@@ -56,6 +56,8 @@ export async function POST(request: Request) {
     db().prepare(
       "INSERT INTO rooms (id, name, room_type, design_direction, original_image_key, width_px, height_px) VALUES (?,?,?,?,?,?,?)",
     ).run(id, name, roomType, direction, key, info.width, info.height);
+    await persistDb();
+
     return Response.json(
       {
         id,

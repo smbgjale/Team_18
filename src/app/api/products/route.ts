@@ -1,12 +1,17 @@
+import { ensureDb, persistDb } from "@/lib/db";
 import { queryProducts, toProductDto } from "@/lib/products";
 import { parseCategories } from "@/lib/matching";
 import { ensureCatalogue } from "@/lib/shops/sync";
 import { isDirection } from "@/lib/styles";
 
+export const runtime = "nodejs";
+
 const num = (v: string | null) => (v && Number.isFinite(Number(v)) ? Math.round(Number(v)) : undefined);
 
 export async function GET(request: Request) {
+  await ensureDb();
   await ensureCatalogue();
+  await persistDb();
   const q = new URL(request.url).searchParams;
   const limit = Math.min(60, num(q.get("limit")) ?? 24);
   const offset = num(q.get("offset")) ?? 0;

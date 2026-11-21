@@ -1,6 +1,8 @@
 import { jsonError } from "@/lib/http";
 import { getFile } from "@/lib/storage";
 
+export const runtime = "nodejs";
+
 const TYPES: Record<string, string> = { jpg: "image/jpeg", png: "image/png", glb: "model/gltf-binary" };
 
 export async function GET(_req: Request, ctx: RouteContext<"/api/files/[...key]">) {

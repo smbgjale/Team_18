@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { db } from "@/lib/db";
+import { db, ensureDb, persistDb } from "@/lib/db";
 import { formatMoney } from "@/lib/format";
 import { ensureCatalogue } from "@/lib/shops/sync";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 interface Row {
   name: string; description: string; price_minor: number; sale_price_minor: number | null; currency: string;
@@ -15,7 +16,9 @@ interface Row {
 // Stand-in for a shop's own product page. Real shops link to their own websites instead.
 export default async function DemoProductPage({ params }: PageProps<"/demo-shop/[shop]/[sku]">) {
   const { shop, sku } = await params;
+  await ensureDb();
   await ensureCatalogue();
+  await persistDb();
   const p = db().prepare(
     `SELECT p.*, s.name AS shop_name FROM products p JOIN shops s ON s.id = p.shop_id WHERE s.slug = ? AND p.external_id = ? AND s.is_demo = 1`,
   ).get(shop, sku) as Row | undefined;
