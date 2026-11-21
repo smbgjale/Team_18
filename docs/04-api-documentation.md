@@ -29,7 +29,7 @@ Create a room from an uploaded photo. Server validates, strips EXIF, runs modera
 
 Request
 ```json
-{ "upload_key": "uploads/9f1c...jpg", "room_type": "living_room", "name": "My living room" }
+{ "upload_key": "uploads/9f1c...jpg", "room_type": "living_room", "design_direction": "traditional", "name": "My living room" }
 ```
 Response `201`
 ```json
@@ -37,6 +37,7 @@ Response `201`
   "id": "2f3b...",
   "name": "My living room",
   "room_type": "living_room",
+  "design_direction": "traditional",
   "original_image_url": "https://cdn.example/signed...",
   "width_px": 1536,
   "height_px": 1024,
@@ -44,19 +45,31 @@ Response `201`
 }
 ```
 
+`design_direction` is required: `modern` or `traditional` (`400 invalid_request` otherwise). The MVP takes the photo as multipart form data: `file`, `room_type`, `design_direction`, `name`.
+
+### `PATCH /rooms/{roomId}`
+Change the room's design direction when the customer switches between Modern and Traditional: `{ "design_direction": "modern" }`.
+
 ### `GET /rooms` / `GET /rooms/{roomId}` / `DELETE /rooms/{roomId}`
 List, fetch (with its designs summary), or delete a room and all its designs and files.
 
 ## 4.2 Designs (3D-style renders)
 
 ### `GET /styles`
-Available style presets.
+The two design directions and the style presets in each. A design's direction follows from its style.
 ```json
-{ "items": [
-  { "id": "modern", "name": "Modern", "description": "Clean lines, neutral palette, statement lighting" },
-  { "id": "scandinavian", "name": "Scandinavian", "description": "Light woods, white walls, cosy textiles" }
-] }
+{
+  "directions": [
+    { "id": "modern", "name": "Modern", "description": "Clean lines, simple shapes and calm, uncluttered rooms.", "swatches": ["#b4b3af", "#26262a", "#f2efe8"] },
+    { "id": "traditional", "name": "Traditional", "description": "Warm wood, carved and handcrafted details, rich patterns and timeless pieces.", "swatches": ["#6e2f1f", "#b8963e", "#e8dfc9"] }
+  ],
+  "items": [
+    { "id": "modern", "name": "Modern", "direction": "modern", "description": "Clean lines, neutral palette, statement lighting", "swatches": ["#b4b3af", "#26262a", "#f2efe8"] },
+    { "id": "african", "name": "African Heritage", "direction": "traditional", "description": "Carved hardwood, woven sisal, kitenge prints and earthy tones", "swatches": ["#6e2f1f", "#d1a02a", "#cbb489"] }
+  ]
+}
 ```
+Modern: `modern`, `scandinavian`, `minimalist`, `industrial`. Traditional: `classic`, `rustic`, `african`, `bohemian`.
 
 ### `POST /rooms/{roomId}/designs`
 Generate a design in a style. Call again with a different `style` to create another variation of the same room.
@@ -255,7 +268,7 @@ Save the layout and/or the room size. Body: `{ "room": { "width_m": 4.5, "length
 ### `GET /products`
 Browse/filter the integrated catalogue.
 
-Query: `q=`, `category=`, `style=`, `color=`, `shop=`, `min_price_minor=`, `max_price_minor=`, `currency=`, `in_stock_only=`, `sort=relevance|price_asc|price_desc|newest`, `limit`, `cursor`.
+Query: `q=`, `category=`, `style=`, `direction=modern|traditional` (products tagged with any style of that direction), `color=`, `shop=`, `min_price_minor=`, `max_price_minor=`, `currency=`, `in_stock_only=`, `sort=relevance|price_asc|price_desc|newest`, `limit`, `cursor`.
 
 Response `200`: `{ "items": [ <product object as above> ], "next_cursor": null }`.
 

@@ -7,7 +7,7 @@ This document records what the first implementation does, where it intentionally
 | Area | Status |
 |---|---|
 | Upload a room photo (EXIF stripped, resized, type/size validated) | Done |
-| 6 style presets and the "professional 3D render" prompt builder | Done |
+| Modern or Traditional direction chosen at upload (switchable on the room page), 8 style presets in the two directions, and the "professional 3D render" prompt builder | Done |
 | Render pipeline: queued, rendering, render_ready, matching, completed or failed | Done (in-process job) |
 | `RenderProvider` interface with Cloudflare Workers AI (free) and OpenAI adapters plus a local demo stand-in | Done |
 | Layout-preservation score (edge-map correlation) stored per design | Done (monitoring signal only, not a hard gate) |
@@ -15,8 +15,8 @@ This document records what the first implementation does, where it intentionally
 | Several styles per room, design history per room | Done |
 | Download PNG or JPEG | Done |
 | `ShopConnector` interface, CSV feed connector, connector registry, sync with dry run and reports | Done |
-| Three sample shops (fictional, about 220 products), category mapping, availability parsing | Done |
-| Catalogue browser with category, shop, budget, in-stock filters | Done |
+| Four sample shops (fictional, about 280 products, including a traditional African heritage and rustic range), category mapping, availability parsing | Done |
+| Catalogue browser with category, shop, look (modern or traditional), budget, in-stock filters | Done |
 | Designs furnished with real catalogue products before rendering (style, palette, room size, budget, availability) | Done (see 9.6) |
 | Product photos sent to the image model as reference images; prompt names every product | Done (Cloudflare up to 3, OpenAI up to 4, demo composites them) |
 | Image check of which chosen products are visible (`in_render`) | Done (vision provider; demo marks all visible) |

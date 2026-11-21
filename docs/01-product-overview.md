@@ -6,8 +6,8 @@ HOMELY AI lets a user upload a photo of their room, choose a design style, and r
 
 ## 1.2 Core user flow
 
-1. User uploads a room photo (and optionally room type, budget, colour preferences).
-2. User picks a style (e.g. Modern, Scandinavian, Minimalist, Industrial, Bohemian, Classic).
+1. User uploads a room photo, chooses the room type and the **design direction for their home: Modern or Traditional** (required; it can be changed later on the room page).
+2. User picks a style within that direction: Modern, Scandinavian, Minimalist or Industrial for a modern home; Classic, Rustic Farmhouse, African Heritage or Bohemian for a traditional one. Budget and wishes are optional.
 3. HOMELY AI chooses real products from integrated shops for the room (one per furniture slot, within the budget), then generates a 3D-style render of the room furnished with them, keeping the original layout (walls, windows, doors, camera angle).
 4. User compares original vs redesign with a before/after slider.
 5. User opens the 3D view to look around the room and move, rotate or swap the products at their real sizes.

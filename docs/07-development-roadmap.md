@@ -14,7 +14,7 @@ Exit: a provider that meets the layout-preservation and "render look" targets; a
 
 Design generation
 - Upload room photo, room type selection, preprocessing, structure maps.
-- Render pipeline with 6 styles, quality gate, fallback provider.
+- Render pipeline with a Modern/Traditional direction choice and 8 styles, quality gate, fallback provider.
 - Before/after slider, multi-style variations per room, download (PNG/JPEG), disclaimer label.
 - Quotas and basic accounts.
 

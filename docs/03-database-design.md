@@ -36,6 +36,7 @@ CREATE TABLE rooms (
   user_id        uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   name           text,
   room_type      text NOT NULL,                        -- living_room | bedroom | kitchen | dining_room | office | bathroom | other
+  design_direction text,                               -- modern | traditional: the look the customer chose for their home
   original_image_key text NOT NULL,                    -- object storage key (EXIF stripped)
   image_sha256   char(64) NOT NULL,                    -- cache key component
   width_px       integer NOT NULL,
@@ -51,7 +52,7 @@ CREATE INDEX rooms_user_idx ON rooms(user_id, created_at DESC);
 CREATE TABLE designs (
   id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   room_id        uuid NOT NULL REFERENCES rooms(id) ON DELETE CASCADE,
-  style          text NOT NULL,                        -- modern | scandinavian | minimalist | industrial | bohemian | classic | ...
+  style          text NOT NULL,                        -- modern | scandinavian | minimalist | industrial (modern); classic | rustic | african | bohemian (traditional)
   status         text NOT NULL DEFAULT 'queued',       -- queued | rendering | render_ready | matching | completed | failed
   user_prompt    text,                                 -- optional free-text hints
   color_palette  text[],                               -- optional preferred colours (hex or names)

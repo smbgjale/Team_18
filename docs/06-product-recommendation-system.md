@@ -143,7 +143,7 @@ Default weights (tunable, stored in config): visual 0.35, style 0.20, color 0.20
 | Component | Definition |
 |---|---|
 | `visual` | Cosine similarity of crop vs product image embeddings, normalised to 0..1 (min-max over candidates) |
-| `style` | Overlap between design style (and item style tags) and product `style_tags`: 1.0 exact match, 0.5 adjacent style (e.g. modern ↔ minimalist, scandinavian ↔ minimalist), 0 otherwise; 0.5 if the product has no tags (neutral) |
+| `style` | Overlap between design style (and item style tags) and product `style_tags`: 1.0 exact match, 0.5 adjacent style (e.g. modern ↔ minimalist, rustic ↔ african), 0.25 another style of the same direction (modern or traditional), 0 otherwise; 0.5 if the product has no tags (neutral) |
 | `color` | `1 - min(1, ΔE / 50)`, where ΔE is the CIE76 (or CIEDE2000) distance in Lab between the item's dominant colour and the product's closest colour; falls back to colour-name match |
 | `price` | Based on budget fit (below) |
 | `availability` | `in_stock` 1.0, `low_stock` 0.8, `preorder` 0.5, `unknown` 0.7, `out_of_stock` excluded |
@@ -217,8 +217,8 @@ Filters on "Shop this look" and the catalogue page: category, budget (min/max), 
 Instead of generating an image and then searching for look-alike products, the MVP picks the products first and renders the room with them (`src/lib/furnish.ts`):
 
 1. **Slots.** The room type defines the furniture slots (living room: sofa, coffee table, rug, curtains, floor lamp, TV unit, wall art; bedroom: bed, side table, curtains, rug, table lamp, wardrobe, mirror; and so on). Dining chairs come in fours (twos in a kitchen).
-2. **Candidates.** Active, not out of stock, in the budget's currency, and small enough for the room: the product's footprint must fit within the room's width and length minus 30 cm (in either orientation).
-3. **Score.** `0.55 style + 0.30 palette + 0.15 availability`, where `style` is 1 for a product tagged with the chosen style, 0.5 for an adjacent style or an untagged product, otherwise 0, and `palette` is the CIE76 colour distance between the product colour and the style's palette. The best-scoring candidate fills the slot.
+2. **Candidates.** Active, not out of stock, in the budget's currency, and small enough for the room: the product's footprint must fit within the room's width and length minus 30 cm (in either orientation). Only products tagged with a style of the design's direction (or untagged) are considered, so a traditional room never gets a modern sofa; if a slot has no such product, the other direction is used rather than leaving it empty.
+3. **Score.** `0.55 style + 0.30 palette + 0.15 availability`, where `style` is 1 for a product tagged with the chosen style, 0.5 for an adjacent style or an untagged product, 0.25 for another style of the same direction, otherwise 0, and `palette` is the CIE76 colour distance between the product colour and the style's palette. The best-scoring candidate fills the slot.
 4. **Budget.** While the total (price times quantity) is over budget, make the single swap with the lowest loss of score per unit of money saved, across all slots. If no cheaper candidate is left, drop optional decor (plant, wall art, mirror, cushion, table lamp, shelf, side table). The main pieces are never dropped.
 5. **Alternatives.** For each chosen product the regular matcher (§6.5) ranks up to N alternatives in the same or compatible categories, using the chosen product's own colours and text as the query, and the user's price, stock and shop filters.
 

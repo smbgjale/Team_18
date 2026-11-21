@@ -26,11 +26,12 @@ The MVP is implemented in this repository (see [Running the MVP](#running-the-mv
 
 ## Feature summary
 
-1. **Real products first** – before rendering, each design is furnished with real catalogue products (one per furniture slot) chosen for the style, colour palette, room size, budget and availability.
-2. **3D-style room redesign** – structure-preserving image generation that uses the chosen products' photos as references, before/after comparison, multiple styles per room, download.
-3. **Interactive 3D layout view** – orbit around the room, drag, rotate and swap the chosen products at their real sizes; set the room's width and length.
-4. **Furniture shop integration** – pluggable connectors (official APIs, product feeds, approved partner/affiliate programs, curated CSV) so new shops are added without core changes.
-5. **Product matching** – similar alternatives for every product in the design, ranked by style, category, colour, price/budget and availability, with links to the shop pages.
+1. **Modern or traditional** – the customer chooses the direction for their home when uploading the photo (and can switch later), then a style within it: Modern, Scandinavian, Minimalist or Industrial; or Classic, Rustic Farmhouse, African Heritage or Bohemian. The products, the prompt and the matching all follow that choice.
+2. **Real products first** – before rendering, each design is furnished with real catalogue products (one per furniture slot) chosen for the style, colour palette, room size, budget and availability.
+3. **3D-style room redesign** – structure-preserving image generation that uses the chosen products' photos as references, before/after comparison, multiple styles per room, download.
+4. **Interactive 3D layout view** – orbit around the room, drag, rotate and swap the chosen products at their real sizes; set the room's width and length.
+5. **Furniture shop integration** – pluggable connectors (official APIs, product feeds, approved partner/affiliate programs, curated CSV) so new shops are added without core changes.
+6. **Product matching** – similar alternatives for every product in the design, ranked by style, category, colour, price/budget and availability, with links to the shop pages.
 
 ## Proposed stack (can be swapped)
 
@@ -48,7 +49,7 @@ npm run dev        # http://localhost:4815
 No configuration is needed to try it. Without an API key the app runs in **demo mode**:
 
 - Renders come from a local stand-in that restyles your photo and overlays the images of the products chosen for the design. It is clearly labelled "Demo preview" and is **not** a real AI 3D-style render. The 3D view works the same in demo mode and with a real provider.
-- The catalogue contains three **fictional sample shops** (about 220 products) loaded from CSV feeds in `data/catalogue/`. Their "View on shop" links open a sample product page inside the app.
+- The catalogue contains four **fictional sample shops** (about 280 products) loaded from CSV feeds in `data/catalogue/`: three general shops and "Mvule & Sisal", a traditional range of African heritage and rustic farmhouse pieces (carved mahogany, sisal, kitenge and kikoy textiles, reclaimed wood). Their "View on shop" links open a sample product page inside the app.
 
 To get real AI renders, copy `.env.example` to `.env.local` and connect one provider:
 

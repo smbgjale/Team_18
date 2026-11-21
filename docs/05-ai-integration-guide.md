@@ -101,7 +101,7 @@ Build the prompt from parts so styles are data, not code.
 **Template**
 
 ```
-{render_quality}, {room_type_phrase} interior in {style_phrase} style,
+{render_quality}, {room_type_phrase} interior, designed as {direction_phrase}, in {style_phrase} style,
 {materials_and_palette}, {furniture_phrase}, {lighting_phrase},
 keep the original room layout, same walls, windows, doors and camera angle
 ```
@@ -122,16 +122,25 @@ warped walls, extra windows, extra doors, floating furniture, deformed furniture
 text, watermark, logo, people, cartoon, sketch
 ```
 
+**Design directions.** The customer first chooses Modern or Traditional for their home; the direction adds its own phrase to the prompt and limits the styles on offer:
+
+| Direction | Direction phrase |
+|---|---|
+| Modern | "a modern home with clean lines, simple shapes and uncluttered surfaces" |
+| Traditional | "a traditional home with handcrafted details, natural materials, warm wood and timeless shapes" |
+
 **Style presets (`styles` table or config)**
 
-| Style | Style phrase | Palette / materials | Lighting |
-|---|---|---|---|
-| Modern | "modern contemporary" | neutral greys and whites, black metal accents, glass | recessed spots plus a statement pendant |
-| Scandinavian | "Scandinavian" | white walls, light oak, sage/linen textiles | bright daylight, warm lamps |
-| Minimalist | "minimalist" | off-white, concrete, few pieces | soft diffuse daylight |
-| Industrial | "industrial loft" | brick, dark metal, leather, concrete floor | warm Edison bulbs, track lights |
-| Bohemian | "bohemian eclectic" | terracotta, rattan, layered rugs, plants | warm golden light |
-| Classic | "classic elegant" | cream, navy, wood panelling, brass | warm chandelier and sconces |
+| Direction | Style | Style phrase | Palette / materials | Lighting |
+|---|---|---|---|---|
+| Modern | Modern | "modern contemporary" | neutral greys and whites, black metal accents, glass | recessed spots plus a statement pendant |
+| Modern | Scandinavian | "Scandinavian" | white walls, light oak, sage/linen textiles | bright daylight, warm lamps |
+| Modern | Minimalist | "minimalist" | off-white, concrete, few pieces | soft diffuse daylight |
+| Modern | Industrial | "industrial loft" | brick, dark metal, leather, concrete floor | warm Edison bulbs, track lights |
+| Traditional | Classic | "classic elegant traditional" | cream, navy, wood panelling, turned wood, brass | warm chandelier and sconces |
+| Traditional | Rustic Farmhouse | "rustic farmhouse" | reclaimed wood, cream linen, wrought iron, stone, jute | lantern pendants, soft daylight |
+| Traditional | African Heritage | "East African heritage, inspired by Swahili coast interiors" | carved mahogany, brass studs, woven sisal, kitenge/kikoy textiles, terracotta, ochre, indigo | woven pendants, brass lanterns |
+| Traditional | Bohemian | "bohemian eclectic" | terracotta, rattan, layered rugs, plants | warm golden light |
 
 Per-request customisation: the user's free-text hint and colour palette are appended after sanitising (length limit, strip instructions that try to override the template, e.g. "ignore previous"). Room type adds expected furniture ("sofa, coffee table, TV unit, rug" for a living room) so that detectable, shoppable items are present.
 
@@ -197,7 +206,7 @@ Re-run this set whenever the model, prompt template or parameters change (see [T
 
 | Version | Capability |
 |---|---|
-| MVP | One provider, structure-guided render, 6 styles, quality gate, fallback provider |
+| MVP | One provider, structure-guided render, Modern/Traditional directions with 8 styles, quality gate, fallback provider |
 | v1.1 | Inpainting for "keep my sofa / replace everything else", per-region editing (change just the floor or wall colour) |
 | v1.2 | Upscaling, multiple camera-consistent views if provider supports it |
 | v2 | Room layout estimation and real 3D scene (separate from image generation) for interactive editing; products placed as 3D assets |
