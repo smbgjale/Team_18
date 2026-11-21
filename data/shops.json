@@ -31,5 +31,25 @@
     },
     "agreement_type": "public_catalogue",
     "is_demo": false
+  },
+  {
+    "slug": "etsy-ethiopian-home-decor",
+    "name": "Etsy Ethiopian Home Decor",
+    "website_url": "https://www.etsy.com/market/ethiopian_home_decor",
+    "currency": "USD",
+    "connector_type": "curated_json",
+    "connector_config": {
+      "path": "data/catalogue/etsy-ethiopian.json"
+    },
+    "category_map": {
+      "cushion": "cushion",
+      "wall_art": "wall_art",
+      "rug": "rug",
+      "curtains": "curtains",
+      "coffee_table": "coffee_table",
+      "plant_pot": "plant_pot"
+    },
+    "agreement_type": "public_catalogue",
+    "is_demo": false
   }
 ]

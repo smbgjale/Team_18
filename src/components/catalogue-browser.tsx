@@ -68,8 +68,7 @@ export function CatalogueBrowser() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Shop catalogue</h1>
         <p className="text-sm text-muted-foreground">
-          Real furniture and decor from {shops.length ? shops.map((s) => s.name).join(" and ") : "the connected shop"}.
-          Each photo is a studio shot of the whole product, at least 1000 px on the short side. Prices and product pages stay on the shop. Curtains are not in this catalogue, and bedroom storage is dressers and chests.
+          Furniture is from High Fashion Home, with a studio photo of the whole piece. Ethiopian decor is from the Etsy market Ethiopian Home Decor, filed the way that market files it: throw pillows as cushions, wall hangings and wall decor as wall art, and a rug as a rug. Prices and product pages stay on the shop. Gabi blankets, clothing and jewelry from that market are not placed, and no curtain listing was available. Bedroom storage from the furniture shop is dressers and chests.
         </p>
       </div>
 

@@ -15,7 +15,7 @@ This document records what the first implementation does, where it intentionally
 | Several styles per room, design history per room | Done |
 | Download PNG or JPEG | Done |
 | `ShopConnector` interface, CSV feed connector, connector registry, sync with dry run and reports | Done |
-| Catalogue is real furniture from High Fashion Home: studio photos (JPEG, at least 1000 px, white background, whole product in frame), prices and product pages | Done. The snapshot is `data/catalogue/studio-furniture.json`, loaded by the `curated_json` connector. Sample shops are not loaded. No curtains. Dressers fill the wardrobe slot. Sizes are typical when the shop lists none. |
+| Catalogue is real furniture from High Fashion Home, plus Ethiopian decor from the Etsy Ethiopian Home Decor market | Done. Furniture is `data/catalogue/studio-furniture.json` (studio JPEGs, at least 1000 px, white background, whole product). Ethiopian listings are `data/catalogue/etsy-ethiopian.json`, placed by the Etsy category: pillows as cushions, wall hangings and wall decor as wall art, a rug as a rug. Both use the `curated_json` connector. Sample shops are not loaded. No curtains. Dressers fill the wardrobe slot. Sizes are typical when the listing states none. |
 | Catalogue browser with category, shop, look (modern or traditional), budget, in-stock filters | Done |
 | Designs furnished with real catalogue products before rendering (style, palette, room size, budget, availability) | Done (see 9.6) |
 | Product photos sent to the image model as reference images; prompt names every product | Done (Cloudflare up to 3, OpenAI up to 4, demo composites them) |

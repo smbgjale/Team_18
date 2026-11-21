@@ -49,7 +49,9 @@ npm run dev        # http://localhost:4815
 No configuration is needed to try it. Without an API key the app runs in **demo mode**:
 
 - Renders come from a local stand-in that restyles your photo and overlays the images of the products chosen for the design. It is clearly labelled "Demo preview" and is **not** a real AI 3D-style render. The 3D view works the same in demo mode and with a real provider.
-- The catalogue is real furniture and decor from [High Fashion Home](https://www.highfashionhome.com): sofas, chairs, tables, beds, lamps, rugs, art, mirrors, cushions and planters. Photos stay on their CDN. Each one kept for the app is a JPEG of the whole product on a white studio background, at least 1000 px on the short side. "View on shop" opens the product page. The shop does not publish curtains, and it does not list width, depth and height, so the 3D view uses a typical size for the category and says so. Refresh the snapshot with `npm run catalogue:studio` (it reads the public catalogue and checks every photo).
+- Furniture is real stock from [High Fashion Home](https://www.highfashionhome.com): sofas, chairs, tables, beds, lamps, rugs, art, mirrors, cushions and planters. Each kept photo is a JPEG of the whole product on a white studio background, at least 1000 px on the short side. Refresh it with `npm run catalogue:studio`.
+- Ethiopian decor is from the [Etsy Ethiopian Home Decor](https://www.etsy.com/market/ethiopian_home_decor) market. A listing is placed in the room slot that matches its Etsy category: throw pillows become cushions, wall hangings and wall decor become wall art, and a rug stays a rug. Photos stay on Etsy's CDN and link back to the listing. Gabi blankets, clothing, jewelry and table linens are left out, because those categories have no room slot, and the saved listings did not include curtains. Refresh it with `npm run catalogue:etsy`.
+- "View on shop" opens the product page. Where a shop does not list width, depth and height, the 3D view uses a typical size and says so.
 
 To get real AI renders, copy `.env.example` to `.env.local` and connect one provider:
 
@@ -67,6 +69,7 @@ Useful commands:
 | `npm run typecheck`, `npm run lint` | Static checks |
 | `npm run catalogue:sync` | Re-sync all shops from their connectors (`catalogue:dry-run` previews changes) |
 | `npm run catalogue:studio` | Rebuild the High Fashion Home snapshot from the public catalogue, keeping only studio photos that pass the image rules |
+| `npm run catalogue:etsy` | Rebuild the Ethiopian Etsy snapshot from the saved public archive pages, keeping each listing in its Etsy category |
 | `npm run catalogue:generate` | Regenerate the unused sample CSV files (it does not change the live shop list) |
 
 Data (SQLite database, uploaded photos, renders) is stored in `var/` and is git-ignored.

@@ -27,6 +27,15 @@ test("furnishRoom picks one in-stock product per category that fits the room", a
   }
 });
 
+test("an African heritage room uses Ethiopian Etsy decor and keeps the sofa from the furniture shop", async () => {
+  const { furnishRoom } = await import("../src/lib/furnish");
+  const { picks } = furnishRoom({ roomType: "living_room", style: "african", room: { width: 500, length: 420 } });
+  const sofa = picks.find((p) => p.category === "sofa");
+  assert.equal(sofa?.product.shop_slug, "high-fashion-home");
+  const etsy = picks.filter((p) => p.product.shop_slug === "etsy-ethiopian-home-decor");
+  assert.ok(etsy.some((p) => p.category === "wall_art" || p.category === "cushion" || p.category === "rug"));
+});
+
 test("a traditional design uses traditional products where that category has them", async () => {
   const { furnishRoom } = await import("../src/lib/furnish");
   const { queryProducts } = await import("../src/lib/products");

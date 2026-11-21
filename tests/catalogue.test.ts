@@ -12,19 +12,29 @@ test("sync loads the studio furniture catalogue, is idempotent, and matching res
   const { matchItem } = await import("../src/lib/matching");
 
   const first = await syncAll();
-  assert.deepEqual(listShops().map((s) => s.slug), ["high-fashion-home"]);
-  assert.equal(first.length, 1);
-  assert.ok(first[0].created > 20 && first[0].rejected.length === 0);
+  assert.deepEqual(listShops().map((s) => s.slug), ["etsy-ethiopian-home-decor", "high-fashion-home"]);
+  assert.equal(first.length, 2);
+  assert.ok(first.every((shop) => shop.created > 8 && shop.rejected.length === 0));
 
   const second = await syncAll();
   assert.ok(second.every((r) => r.created === 0 && r.updated === 0 && r.deactivated === 0));
 
   const products = queryProducts({});
   assert.ok(products.length >= 40);
-  assert.ok(products.every((p) => p.shop_slug === "high-fashion-home"));
-  assert.ok(products.every((p) => p.image_url?.startsWith("https://") && p.product_url.includes("highfashionhome.com")));
+  assert.ok(products.every((p) => p.image_url?.startsWith("https://")));
+  const furniture = products.filter((p) => p.shop_slug === "high-fashion-home");
+  const etsy = products.filter((p) => p.shop_slug === "etsy-ethiopian-home-decor");
+  assert.ok(furniture.length >= 40);
+  assert.ok(furniture.every((p) => p.product_url.includes("highfashionhome.com")));
+  assert.ok(etsy.length >= 12);
+  assert.ok(etsy.every((p) => p.product_url.includes("etsy.com/listing/") && p.image_url.includes("i.etsystatic.com")));
+  assert.ok(etsy.every((p) => (JSON.parse(p.style_tags) as string[]).includes("african")));
+  assert.ok(etsy.every((p) => ["cushion", "wall_art", "rug"].includes(p.category)));
+  assert.ok(etsy.filter((p) => p.category === "cushion").length >= 4);
+  assert.ok(etsy.filter((p) => p.category === "wall_art").length >= 4);
   const sofas = queryProducts({ categories: ["sofa"] });
   assert.ok(sofas.length >= 4);
+  assert.ok(sofas.every((p) => p.shop_slug === "high-fashion-home"));
   assert.ok(queryProducts({ categories: ["coffee_table", "bed", "dining_table"] }).length >= 9);
   assert.equal(queryProducts({ categories: ["curtains"] }).length, 0);
 
