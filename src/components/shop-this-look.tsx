@@ -78,12 +78,12 @@ export function ShopThisLook({ designId, ready, onChanged }: { designId: string;
   const productMode = data?.mode !== "detected";
 
   return (
-    <section className="space-y-5">
+    <section className="min-w-0 space-y-5">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">{productMode ? "Products in this design" : "Shop this look"}</h2>
+        <h2 className="text-xl font-bold tracking-tight sm:text-2xl">{productMode ? "Products in this design" : "Shop this look"}</h2>
         <p className="text-sm text-muted-foreground">
           {productMode
-            ? "Your design is furnished with these real products from partner shops. Swap any of them for an alternative; the 3D view updates straight away."
+            ? "Your design is furnished with these real products from partner shops. Swap any of them for an alternative; the 3D view updates first."
             : "Real products from integrated shops that are similar to the furniture and decor in your design. They are close matches, not exact copies of the render."}
         </p>
       </div>
@@ -92,8 +92,8 @@ export function ShopThisLook({ designId, ready, onChanged }: { designId: string;
         <p className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">The product list appears once your design is ready.</p>
       ) : (
         <>
-          <div className="flex flex-wrap items-end gap-4 rounded-xl border bg-card p-4">
-            <div className="space-y-1.5">
+          <div className="flex flex-col gap-4 rounded-xl border bg-card p-3 sm:flex-row sm:flex-wrap sm:items-end sm:p-4">
+            <div className="min-w-0 flex-1 space-y-1.5">
               <Label>Category</Label>
               <div className="flex flex-wrap gap-1.5">
                 {["all", ...unique].map((c) => (
@@ -111,9 +111,9 @@ export function ShopThisLook({ designId, ready, onChanged }: { designId: string;
                 ))}
               </div>
             </div>
-            <div className="space-y-1.5">
+            <div className="w-full space-y-1.5 sm:w-auto">
               <Label htmlFor="max-price">{productMode ? "Max price for alternatives (USD)" : "Max price per product (USD)"}</Label>
-              <Input id="max-price" type="number" min={0} inputMode="numeric" placeholder="No limit" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-40" />
+              <Input id="max-price" type="number" min={0} inputMode="numeric" placeholder="No limit" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-full sm:w-40" />
             </div>
             <label className="flex items-center gap-2 pb-1.5 text-sm">
               <input type="checkbox" checked={inStockOnly} onChange={(e) => setInStockOnly(e.target.checked)} className="size-4 accent-[var(--primary)]" />

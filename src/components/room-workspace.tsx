@@ -41,7 +41,7 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
-  const [tab, setTab] = useState("slider");
+  const [tab, setTab] = useState("3d");
   const [sceneVersion, setSceneVersion] = useState(0);
   const initialised = useRef(false);
 
@@ -131,51 +131,69 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
   const activeDirection = active && getStyle(active.style)?.direction;
   const selected = getStyle(selectedStyle);
 
+  const safeAspect = Number.isFinite(aspect) && aspect > 0 ? Math.min(Math.max(aspect, 0.7), 1.8) : 4 / 3;
+
   return (
-    <main className="mx-auto max-w-6xl space-y-12 px-4 py-8">
-      <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
-        <section className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">{room.name ?? ROOM_TYPE_LABELS[room.room_type as RoomType] ?? "Your room"}</h1>
+    <main className="mx-auto w-full max-w-6xl space-y-8 overflow-x-hidden px-3 py-5 sm:space-y-12 sm:px-4 sm:py-8">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] lg:items-start">
+        <section className="min-w-0 space-y-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+            <div className="min-w-0">
+              <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
+                {room.name ?? ROOM_TYPE_LABELS[room.room_type as RoomType] ?? "Your room"}
+              </h1>
               <p className="text-sm text-muted-foreground">
                 {active
                   ? `${styleName(active.style)} style${activeDirection ? ` · ${getDirection(activeDirection).name}` : ""}`
                   : `${getDirection(direction).name} look · choose a style to create your first design`}
               </p>
             </div>
-            {active?.is_demo_preview && <Badge variant="outline">Demo preview, no AI provider connected</Badge>}
+            {active?.is_demo_preview && (
+              <Badge variant="outline" className="w-fit max-w-full whitespace-normal text-left leading-snug">
+                Demo preview · no AI provider connected
+              </Badge>
+            )}
           </div>
 
           {!active && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={room.original_image_url} alt="Original room" className="w-full rounded-xl border" style={{ aspectRatio: aspect }} />
+            <img src={room.original_image_url} alt="Original room" className="w-full max-w-full rounded-xl border" style={{ aspectRatio: safeAspect }} />
           )}
 
           {active && ACTIVE.includes(active.status) && !hasImage && (
-            <div className="relative overflow-hidden rounded-xl border" style={{ aspectRatio: aspect }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={room.original_image_url} alt="Original room" className="size-full object-cover blur-[2px] brightness-75" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-white">
-                <Loader2 className="size-8 animate-spin" />
-                <p className="font-medium" role="status">{STEP[active.status]}...</p>
-                <p className="text-xs opacity-80">This usually takes under a minute.</p>
+            <div className="space-y-4">
+              <div className="relative overflow-hidden rounded-xl border" style={{ aspectRatio: safeAspect }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={room.original_image_url} alt="Original room" className="size-full object-cover blur-[2px] brightness-75" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center text-white">
+                  <Loader2 className="size-8 animate-spin" />
+                  <p className="text-sm font-medium sm:text-base" role="status">{STEP[active.status]}...</p>
+                  <p className="text-xs opacity-80">This usually takes under a minute.</p>
+                </div>
               </div>
+              {active.has_products && (
+                <div className="min-w-0 space-y-2">
+                  <div className="flex items-center gap-2 text-sm font-medium">
+                    <Box className="size-4 shrink-0" /> 3D view ready while the preview image finishes
+                  </div>
+                  <Room3D designId={active.id} version={sceneVersion} />
+                </div>
+              )}
             </div>
           )}
 
           {active?.status === "failed" && (
             <>
-              <div className="flex flex-col items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-8 text-center" role="alert">
+              <div className="flex flex-col items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-5 text-center sm:p-8" role="alert">
                 <AlertTriangle className="size-7 text-destructive" />
                 <p className="font-medium">We could not create the image for this design.</p>
-                <p className="max-w-md text-sm text-muted-foreground">{active.error?.message}</p>
+                <p className="max-w-md text-sm text-muted-foreground break-words">{active.error?.message}</p>
                 <Button variant="outline" onClick={() => { selectStyle(active.style); generate(active.style); }} disabled={busy}>
                   <RefreshCw /> Try again
                 </Button>
               </div>
               {active.has_products && (
-                <div className="space-y-2">
+                <div className="min-w-0 space-y-2">
                   <p className="text-sm text-muted-foreground">The products for this design were still chosen, so you can arrange them in 3D.</p>
                   <Room3D designId={active.id} version={sceneVersion} />
                 </div>
@@ -185,61 +203,44 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
 
           {active && hasImage && (
             <>
-              <Tabs value={tab} onValueChange={(v) => setTab(String(v))}>
-                <TabsList>
-                  <TabsTrigger value="slider">Slide to compare</TabsTrigger>
-                  <TabsTrigger value="side">Side by side</TabsTrigger>
-                  <TabsTrigger value="3d"><Box /> 3D view</TabsTrigger>
+              <Tabs value={tab} onValueChange={(v) => setTab(String(v))} className="min-w-0 gap-3">
+                <TabsList className="grid h-auto w-full grid-cols-2 sm:inline-flex sm:w-fit">
+                  <TabsTrigger value="3d" className="px-2 sm:px-3"><Box /> 3D view</TabsTrigger>
+                  <TabsTrigger value="slider" className="px-2 sm:px-3">Preview image</TabsTrigger>
                 </TabsList>
-                <TabsContent value="slider">
-                  <CompareSlider before={active.original_image_url} after={active.render_image_url!} aspect={aspect} />
-                </TabsContent>
-                <TabsContent value="side">
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {[{ src: active.original_image_url, label: "Original" }, { src: active.render_image_url!, label: "3D-style redesign" }].map((i) => (
-                      <figure key={i.label} className="space-y-1">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={i.src} alt={i.label} className="w-full rounded-xl border" style={{ aspectRatio: aspect }} />
-                        <figcaption className="text-xs text-muted-foreground">{i.label}</figcaption>
-                      </figure>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="3d">
+                <TabsContent value="3d" className="min-w-0">
                   {active.has_products ? (
                     <Room3D designId={active.id} version={sceneVersion} />
                   ) : (
-                    <p className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">
+                    <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground sm:p-8">
                       This design was made before designs were furnished with real products, so there is nothing to place in 3D. Generate a new design to get a 3D view.
                     </p>
                   )}
                 </TabsContent>
+                <TabsContent value="slider" className="min-w-0">
+                  <CompareSlider before={active.original_image_url} after={active.render_image_url!} aspect={safeAspect} />
+                </TabsContent>
               </Tabs>
-              <div className="flex flex-wrap items-center gap-2">
-                <a href={`/api/designs/${active.id}/download?format=png`} className={buttonVariants()}>
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+                <a href={`/api/designs/${active.id}/download?format=png`} className={cn(buttonVariants(), "w-full justify-center sm:w-auto")}>
                   <Download /> Download PNG
                 </a>
-                <a href={`/api/designs/${active.id}/download?format=jpeg`} className={buttonVariants({ variant: "outline" })}>
+                <a href={`/api/designs/${active.id}/download?format=jpeg`} className={cn(buttonVariants({ variant: "outline" }), "w-full justify-center sm:w-auto")}>
                   <Download /> Download JPEG
                 </a>
-                {active.has_products && tab !== "3d" && (
-                  <Button variant="outline" onClick={() => setTab("3d")}>
-                    <Box /> Open 3D view
-                  </Button>
-                )}
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs leading-relaxed text-muted-foreground">
                 {tab === "3d"
                   ? "Interactive 3D layout of the same products. Drag, rotate and zoom them. Create 3D models to replace the simplified shapes with a saved GLB of each catalogue photo. This is not a 3D model of your room."
                   : active.disclaimer}
               </p>
-              {active.error && active.error.code === "warning" && <p className="text-xs text-amber-700">{active.error.message}</p>}
+              {active.error && active.error.code === "warning" && <p className="text-xs text-amber-700 break-words">{active.error.message}</p>}
             </>
           )}
         </section>
 
-        <aside className="space-y-5">
-          <div className="space-y-4 rounded-xl border bg-card p-4">
+        <aside className="min-w-0 space-y-5 lg:sticky lg:top-20">
+          <div className="space-y-4 rounded-xl border bg-card p-3 sm:p-4">
             <div className="space-y-2">
               <h2 className="font-semibold">Modern or traditional?</h2>
               <DirectionPicker compact value={direction} onChange={changeDirection} />
@@ -255,20 +256,20 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
                   onClick={() => setSelectedStyle(s.id)}
                   title={s.description}
                   className={cn(
-                    "rounded-lg border p-2.5 text-left transition-colors",
+                    "min-w-0 rounded-lg border p-2 text-left transition-colors sm:p-2.5",
                     selectedStyle === s.id ? "border-primary bg-primary/5 ring-2 ring-primary/30" : "hover:bg-muted",
                   )}
                 >
                   <div className="mb-1.5 flex gap-1">
                     {s.swatches.map((c) => (
-                      <span key={c} className="size-4 rounded-full border" style={{ background: c }} />
+                      <span key={c} className="size-3.5 rounded-full border sm:size-4" style={{ background: c }} />
                     ))}
                   </div>
-                  <span className="text-sm font-medium">{s.name}</span>
+                  <span className="block truncate text-sm font-medium">{s.name}</span>
                 </button>
               ))}
             </div>
-            {selected && <p className="text-xs text-muted-foreground">{selected.description}</p>}
+            {selected && <p className="text-xs leading-relaxed text-muted-foreground">{selected.description}</p>}
             <div className="space-y-1.5">
               <Label htmlFor="wishes">Wishes (optional)</Label>
               <Input id="wishes" maxLength={240} placeholder="e.g. add a reading corner" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
@@ -286,13 +287,13 @@ export function RoomWorkspace({ roomId }: { roomId: string }) {
           {room.designs.length > 0 && (
             <div className="space-y-2">
               <h2 className="text-sm font-semibold">Your designs for this room</h2>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {room.designs.map((d) => (
                   <button
                     key={d.id}
                     type="button"
                     onClick={() => { setActiveId(d.id); selectStyle(d.style); }}
-                    className={cn("overflow-hidden rounded-lg border text-left", active?.id === d.id && "ring-2 ring-primary")}
+                    className={cn("min-w-0 overflow-hidden rounded-lg border text-left", active?.id === d.id && "ring-2 ring-primary")}
                     aria-label={`${styleName(d.style)} design, ${d.status}`}
                   >
                     <div className="relative aspect-[4/3] bg-muted">

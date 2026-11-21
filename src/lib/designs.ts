@@ -109,7 +109,7 @@ export function setStatus(id: string, status: string, extra: Record<string, unkn
 }
 
 export const DISCLAIMER =
-  "AI-generated 3D-style image of your room furnished with the products listed below. It is asked to keep your walls, windows and doors. The AI may change small details of a product; the product pages show exactly what you buy. Use the 3D view to arrange the products at their real sizes.";
+  "Optional AI 3D-style preview image of your room furnished with the products listed below. It is asked to keep your walls, windows and doors. The AI may change small details of a product; the product pages show exactly what you buy. The interactive 3D view is the main place to arrange products at their real sizes.";
 
 export function designDto(d: DesignRow, room: RoomRow) {
   return {

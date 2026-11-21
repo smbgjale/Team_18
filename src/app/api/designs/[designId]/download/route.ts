@@ -13,7 +13,7 @@ export async function GET(request: Request, ctx: RouteContext<"/api/designs/[des
   return new Response(new Uint8Array(body), {
     headers: {
       "Content-Type": `image/${format}`,
-      "Content-Disposition": `attachment; filename="homely-${design.style}-${design.id}.${format === "jpeg" ? "jpg" : "png"}"`,
+      "Content-Disposition": `attachment; filename="gojjodesign-${design.style}-${design.id}.${format === "jpeg" ? "jpg" : "png"}"`,
       "Cache-Control": "private, no-store",
     },
   });

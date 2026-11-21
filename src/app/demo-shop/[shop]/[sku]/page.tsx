@@ -24,7 +24,7 @@ export default async function DemoProductPage({ params }: PageProps<"/demo-shop/
   return (
     <main className="mx-auto max-w-4xl space-y-4 px-4 py-8">
       <div className="rounded-lg border border-amber-400/50 bg-amber-50 p-3 text-sm">
-        This is a sample product page from <strong>{p.shop_name}</strong>, a demo shop bundled with the HOMELY AI MVP. With a real shop integration, this button
+        This is a sample product page from <strong>{p.shop_name}</strong>, a demo shop bundled with the Gojjodesign MVP. With a real shop integration, this button
         would open the product page on the shop&apos;s own website. <Link href="/shop" className="underline">Back to the catalogue</Link>
       </div>
       <div className="grid gap-6 rounded-xl border bg-card p-5 md:grid-cols-2">

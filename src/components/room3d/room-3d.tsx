@@ -389,9 +389,9 @@ export default function Room3D({ designId, version }: { designId: string; versio
   };
 
   return (
-    <div className="space-y-4">
+    <div className="min-w-0 space-y-4">
       <div
-        className="relative overflow-hidden rounded-xl border bg-[#f3f1ec] outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="relative touch-pan-y overflow-hidden rounded-xl border bg-[#f3f1ec] outline-none focus-visible:ring-2 focus-visible:ring-primary"
         tabIndex={0}
         aria-label="Interactive 3D room. Select a product, then use the arrow keys to move it and R to rotate it."
         onKeyDown={(e) => {
@@ -402,10 +402,11 @@ export default function Room3D({ designId, version }: { designId: string; versio
           if (e.key === "Escape") setSelected(null);
         }}
       >
-        <div className="aspect-[4/3] w-full sm:aspect-[16/10]">
+        <div className="aspect-[5/4] w-full max-w-full sm:aspect-[16/10]">
           <Canvas
+            className="h-full w-full touch-none"
             shadows="percentage"
-            dpr={[1, 2]}
+            dpr={[1, 1.75]}
             camera={{ position: [room.width * 0.45, M * 0.95 + 0.8, room.length / 2 + M * 0.95], fov: 42, near: 0.1, far: 100 }}
             onPointerMissed={() => setSelected(null)}
             fallback={<p className="p-8 text-center text-sm text-muted-foreground">Your browser cannot display 3D graphics (WebGL is turned off or unsupported).</p>}
@@ -429,38 +430,40 @@ export default function Room3D({ designId, version }: { designId: string; versio
             <OrbitControls makeDefault target={[0, 0.6, 0]} enableDamping maxPolarAngle={Math.PI / 2 - 0.08} minDistance={1.5} maxDistance={M * 3} />
           </Canvas>
         </div>
-        <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1.5">
-          <Badge variant="secondary" className="bg-background/90">{modelBadge}</Badge>
-          <Badge variant="outline" className="bg-background/90">Room {room.width.toFixed(1)} x {room.length.toFixed(1)} m</Badge>
-          {saveState === "saving" && <Badge variant="outline" className="bg-background/90">Saving...</Badge>}
-          {saveState === "saved" && <Badge variant="outline" className="bg-background/90">Layout saved</Badge>}
-          {saveState === "error" && <Badge variant="destructive">Could not save layout</Badge>}
+        <div className="pointer-events-none absolute left-2 top-2 flex max-w-[calc(100%-1rem)] flex-wrap gap-1.5 sm:left-3 sm:top-3">
+          <Badge variant="secondary" className="bg-background/90 text-[10px] sm:text-xs">{modelBadge}</Badge>
+          <Badge variant="outline" className="bg-background/90 text-[10px] sm:text-xs">Room {room.width.toFixed(1)} x {room.length.toFixed(1)} m</Badge>
+          {saveState === "saving" && <Badge variant="outline" className="bg-background/90 text-[10px] sm:text-xs">Saving...</Badge>}
+          {saveState === "saved" && <Badge variant="outline" className="bg-background/90 text-[10px] sm:text-xs">Layout saved</Badge>}
+          {saveState === "error" && <Badge variant="destructive" className="text-[10px] sm:text-xs">Could not save layout</Badge>}
         </div>
         {selItem && (
-          <div className="pointer-events-none absolute inset-x-0 top-12 flex justify-center px-3">
-            <span className="max-w-full truncate rounded-md bg-foreground/90 px-2.5 py-1 text-xs font-medium text-background shadow">
+          <div className="pointer-events-none absolute inset-x-0 top-12 flex justify-center px-2 sm:px-3">
+            <span className="max-w-full truncate rounded-md bg-foreground/90 px-2.5 py-1 text-[11px] font-medium text-background shadow sm:text-xs">
               {selItem.product.name}{selDraggable ? " · drag to move, R to rotate" : ""}
             </span>
           </div>
         )}
-        <p className="pointer-events-none absolute inset-x-3 bottom-2 text-center text-[11px] text-muted-foreground">
-          <Move className="mr-1 inline size-3" />Drag furniture to move it · drag empty space to look around · scroll or pinch to zoom
+        <p className="pointer-events-none absolute inset-x-2 bottom-2 text-center text-[10px] leading-snug text-muted-foreground sm:inset-x-3 sm:text-[11px]">
+          <Move className="mr-1 inline size-3" />
+          <span className="sm:hidden">Drag to move · pinch to zoom</span>
+          <span className="hidden sm:inline">Drag furniture to move it · drag empty space to look around · scroll or pinch to zoom</span>
         </p>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-1">
+      <div className="flex flex-col gap-3 rounded-xl border bg-card p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
+        <div className="min-w-0 space-y-1">
           <p className="text-sm font-medium">3D models from the catalogue photos</p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm leading-relaxed text-muted-foreground">
             The redesign above stays an AI image of your room, with the same walls, windows and doors. These models use the same products and are saved, so a product is not converted again.
             {(photoPreview || readyModels.length === 0) && " Without an image-to-3D key, each model is a saved GLB textured with the catalogue photo. Set MESHY_API_KEY for a generated mesh."}
           </p>
           {modelNote && <p className="text-sm text-muted-foreground">{modelNote}</p>}
-          {modelError && <p className="text-sm text-destructive" role="alert">{modelError}</p>}
-          {failedModel && <p className="text-sm text-destructive" role="alert">{failedModel.product.name}: {failedModel.model.error}</p>}
+          {modelError && <p className="text-sm text-destructive break-words" role="alert">{modelError}</p>}
+          {failedModel && <p className="text-sm text-destructive break-words" role="alert">{failedModel.product.name}: {failedModel.model.error}</p>}
         </div>
         {(needsModels > 0 || pendingCount > 0) && (
-          <Button className="shrink-0" onClick={createModels} disabled={modelBusy || pendingCount > 0}>
+          <Button className="w-full shrink-0 sm:w-auto" onClick={createModels} disabled={modelBusy || pendingCount > 0}>
             {modelBusy || pendingCount > 0 ? "Creating 3D models..." : needsModels === scene.items.length ? "Create 3D models" : `Create ${needsModels} remaining`}
           </Button>
         )}
@@ -472,15 +475,15 @@ export default function Room3D({ designId, version }: { designId: string; versio
         </p>
       )}
 
-      <div className="grid gap-4 md:grid-cols-[1fr_1fr]">
-        <div className="space-y-3 rounded-xl border bg-card p-4">
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="min-w-0 space-y-3 rounded-xl border bg-card p-3 sm:p-4">
           {selItem ? (
             <>
               <div className="flex gap-3">
-                <img src={selItem.product.image_url} alt="" className="size-20 shrink-0 rounded-lg border object-cover" />
+                <img src={selItem.product.image_url} alt="" className="size-16 shrink-0 rounded-lg border object-cover sm:size-20" />
                 <div className="min-w-0 space-y-0.5">
                   <p className="text-xs text-muted-foreground">{CATEGORY_LABELS[selItem.category as Category]} · {selItem.product.shop.name}</p>
-                  <p className="font-semibold leading-snug">{selItem.product.name}</p>
+                  <p className="font-semibold leading-snug break-words">{selItem.product.name}</p>
                   <p className="text-sm">
                     {formatMoney(selItem.product.sale_price ?? selItem.product.price)}
                     {selItem.quantity > 1 && <span className="text-muted-foreground"> x {selItem.quantity}</span>}
@@ -533,8 +536,8 @@ export default function Room3D({ designId, version }: { designId: string; versio
           </div>
         </div>
 
-        <div className="rounded-xl border bg-card p-4">
-          <div className="mb-2 flex items-baseline justify-between">
+        <div className="min-w-0 rounded-xl border bg-card p-3 sm:p-4">
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-1">
             <h3 className="font-semibold">Products in this room</h3>
             {scene.total && <span className="text-sm">Total <strong>{formatMoney(scene.total)}</strong></span>}
           </div>
@@ -551,10 +554,10 @@ export default function Room3D({ designId, version }: { designId: string; versio
                     {i.product.name}
                     <span className="text-muted-foreground"> · {CATEGORY_LABELS[i.category as Category]}{i.quantity > 1 ? ` x ${i.quantity}` : ""}</span>
                   </span>
-                  <span className="shrink-0 text-xs text-muted-foreground">
+                  <span className="hidden shrink-0 text-xs text-muted-foreground sm:inline">
                     {i.model.status === "ready" ? (i.model.preview ? "Photo" : "3D") : i.model.status === "pending" ? "Creating" : i.model.status === "failed" ? "Failed" : ""}
                   </span>
-                  <span className="shrink-0 tabular-nums">{formatMoney(i.product.sale_price ?? i.product.price)}</span>
+                  <span className="shrink-0 tabular-nums text-xs sm:text-sm">{formatMoney(i.product.sale_price ?? i.product.price)}</span>
                 </button>
               </li>
             ))}
