@@ -4,11 +4,13 @@ import { ROOM_TYPES, type RoomType } from "@/lib/categories";
 import { config } from "@/lib/config";
 import { db } from "@/lib/db";
 import { jsonError } from "@/lib/http";
+import { clientIp, rateLimited } from "@/lib/rate-limit";
 import { fileUrl, putFile } from "@/lib/storage";
 
 const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
 
 export async function POST(request: Request) {
+  if (rateLimited(`upload:${clientIp(request)}`, 20, 60 * 60 * 1000)) return jsonError(429, "rate_limited", "Too many uploads. Please try again later.");
   let form: FormData;
   try {
     form = await request.formData();

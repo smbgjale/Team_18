@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { ACTIVE_STATUSES, designDto, getRoom, listDesigns } from "@/lib/designs";
 import { jsonError } from "@/lib/http";
 import { startDesignJob } from "@/lib/pipeline";
+import { clientIp, rateLimited } from "@/lib/rate-limit";
 import { getStyle } from "@/lib/styles";
 
 const Body = z.object({
@@ -24,6 +25,7 @@ export async function POST(request: Request, ctx: RouteContext<"/api/rooms/[room
   const { roomId } = await ctx.params;
   const room = getRoom(roomId);
   if (!room) return jsonError(404, "not_found", "Room not found.");
+  if (rateLimited(`design:${clientIp(request)}`, 15, 60 * 60 * 1000)) return jsonError(429, "rate_limited", "Design limit reached for now. Please try again later.");
 
   const parsed = Body.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return jsonError(400, "invalid_request", "Invalid design request.", parsed.error.flatten());
